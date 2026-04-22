@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matemática — Resumo de Estudos</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--orange:#f4721e;--shadow:4px 4px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 10%,rgba(244,114,30,.13) 0%,transparent 40%),radial-gradient(circle at 88% 80%,rgba(58,134,255,.11) 0%,transparent 40%)}
+.container{max-width:1100px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:22px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'📐';position:absolute;top:-18px;left:20px;font-size:36px;transform:rotate(-12deg)}
+header::after{content:'🔢';position:absolute;top:-18px;right:20px;font-size:36px;transform:rotate(12deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--orange);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:4px}
+.test-date{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;transition:transform .2s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card-num{position:absolute;top:-14px;left:14px;background:var(--ink);color:var(--paper);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1rem}
+.card h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;margin-bottom:12px;margin-top:4px;display:flex;align-items:center;gap:8px}
+.card.poligonos{background:linear-gradient(135deg,#fff 0%,#fff4e6 100%)}
+.card.poligonos h2{color:var(--orange)}
+.card.fracoes{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.card.fracoes h2{color:var(--blue)}
+.card.operacoes{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%)}
+.card.operacoes h2{color:var(--green)}
+.card.medidas{background:linear-gradient(135deg,#fff 0%,#fff0f7 100%)}
+.card.medidas h2{color:var(--purple)}
+.card.graficos{background:linear-gradient(135deg,#fff 0%,#fff8e6 100%);grid-column:1/-1}
+.card.graficos h2{color:var(--red)}
+.card ul{list-style:none;padding:0}
+.card ul li{padding-left:18px;position:relative;margin-bottom:6px;font-size:.93rem;line-height:1.5}
+.card ul li::before{content:'→';position:absolute;left:0;color:var(--orange);font-weight:700}
+.tip{background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:9px 12px;margin-top:12px;font-family:'Caveat',cursive;font-size:1.1rem;line-height:1.3}
+.tip::before{content:'💡 '}
+table.ref{width:100%;font-size:.85rem;margin-top:8px;border-collapse:collapse}
+table.ref th{background:var(--ink);color:var(--paper);padding:5px 8px;text-align:left;font-family:'Fraunces',serif}
+table.ref td{padding:5px 8px;border-bottom:1px dashed #ccc}
+table.ref tr:last-child td{border-bottom:none}
+.frac-box{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.6}
+.frac-box strong{color:var(--blue)}
+.frac{display:inline-flex;flex-direction:column;align-items:center;font-weight:700;font-size:1.1rem;margin:0 6px;vertical-align:middle}
+.frac span.num{border-bottom:2px solid var(--ink);padding:0 4px;line-height:1.2}
+.frac span.den{padding:0 4px;line-height:1.2}
+.tipo-chip{display:inline-block;padding:2px 10px;border:2px solid var(--ink);border-radius:20px;font-size:.78rem;font-weight:700;margin:2px 2px 2px 0}
+.chip-p{background:#e6f4ff;color:#0c447c}
+.chip-i{background:#fff0f0;color:#7a1010}
+.chip-a{background:#e6fff4;color:#054f35}
+footer{text-align:center;margin-top:28px;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Mate<span class="accent">mática</span> — Resumo</h1>
+  <p class="subtitle">Tudo que você precisa para a prova! ⭐</p>
+  <div class="test-date">📖 Prova: Quinta-feira, 23 de abril</div>
+</header>
+
+<div class="grid">
+
+  <!-- POLÍGONOS -->
+  <section class="card poligonos">
+    <div class="card-num">1</div>
+    <h2>📐 Polígonos</h2>
+    <ul>
+      <li><strong>Vértice</strong> = ponto onde dois lados se encontram (canto)</li>
+      <li><strong>Aresta</strong> = lado do polígono (linha reta)</li>
+      <li><strong>Lados</strong> = quantas retas formam a figura</li>
+    </ul>
+    <table class="ref" style="margin-top:10px">
+      <tr><th>Figura</th><th>Lados</th><th>Vértices</th></tr>
+      <tr><td>Triângulo</td><td>3</td><td>3</td></tr>
+      <tr><td>Quadrado/Retângulo</td><td>4</td><td>4</td></tr>
+      <tr><td>Pentágono</td><td>5</td><td>5</td></tr>
+      <tr><td>Hexágono</td><td>6</td><td>6</td></tr>
+    </table>
+    <div class="tip">Regra fácil: o número de lados = número de vértices em qualquer polígono!</div>
+  </section>
+
+  <!-- FRAÇÕES -->
+  <section class="card fracoes">
+    <div class="card-num">2</div>
+    <h2>➗ Frações</h2>
+    <div class="frac-box">
+      <div style="text-align:center;margin-bottom:8px">
+        <div class="frac"><span class="num">numerador</span><span class="den">denominador</span></div>
+        = partes que temos ÷ partes do total
+      </div>
+      <div><span class="tipo-chip chip-p">Própria</span> numerador &lt; denominador → <strong>ex: 3/5</strong> (menos de 1 inteiro)</div>
+      <div style="margin-top:6px"><span class="tipo-chip chip-i">Imprópria</span> numerador &gt; denominador → <strong>ex: 7/4</strong> (mais de 1 inteiro)</div>
+      <div style="margin-top:6px"><span class="tipo-chip chip-a">Aparente</span> numerador ÷ denominador = inteiro → <strong>ex: 6/3 = 2</strong></div>
+    </div>
+    <div class="frac-box" style="margin-top:8px">
+      <strong>Número misto → fração imprópria:</strong><br>
+      2<span style="font-size:.8rem">¾</span> = (2 × 4) + 3 = <strong>11/4</strong><br>
+      <small>(inteiro × denominador + numerador / denominador)</small><br><br>
+      <strong>Fração imprópria → número misto:</strong><br>
+      11 ÷ 4 = 2 (resto 3) → <strong>2¾</strong>
+    </div>
+  </section>
+
+  <!-- OPERAÇÕES COM FRAÇÕES -->
+  <section class="card operacoes">
+    <div class="card-num">3</div>
+    <h2>➕ Operações com Frações</h2>
+    <ul>
+      <li><strong>Adição/Subtração</strong> com denominadores iguais: opera só o numerador, mantém o denominador</li>
+    </ul>
+    <div class="frac-box">
+      <div style="text-align:center">
+        <div class="frac"><span class="num">3</span><span class="den">8</span></div>
+        +
+        <div class="frac"><span class="num">2</span><span class="den">8</span></div>
+        =
+        <div class="frac"><span class="num">5</span><span class="den">8</span></div>
+      </div>
+      <div style="text-align:center;margin-top:8px">
+        <div class="frac"><span class="num">7</span><span class="den">10</span></div>
+        −
+        <div class="frac"><span class="num">3</span><span class="den">10</span></div>
+        =
+        <div class="frac"><span class="num">4</span><span class="den">10</span></div>
+      </div>
+    </div>
+    <div class="tip">Denominadores diferentes? Primeiro iguala, depois opera. Se forem iguais, é só somar/subtrair o de cima!</div>
+  </section>
+
+  <!-- MEDIDAS DE COMPRIMENTO -->
+  <section class="card medidas">
+    <div class="card-num">4</div>
+    <h2>📏 Medidas de Comprimento</h2>
+    <table class="ref">
+      <tr><th>Unidade</th><th>Símbolo</th><th>Equivale a</th></tr>
+      <tr><td>Quilômetro</td><td>km</td><td>1.000 m</td></tr>
+      <tr><td>Hectômetro</td><td>hm</td><td>100 m</td></tr>
+      <tr><td>Decâmetro</td><td>dam</td><td>10 m</td></tr>
+      <tr><td><strong>Metro</strong></td><td><strong>m</strong></td><td><strong>unidade base</strong></td></tr>
+      <tr><td>Decímetro</td><td>dm</td><td>0,1 m</td></tr>
+      <tr><td>Centímetro</td><td>cm</td><td>0,01 m</td></tr>
+      <tr><td>Milímetro</td><td>mm</td><td>0,001 m</td></tr>
+    </table>
+    <div class="tip">Para converter: sobe na tabela → divide por 10. Desce → multiplica por 10.</div>
+  </section>
+
+  <!-- TABELAS E GRÁFICOS -->
+  <section class="card graficos">
+    <div class="card-num">5</div>
+    <h2>📊 Tabelas e Gráficos</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:4px">
+      <div class="frac-box">
+        <strong>📋 Tabela</strong><br>
+        Organiza dados em linhas e colunas.<br>
+        <em>Como ler:</em> cruza a linha com a coluna para encontrar o valor.
+      </div>
+      <div class="frac-box">
+        <strong>📊 Gráfico de colunas (barras)</strong><br>
+        Cada barra = uma categoria. Altura da barra = valor.<br>
+        Bom para comparar quantidades.
+      </div>
+      <div class="frac-box">
+        <strong>📈 Gráfico de linhas</strong><br>
+        Pontos ligados por linhas. Mostra evolução ao longo do tempo.<br>
+        Bom para ver aumento ou diminuição.
+      </div>
+    </div>
+    <div class="tip">Para resolver problema com gráfico: 1) leia o título, 2) leia os eixos (o que cada um representa), 3) identifique o valor pedido.</div>
+  </section>
+
+</div>
+
+<footer>⭐ Você consegue, Helô! ⭐</footer>
+</div>
+</body>
+</html>

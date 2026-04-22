@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matemática — Simulado</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--orange:#f4721e;--shadow:5px 5px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 10%,rgba(244,114,30,.15) 0%,transparent 40%),radial-gradient(circle at 85% 85%,rgba(58,134,255,.12) 0%,transparent 40%)}
+.container{max-width:680px;margin:0 auto}
+header{text-align:center;margin-bottom:24px;padding:20px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'📐';position:absolute;top:-16px;left:20px;font-size:34px;transform:rotate(-10deg)}
+header::after{content:'⭐';position:absolute;top:-16px;right:20px;font-size:34px;transform:rotate(10deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.5rem,5vw,2.1rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--orange);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--blue);margin-top:4px}
+.progress-wrap{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-weight:700;font-size:.9rem}
+.progress-bar{flex:1;height:12px;background:#e8e8e8;border:2px solid var(--ink);border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;background:var(--blue);width:0%;transition:width .4s}
+.question-card{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:22px 18px 18px;box-shadow:var(--shadow);margin-bottom:14px}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.q-number{font-family:'Fraunces',serif;font-size:1rem;font-weight:900;background:var(--ink);color:var(--paper);padding:2px 10px;border-radius:20px}
+.q-tag{font-size:.72rem;font-weight:700;padding:3px 10px;border:2px solid var(--ink);border-radius:20px;background:var(--yellow);text-transform:uppercase;letter-spacing:.4px}
+.q-passage{background:#f8f4e8;border-left:4px solid var(--orange);padding:10px 13px;border-radius:6px;font-size:.91rem;line-height:1.6;margin-bottom:14px;font-style:italic}
+.q-text{font-size:1.03rem;font-weight:700;line-height:1.4;margin-bottom:16px}
+.options{display:flex;flex-direction:column;gap:9px}
+.option{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border:2px solid #ccc;border-radius:12px;cursor:pointer;background:#fafafa;transition:all .15s;font-size:.95rem;font-weight:500;text-align:left;width:100%;font-family:'DM Sans',sans-serif;line-height:1.4}
+.option:hover:not(.locked){border-color:var(--blue);background:#f0f6ff;transform:translateX(3px)}
+.option .letter{font-family:'Fraunces',serif;font-weight:900;font-size:.95rem;min-width:24px;height:24px;display:flex;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:50%;background:#fff;flex-shrink:0;margin-top:1px}
+.option.locked{cursor:default}
+.option.correct{border-color:var(--green);background:#e6fff6}
+.option.correct .letter{background:var(--green);color:#fff;border-color:var(--green)}
+.option.wrong{border-color:var(--red);background:#fff0f0}
+.option.wrong .letter{background:var(--red);color:#fff;border-color:var(--red)}
+.option.show-ok{border-color:var(--green);background:#e6fff6;opacity:.55}
+.feedback{display:none;margin-top:12px;padding:11px 13px;border-radius:10px;font-size:.91rem;line-height:1.5;border:2px solid}
+.feedback.show{display:block}
+.feedback.correct{background:#e6fff6;border-color:var(--green);color:#054f35}
+.feedback.wrong{background:#fff0f0;border-color:var(--red);color:#7a1010}
+.btn-next{display:none;margin-top:12px;width:100%;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;padding:13px;border:3px solid var(--ink);border-radius:12px;background:var(--blue);color:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all .1s}
+.btn-next:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn-next.show{display:block}
+.results{display:none;text-align:center;background:#fff;border:3px solid var(--ink);border-radius:20px;padding:32px 22px;box-shadow:var(--shadow)}
+.results.show{display:block}
+.results .big-emoji{font-size:3.8rem;display:block;margin-bottom:8px}
+.results h2{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:900;margin-bottom:8px}
+.score-display{font-family:'Fraunces',serif;font-size:3.2rem;font-weight:900;color:var(--blue);margin:10px 0}
+.score-label{font-family:'Caveat',cursive;font-size:1.2rem;color:#666;margin-bottom:18px}
+.result-breakdown{display:flex;justify-content:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.result-item{text-align:center;padding:9px 16px;border:2px solid var(--ink);border-radius:12px;background:var(--paper)}
+.r-val{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;display:block}
+.r-val.green{color:var(--green)}.r-val.red{color:var(--red)}
+.r-label{font-size:.78rem;font-weight:700}
+.wrong-list{text-align:left;background:#fff8f8;border:2px solid var(--red);border-radius:12px;padding:13px 15px;margin-bottom:18px;font-size:.88rem;line-height:1.7}
+.wrong-list h3{font-family:'Fraunces',serif;font-size:.95rem;color:var(--red);margin-bottom:7px}
+.btn-restart{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;padding:12px 26px;border:3px solid var(--ink);border-radius:12px;background:var(--green);color:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.btn-restart:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Mate<span class="accent">mática</span> — Simulado</h1>
+  <p class="subtitle">15 questões — vai com tudo, Helô! 💪</p>
+</header>
+
+<div class="progress-wrap">
+  <span id="progressLabel">Questão 1 de 15</span>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<div id="quizArea"></div>
+<div class="results" id="resultsScreen"></div>
+</div>
+
+<script>
+var questions = [
+  // POLÍGONOS (3)
+  {tag:'Polígonos',q:'Quantos vértices tem um hexágono?',opts:['4','5','6','8'],c:2,why:'Hexágono = 6 lados = 6 vértices. Em qualquer polígono, lados = vértices.'},
+  {tag:'Polígonos',q:'O que é um vértice em um polígono?',opts:['Um lado da figura','O ponto onde dois lados se encontram','O centro da figura','A área interna'],c:1,why:'Vértice é o ponto de encontro entre dois lados (o canto da figura).'},
+  {tag:'Polígonos',passage:'Um polígono tem 5 lados.',q:'Quantos vértices ele tem?',opts:['3','4','5','6'],c:2,why:'Lados = Vértices em qualquer polígono. 5 lados → 5 vértices → pentágono.'},
+
+  // FRAÇÕES TIPOS (4)
+  {tag:'Frações',q:'Qual fração é PRÓPRIA?',opts:['9/4','6/6','5/8','8/3'],c:2,why:'Própria: numerador < denominador. Em 5/8, temos 5 < 8. ✓'},
+  {tag:'Frações',q:'Qual fração é IMPRÓPRIA?',opts:['3/7','2/9','1/4','11/5'],c:3,why:'Imprópria: numerador > denominador. Em 11/5, temos 11 > 5. ✓'},
+  {tag:'Frações',q:'Qual fração é APARENTE?',opts:['7/3','9/3','5/4','2/7'],c:1,why:'Aparente: numerador ÷ denominador = inteiro. 9 ÷ 3 = 3 exato. ✓'},
+  {tag:'Frações',passage:'Pedro comeu 3/4 de uma pizza.',q:'A fração 3/4 é classificada como:',opts:['Imprópria','Aparente','Própria','Número misto'],c:2,why:'3 < 4 → numerador menor que denominador → fração própria.'},
+
+  // CONVERSÃO NÚMERO MISTO (2)
+  {tag:'Frações',q:'Converta para fração imprópria: 2 ¾',opts:['9/4','10/4','11/4','8/4'],c:2,why:'2 × 4 = 8, + 3 = 11. Resultado: 11/4.'},
+  {tag:'Frações',q:'Converta para número misto: 9/2',opts:['3 ½','4 ½','5 ½','4 ¼'],c:1,why:'9 ÷ 2 = 4 (resto 1). Número misto: 4 ½.'},
+
+  // OPERAÇÕES COM FRAÇÕES (3)
+  {tag:'Operações',q:'3/8 + 4/8 = ?',opts:['7/16','7/8','1/8','6/8'],c:1,why:'Denominadores iguais: soma só os numeradores. 3+4=7. Resultado: 7/8.'},
+  {tag:'Operações',q:'9/10 − 4/10 = ?',opts:['5/20','13/10','5/10','4/0'],c:2,why:'Denominadores iguais: subtrai os numeradores. 9−4=5. Resultado: 5/10.'},
+  {tag:'Operações',passage:'Ana tinha 7/12 de uma barra de chocolate e deu 3/12 para seu irmão.',q:'Quanto chocolate sobrou para Ana?',opts:['4/24','10/12','4/12','3/12'],c:2,why:'7/12 − 3/12 = 4/12. Denominador igual, subtrai numerador: 7−3=4.'},
+
+  // MEDIDAS (1)
+  {tag:'Medidas',q:'1 metro equivale a quantos centímetros?',opts:['10 cm','1.000 cm','100 cm','10.000 cm'],c:2,why:'1 m = 100 cm. Para converter m→cm: multiplica por 100.'},
+
+  // GRÁFICOS (2)
+  {tag:'Gráficos',q:'Qual tipo de gráfico é melhor para mostrar a temperatura ao longo dos meses do ano?',opts:['Gráfico de colunas','Gráfico de linhas','Tabela simples','Gráfico de pizza'],c:1,why:'Gráfico de linhas mostra evolução ao longo do tempo — ideal para temperatura mês a mês.'},
+  {tag:'Gráficos',q:'Qual é o primeiro passo para ler e interpretar um gráfico?',opts:['Olhar o maior valor','Ler o título do gráfico','Somar todos os valores','Comparar as barras'],c:1,why:'Sempre comece pelo título — ele diz o assunto do gráfico. Depois leia os eixos.'},
+];
+
+var currentQ = 0, score = 0, wrongQuestions = [], answered = false;
+
+function renderQuestion(){
+  var q = questions[currentQ];
+  answered = false;
+  document.getElementById('progressFill').style.width=(currentQ/questions.length*100)+'%';
+  document.getElementById('progressLabel').textContent='Questão '+(currentQ+1)+' de '+questions.length;
+  var letters=['A','B','C','D'];
+  var passHTML = q.passage ? '<div class="q-passage">'+q.passage+'</div>' : '';
+  var optsHTML = q.opts.map(function(o,i){
+    return '<button class="option" data-index="'+i+'"><span class="letter">'+letters[i]+'</span><span>'+o+'</span></button>';
+  }).join('');
+  document.getElementById('quizArea').innerHTML =
+    '<div class="question-card">'+
+    '<div class="q-meta"><span class="q-number">Q'+(currentQ+1)+'</span><span class="q-tag">'+q.tag+'</span></div>'+
+    passHTML+
+    '<div class="q-text">'+q.q+'</div>'+
+    '<div class="options">'+optsHTML+'</div>'+
+    '<div class="feedback" id="feedback"></div>'+
+    '<button class="btn-next" id="btnNext">'+(currentQ<questions.length-1?'Próxima questão →':'Ver resultado 🎉')+'</button>'+
+    '</div>';
+  document.querySelectorAll('.option').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(answered) return;
+      selectAnswer(parseInt(btn.dataset.index));
+    });
+  });
+  document.getElementById('btnNext').addEventListener('click',function(){
+    currentQ++;
+    if(currentQ<questions.length) renderQuestion();
+    else showResults();
+  });
+}
+
+function selectAnswer(chosen){
+  answered = true;
+  var q = questions[currentQ];
+  var isCorrect = chosen===q.c;
+  var letters=['A','B','C','D'];
+  if(isCorrect) score++;
+  else wrongQuestions.push({n:currentQ+1,text:q.q,correct:letters[q.c]+') '+q.opts[q.c]});
+  document.querySelectorAll('.option').forEach(function(btn,i){
+    btn.classList.add('locked');
+    if(i===q.c&&i===chosen) btn.classList.add('correct');
+    else if(i===chosen) btn.classList.add('wrong');
+    else if(i===q.c) btn.classList.add('show-ok');
+  });
+  var fb = document.getElementById('feedback');
+  fb.classList.add('show');
+  fb.classList.add(isCorrect?'correct':'wrong');
+  fb.innerHTML='<strong>'+(isCorrect?'✅ Correto!':'❌ Não foi dessa vez.')+'</strong> '+q.why;
+  document.getElementById('btnNext').classList.add('show');
+}
+
+function showResults(){
+  document.getElementById('quizArea').style.display='none';
+  document.getElementById('progressLabel').parentElement.style.display='none';
+  var pct=Math.round(score/questions.length*100);
+  var emoji,msg;
+  if(pct>=90){emoji='🏆';msg='Excelente! Você está pronta para a prova!';}
+  else if(pct>=70){emoji='🌟';msg='Muito bem! Revise os erros e vai arrasar!';}
+  else if(pct>=50){emoji='💪';msg='Bom esforço! Revise os tópicos abaixo e tente de novo.';}
+  else{emoji='📚';msg='Continue estudando! Revise o resumo e os flashcards.';}
+  var wrongHTML='';
+  if(wrongQuestions.length){
+    wrongHTML='<div class="wrong-list"><h3>⚠️ Revise esses tópicos:</h3>';
+    wrongQuestions.forEach(function(w){wrongHTML+='<div>Q'+w.n+': '+w.text+'<br><strong>✓ '+w.correct+'</strong></div><br>';});
+    wrongHTML+='</div>';
+  }
+  var rs=document.getElementById('resultsScreen');
+  rs.innerHTML=
+    '<span class="big-emoji">'+emoji+'</span>'+
+    '<h2>'+msg+'</h2>'+
+    '<div class="score-display">'+score+' / '+questions.length+'</div>'+
+    '<div class="score-label">'+pct+'% de acerto</div>'+
+    '<div class="result-breakdown">'+
+    '<div class="result-item"><span class="r-val green">'+score+'</span><span class="r-label">Acertos</span></div>'+
+    '<div class="result-item"><span class="r-val red">'+wrongQuestions.length+'</span><span class="r-label">Erros</span></div>'+
+    '<div class="result-item"><span class="r-val" style="color:var(--blue)">'+pct+'%</span><span class="r-label">Nota</span></div>'+
+    '</div>'+wrongHTML+
+    '<button class="btn-restart" id="btnRestart">Tentar novamente 🔁</button>';
+  rs.classList.add('show');
+  document.getElementById('btnRestart').addEventListener('click',function(){
+    currentQ=0;score=0;wrongQuestions=[];answered=false;
+    document.getElementById('quizArea').style.display='';
+    document.getElementById('progressLabel').parentElement.style.display='';
+    rs.classList.remove('show');
+    renderQuestion();
+  });
+}
+
+renderQuestion();
+</script>
+</body>
+</html>

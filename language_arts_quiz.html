@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helô's Language Arts Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fef9ec;
+    --ink: #1a1a2e;
+    --red: #e63946;
+    --yellow: #ffbe0b;
+    --blue: #3a86ff;
+    --green: #06a77d;
+    --purple: #7209b7;
+    --shadow: 5px 5px 0 var(--ink);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 20px 16px 48px;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(255,190,11,0.15) 0%, transparent 40%),
+      radial-gradient(circle at 85% 85%, rgba(58,134,255,0.12) 0%, transparent 40%);
+  }
+
+  .container { max-width: 680px; margin: 0 auto; }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    margin-bottom: 28px;
+    padding: 22px 20px 18px;
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+
+  header::before { content: '📝'; position: absolute; top: -18px; left: 20px; font-size: 36px; transform: rotate(-10deg); }
+  header::after  { content: '⭐'; position: absolute; top: -18px; right: 20px; font-size: 36px; transform: rotate(10deg); }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  h1 .accent { color: var(--red); font-style: italic; }
+
+  .subtitle {
+    font-family: 'Caveat', cursive;
+    font-size: 1.25rem;
+    color: var(--blue);
+    margin-top: 4px;
+  }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .progress-bar {
+    flex: 1;
+    height: 12px;
+    background: #e8e8e8;
+    border: 2px solid var(--ink);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--blue);
+    width: 0%;
+    transition: width 0.4s;
+  }
+
+  /* QUESTION CARD */
+  .question-card {
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 18px;
+    padding: 24px 20px 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+
+  .q-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .q-number {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 900;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2px 10px;
+    border-radius: 20px;
+  }
+
+  .q-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border: 2px solid var(--ink);
+    border-radius: 20px;
+    background: var(--yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  .q-text {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 18px;
+  }
+
+  .q-passage {
+    background: #f8f4e8;
+    border-left: 4px solid var(--yellow);
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 0.93rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  /* OPTIONS */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #fafafa;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    font-size: 0.97rem;
+    font-weight: 500;
+    text-align: left;
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .option:hover:not(.locked) {
+    border-color: var(--blue);
+    background: #f0f6ff;
+    transform: translateX(3px);
+  }
+
+  .option .letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 1rem;
+    min-width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    background: #fff;
+    flex-shrink: 0;
+  }
+
+  .option.selected {
+    border-color: var(--blue);
+    background: #e8f1ff;
+  }
+
+  .option.correct {
+    border-color: var(--green);
+    background: #e6fff6;
+  }
+
+  .option.correct .letter {
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
+  }
+
+  .option.wrong {
+    border-color: var(--red);
+    background: #fff0f0;
+  }
+
+  .option.wrong .letter {
+    background: var(--red);
+    color: #fff;
+    border-color: var(--red);
+  }
+
+  .option.locked { cursor: default; }
+
+  /* FEEDBACK */
+  .feedback {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.93rem;
+    line-height: 1.5;
+    border: 2px solid;
+  }
+
+  .feedback.show { display: block; }
+  .feedback.correct { background: #e6fff6; border-color: var(--green); color: #054f35; }
+  .feedback.wrong   { background: #fff0f0; border-color: var(--red);   color: #7a1010; }
+
+  .feedback .feedback-icon { font-size: 1.1rem; margin-right: 4px; }
+
+  /* NEXT BUTTON */
+  .btn-next {
+    display: none;
+    margin-top: 14px;
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 13px;
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    background: var(--blue);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: all 0.1s;
+  }
+
+  .btn-next:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+  .btn-next:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn-next.show { display: block; }
+
+  /* RESULTS SCREEN */
+  .results {
+    display: none;
+    text-align: center;
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    padding: 36px 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .results.show { display: block; }
+
+  .results .big-emoji { font-size: 4rem; display: block; margin-bottom: 8px; }
+
+  .results h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+
+  .score-display {
+    font-family: 'Fraunces', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--blue);
+    margin: 12px 0;
+  }
+
+  .score-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  .result-breakdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .result-item {
+    text-align: center;
+    padding: 10px 18px;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    background: var(--paper);
+  }
+
+  .result-item .r-val {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    display: block;
+  }
+
+  .result-item .r-val.green { color: var(--green); }
+  .result-item .r-val.red   { color: var(--red); }
+
+  .result-item .r-label { font-size: 0.8rem; font-weight: 700; }
+
+  .wrong-list {
+    text-align: left;
+    background: #fff8f8;
+    border: 2px solid var(--red);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  .wrong-list h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .btn-restart {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 13px 28px;
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    background: var(--green);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  .btn-restart:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>Language <span class="accent">Arts</span> Quiz</h1>
+    <p class="subtitle">15 questions — do your best, Helô! 💪</p>
+  </header>
+
+  <div class="progress-wrap">
+    <span id="progressLabel">Question 1 of 15</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div id="quizArea"></div>
+  <div class="results" id="resultsScreen"></div>
+
+</div>
+
+<script>
+const questions = [
+  // READING & COMPREHENSION (3)
+  {
+    tag: 'Reading',
+    passage: 'Maria looked out the window. Dark clouds covered the sky and the wind was bending the trees. She grabbed her umbrella before leaving the house.',
+    text: 'What prediction can you make based on the text evidence above?',
+    options: ['Maria is going to school by car.', 'It is probably going to rain.', 'Maria forgot her umbrella.', 'The wind will stop soon.'],
+    correct: 1,
+    explanation: 'The text evidence — dark clouds, strong wind — supports the prediction that it will rain. Maria taking her umbrella confirms this.'
+  },
+  {
+    tag: 'Reading',
+    passage: 'Tom always helped others in the village. When the old bridge broke, he was the first one to bring wood and tools.',
+    text: 'Which word best describes Tom as a character?',
+    options: ['Selfish', 'Brave', 'Helpful', 'Lazy'],
+    correct: 2,
+    explanation: '"Helpful" — the text says he always helped others and was the first to act. That is the key character trait.'
+  },
+  {
+    tag: 'Reading',
+    text: 'In a story, what is the PLOT?',
+    options: ['The place where the story happens.', 'The main character\'s name.', 'The events that happen in the story.', 'The lesson the story teaches.'],
+    correct: 2,
+    explanation: 'The plot is the sequence of events — what happens from beginning to end, including the problem and solution.'
+  },
+
+  // WRITING (2)
+  {
+    tag: 'Writing',
+    text: 'What is the correct order of the writing process?',
+    options: [
+      'Draft → Plan → Edit → Revise → Publish',
+      'Plan → Draft → Revise → Edit → Publish',
+      'Edit → Plan → Draft → Revise → Publish',
+      'Plan → Revise → Draft → Edit → Publish'
+    ],
+    correct: 1,
+    explanation: 'Plan first, then Draft (write), then Revise (improve ideas), then Edit (fix grammar/spelling), then Publish.'
+  },
+  {
+    tag: 'Writing',
+    text: 'Which sentence would you find in a BIOGRAPHY?',
+    options: [
+      'Once upon a time, a dragon lived in a cave.',
+      'Imagine you could fly anywhere in the world!',
+      'Malala Yousafzai was born in Pakistan in 1997.',
+      'Mix the flour and eggs in a bowl.'
+    ],
+    correct: 2,
+    explanation: 'A biography presents facts about a real person\'s life in chronological order. "Malala Yousafzai was born..." is a real fact about a real person.'
+  },
+
+  // GRAMMAR: Will vs Going To (3)
+  {
+    tag: 'Grammar',
+    text: 'Choose the correct option: "Look at that ball! It ___ hit the window!"',
+    options: ['will', 'is going to', 'was', 'did'],
+    correct: 1,
+    explanation: 'We can SEE evidence right now (the ball is flying toward the window) → use "be going to".'
+  },
+  {
+    tag: 'Grammar',
+    text: 'Choose the correct option: "The phone is ringing. I ___ answer it."',
+    options: ['am going to', 'was going to', 'will', 'went'],
+    correct: 2,
+    explanation: 'This is a decision made RIGHT NOW, in the moment → use "will".'
+  },
+  {
+    tag: 'Grammar',
+    text: 'Choose the correct option: "We ___ travel to Paris next summer. We already bought our tickets!"',
+    options: ['will', 'are going to', 'was', 'did'],
+    correct: 1,
+    explanation: 'A plan that was already made before (tickets already bought) → use "be going to".'
+  },
+
+  // GRAMMAR: Verbs (2)
+  {
+    tag: 'Grammar',
+    text: 'What is the simple past of the verb "go"?',
+    options: ['goed', 'goes', 'went', 'gone'],
+    correct: 2,
+    explanation: '"Go" is an irregular verb. Its past tense is "went" — it does NOT follow the -ed rule.'
+  },
+  {
+    tag: 'Grammar',
+    text: 'What is the simple past of the verb "study"?',
+    options: ['studyed', 'studied', 'studid', 'studies'],
+    correct: 1,
+    explanation: 'Verbs ending in consonant + y → change y to i and add -ed → study → studied.'
+  },
+
+  // GRAMMAR: Quotation marks, Possessives, Adverbs (3)
+  {
+    tag: 'Grammar',
+    text: 'Which sentence uses quotation marks correctly?',
+    options: [
+      '"She said, I am tired".',
+      'She said, "I am tired."',
+      'She said "I am tired."',
+      '"She" said I am tired.'
+    ],
+    correct: 1,
+    explanation: 'Comma after "said", then the quote starts with a capital letter in quotation marks. End punctuation goes INSIDE the closing mark.'
+  },
+  {
+    tag: 'Grammar',
+    text: 'Which sentence uses a possessive correctly?',
+    options: [
+      'The dog tail is wagging.',
+      'The dogs\' tail is wagging. (one dog)',
+      'The dog\'s tail is wagging.',
+      'The tail of dogs is wagging.'
+    ],
+    correct: 2,
+    explanation: 'One owner (one dog) → add apostrophe + s: dog\'s. "The dog\'s tail" = the tail that belongs to the dog.'
+  },
+  {
+    tag: 'Grammar',
+    text: 'Which sentence is correct?',
+    options: [
+      'She always is late.',
+      'She is always late.',
+      'Always she is late.',
+      'She is late always.'
+    ],
+    correct: 1,
+    explanation: 'With the verb "to be", the frequency adverb goes AFTER it: She IS ALWAYS late. ✓'
+  },
+
+  // ORAL / STORIES (2)
+  {
+    tag: 'Listening & Speaking',
+    text: 'In the story "Stone Soup", what is the main message?',
+    options: [
+      'Soup is the best food in the world.',
+      'Stones have magical powers.',
+      'When people share and cooperate, everyone benefits.',
+      'Travelers should always carry food.'
+    ],
+    correct: 2,
+    explanation: 'Stone Soup teaches that when everyone contributes a little, the whole community benefits — it\'s about sharing and cooperation.'
+  },
+  {
+    tag: 'Listening & Speaking',
+    text: 'During a class discussion, your friend says "I think the character was brave." What is the BEST response?',
+    options: [
+      '"That\'s wrong."',
+      '"I agree with you, and I\'d like to add that she was also kind."',
+      '"I don\'t want to talk."',
+      '"Can we talk about something else?"'
+    ],
+    correct: 1,
+    explanation: 'Good discussion skills = listen, build on others\' ideas, and add your own. "I agree... and I\'d like to add..." is the model phrase.'
+  }
+];
+
+// ===== STATE =====
+let currentQ = 0;
+let score = 0;
+let wrongQuestions = [];
+let answered = false;
+
+// ===== RENDER =====
+function renderQuestion() {
+  const q = questions[currentQ];
+  answered = false;
+
+  const progressFill = document.getElementById('progressFill');
+  const progressLabel = document.getElementById('progressLabel');
+  progressFill.style.width = (currentQ / questions.length * 100) + '%';
+  progressLabel.textContent = 'Question ' + (currentQ + 1) + ' of ' + questions.length;
+
+  let passageHTML = '';
+  if (q.passage) {
+    passageHTML = '<div class="q-passage">' + q.passage + '</div>';
+  }
+
+  let optionsHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  q.options.forEach(function(opt, i) {
+    optionsHTML +=
+      '<button class="option" data-index="' + i + '">' +
+        '<span class="letter">' + letters[i] + '</span>' +
+        '<span>' + opt + '</span>' +
+      '</button>';
+  });
+
+  document.getElementById('quizArea').innerHTML =
+    '<div class="question-card">' +
+      '<div class="q-meta">' +
+        '<span class="q-number">Q' + (currentQ + 1) + '</span>' +
+        '<span class="q-tag">' + q.tag + '</span>' +
+      '</div>' +
+      passageHTML +
+      '<div class="q-text">' + q.text + '</div>' +
+      '<div class="options">' + optionsHTML + '</div>' +
+      '<div class="feedback" id="feedback"></div>' +
+      '<button class="btn-next" id="btnNext">' +
+        (currentQ < questions.length - 1 ? 'Next question →' : 'See my results 🎉') +
+      '</button>' +
+    '</div>';
+
+  document.querySelectorAll('.option').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (answered) return;
+      selectAnswer(parseInt(btn.dataset.index));
+    });
+  });
+
+  document.getElementById('btnNext').addEventListener('click', function() {
+    currentQ++;
+    if (currentQ < questions.length) {
+      renderQuestion();
+    } else {
+      showResults();
+    }
+  });
+}
+
+function selectAnswer(chosen) {
+  answered = true;
+  const q = questions[currentQ];
+  const isCorrect = chosen === q.correct;
+  const letters = ['A', 'B', 'C', 'D'];
+
+  if (isCorrect) {
+    score++;
+  } else {
+    wrongQuestions.push({ n: currentQ + 1, text: q.text, correct: letters[q.correct] + ') ' + q.options[q.correct] });
+  }
+
+  document.querySelectorAll('.option').forEach(function(btn, i) {
+    btn.classList.add('locked');
+    if (i === q.correct) btn.classList.add('correct');
+    else if (i === chosen) btn.classList.add('wrong');
+  });
+
+  const feedback = document.getElementById('feedback');
+  feedback.classList.add('show');
+  if (isCorrect) {
+    feedback.classList.add('correct');
+    feedback.innerHTML = '<span class="feedback-icon">✅</span> <strong>Correct!</strong> ' + q.explanation;
+  } else {
+    feedback.classList.add('wrong');
+    feedback.innerHTML = '<span class="feedback-icon">❌</span> <strong>Not quite.</strong> ' + q.explanation;
+  }
+
+  document.getElementById('btnNext').classList.add('show');
+}
+
+function showResults() {
+  document.getElementById('quizArea').style.display = 'none';
+  document.getElementById('progressLabel').parentElement.style.display = 'none';
+
+  const pct = Math.round(score / questions.length * 100);
+  let emoji, msg;
+  if (pct >= 90)      { emoji = '🏆'; msg = 'Outstanding! You\'re ready for the test!'; }
+  else if (pct >= 70) { emoji = '🌟'; msg = 'Great job! Review the topics below and you\'ll ace it!'; }
+  else if (pct >= 50) { emoji = '💪'; msg = 'Good effort! Study the topics below and try again.'; }
+  else                { emoji = '📚'; msg = 'Keep studying! Review the sheet and flashcards, then try again.'; }
+
+  let wrongHTML = '';
+  if (wrongQuestions.length > 0) {
+    wrongHTML = '<div class="wrong-list"><h3>⚠️ Review these topics:</h3>';
+    wrongQuestions.forEach(function(w) {
+      wrongHTML += '<div>Q' + w.n + ': ' + w.text + '<br><strong>✓ ' + w.correct + '</strong></div><br>';
+    });
+    wrongHTML += '</div>';
+  }
+
+  const resultsScreen = document.getElementById('resultsScreen');
+  resultsScreen.innerHTML =
+    '<span class="big-emoji">' + emoji + '</span>' +
+    '<h2>' + msg + '</h2>' +
+    '<div class="score-display">' + score + ' / ' + questions.length + '</div>' +
+    '<div class="score-label">' + pct + '% correct</div>' +
+    '<div class="result-breakdown">' +
+      '<div class="result-item"><span class="r-val green">' + score + '</span><span class="r-label">Correct</span></div>' +
+      '<div class="result-item"><span class="r-val red">' + wrongQuestions.length + '</span><span class="r-label">Wrong</span></div>' +
+      '<div class="result-item"><span class="r-val" style="color:var(--blue)">' + pct + '%</span><span class="r-label">Score</span></div>' +
+    '</div>' +
+    wrongHTML +
+    '<button class="btn-restart" id="btnRestart">Try again 🔁</button>';
+
+  resultsScreen.classList.add('show');
+  document.getElementById('btnRestart').addEventListener('click', function() {
+    currentQ = 0;
+    score = 0;
+    wrongQuestions = [];
+    answered = false;
+    document.getElementById('quizArea').style.display = '';
+    document.getElementById('progressLabel').parentElement.style.display = '';
+    resultsScreen.classList.remove('show');
+    renderQuestion();
+  });
+}
+
+// ===== START =====
+renderQuestion();
+</script>
+</body>
+</html>

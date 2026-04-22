@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helô's Flashcards — Language Arts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fef9ec;
+    --ink: #1a1a2e;
+    --red: #e63946;
+    --yellow: #ffbe0b;
+    --blue: #3a86ff;
+    --green: #06a77d;
+    --pink: #ff70a6;
+    --purple: #7209b7;
+    --shadow: 6px 6px 0 var(--ink);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 20px 16px 40px;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(255, 190, 11, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(58, 134, 255, 0.12) 0%, transparent 40%);
+  }
+
+  .container { max-width: 700px; margin: 0 auto; }
+
+  header { text-align: center; margin-bottom: 24px; }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  h1 .accent { color: var(--red); font-style: italic; }
+
+  .subtitle {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--blue);
+    margin-top: 4px;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 14px;
+    padding: 10px 14px;
+    box-shadow: 3px 3px 0 var(--ink);
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .progress { display: flex; align-items: center; gap: 8px; }
+
+  .progress-bar {
+    width: 100px;
+    height: 10px;
+    background: #eee;
+    border: 2px solid var(--ink);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--green);
+    width: 0%;
+    transition: width 0.4s;
+  }
+
+  .category-badge {
+    padding: 3px 10px;
+    border: 2px solid var(--ink);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    background: var(--yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .filter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border: 2px solid var(--ink);
+    border-radius: 20px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover { transform: translateY(-1px); }
+  .filter-btn.active { background: var(--ink); color: var(--paper); }
+
+  .flashcard {
+    width: 100%;
+    min-height: 340px;
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 48px 24px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #fff 0%, #fff4e6 100%);
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 20px;
+    transition: background 0.25s ease, opacity 0.15s ease;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .flashcard.is-back {
+    background: linear-gradient(135deg, #fff 0%, #e6f4ff 100%);
+  }
+
+  .flashcard.fading { opacity: 0; }
+
+  .card-label {
+    position: absolute;
+    top: 14px;
+    left: 18px;
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--purple);
+    font-weight: 700;
+  }
+
+  .card-counter {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 0.8rem;
+    color: #888;
+    font-weight: 700;
+  }
+
+  .card-hint {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: #999;
+    white-space: nowrap;
+  }
+
+  .card-content { width: 100%; }
+
+  .card-prompt {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.4rem, 4.5vw, 2rem);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .card-sub {
+    font-size: 0.95rem;
+    color: #666;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  .card-answer {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.4rem, 4.5vw, 2rem);
+    font-weight: 900;
+    color: var(--blue);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .card-example {
+    background: rgba(255, 190, 11, 0.25);
+    border-left: 3px solid var(--yellow);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-style: italic;
+    max-width: 95%;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .card-example strong { color: var(--red); font-style: normal; }
+
+  .controls {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr auto;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 12px 16px;
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: all 0.1s;
+  }
+
+  .btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+  .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+
+  .btn-nav { font-size: 1.3rem; padding: 12px 14px; }
+  .btn-got-it { background: var(--green); color: #fff; }
+  .btn-review { background: var(--red); color: #fff; }
+
+  .tools {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .tool-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 8px 14px;
+    border: 2px solid var(--ink);
+    border-radius: 20px;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .tool-btn:hover { background: var(--yellow); }
+
+  .stats {
+    margin-top: 20px;
+    padding: 14px;
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .stat-value {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    display: block;
+  }
+
+  .stat-value.green { color: var(--green); }
+  .stat-value.red { color: var(--red); }
+  .stat-value.blue { color: var(--blue); }
+
+  .finished {
+    text-align: center;
+    padding: 40px 20px;
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    display: none;
+  }
+
+  .finished.show { display: block; }
+
+  .finished h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+
+  .finished .emoji { font-size: 4rem; display: block; margin-bottom: 10px; }
+
+  @media (max-width: 480px) {
+    .controls { grid-template-columns: 1fr 1fr; }
+    .btn-nav { grid-column: span 1; }
+    .flashcard { min-height: 320px; padding: 44px 18px 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>Helô's <span class="accent">Flashcards</span></h1>
+    <p class="subtitle">Tap the card to see the answer! 🎴</p>
+  </header>
+
+  <div class="top-bar">
+    <div class="progress">
+      <span id="progressText">1 / 50</span>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="category-badge" id="categoryBadge">Verbs</div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">All (50)</button>
+    <button class="filter-btn" data-filter="irregular">Irregular Verbs</button>
+    <button class="filter-btn" data-filter="regular">Regular Verbs</button>
+    <button class="filter-btn" data-filter="grammar">Grammar</button>
+    <button class="filter-btn" data-filter="stories">Stories</button>
+    <button class="filter-btn" data-filter="review">⚠️ Review</button>
+  </div>
+
+  <div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="Flashcard — tap to flip">
+    <div class="card-label" id="cardLabel">Irregular Verb</div>
+    <div class="card-counter" id="cardCounter">1/50</div>
+    <div class="card-content" id="cardContent">
+      <div class="card-prompt">go</div>
+      <div class="card-sub">What's the past tense?</div>
+    </div>
+    <div class="card-hint" id="cardHint">👆 tap to see answer</div>
+  </div>
+
+  <div class="controls">
+    <button class="btn btn-nav" id="prevBtn" aria-label="Previous">◀</button>
+    <button class="btn btn-review" id="reviewBtn">Review again</button>
+    <button class="btn btn-got-it" id="gotItBtn">I got it! ✓</button>
+    <button class="btn btn-nav" id="nextBtn" aria-label="Next">▶</button>
+  </div>
+
+  <div class="tools">
+    <button class="tool-btn" id="shuffleBtn">🔀 Shuffle</button>
+    <button class="tool-btn" id="resetBtn">↺ Reset progress</button>
+  </div>
+
+  <div class="stats">
+    <div>
+      <span class="stat-value green" id="statGood">0</span>
+      <span>Got it</span>
+    </div>
+    <div>
+      <span class="stat-value red" id="statReview">0</span>
+      <span>To review</span>
+    </div>
+    <div>
+      <span class="stat-value blue" id="statLeft">50</span>
+      <span>Left</span>
+    </div>
+  </div>
+
+  <div class="finished" id="finishedScreen">
+    <span class="emoji">🎉</span>
+    <h2>Great job, Helô!</h2>
+    <p style="margin-bottom: 14px;">You reviewed all the cards.</p>
+    <p id="finishedStats" style="margin-bottom: 20px;"></p>
+    <button class="btn" id="restartBtn" style="background: var(--blue); color: #fff;">Start again 🔁</button>
+  </div>
+
+</div>
+
+<script>
+  const allCards = [
+    { cat: 'irregular', label: 'Irregular Verb', q: 'go', sub: "What's the past tense?", a: 'went', ex: "Yesterday I <strong>went</strong> to school." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'eat', sub: "What's the past tense?", a: 'ate', ex: "She <strong>ate</strong> pizza for lunch." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'see', sub: "What's the past tense?", a: 'saw', ex: "We <strong>saw</strong> a rainbow yesterday." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'have', sub: "What's the past tense?", a: 'had', ex: "They <strong>had</strong> a great party." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'come', sub: "What's the past tense?", a: 'came', ex: "He <strong>came</strong> home early." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'do', sub: "What's the past tense?", a: 'did', ex: "I <strong>did</strong> my homework." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'make', sub: "What's the past tense?", a: 'made', ex: "Mom <strong>made</strong> a cake." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'take', sub: "What's the past tense?", a: 'took', ex: "I <strong>took</strong> my backpack to school." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'write', sub: "What's the past tense?", a: 'wrote', ex: "She <strong>wrote</strong> a letter." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'read', sub: "What's the past tense?", a: 'read (same spelling!)', ex: "I <strong>read</strong> a book last night. (sounds like 'red')" },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'run', sub: "What's the past tense?", a: 'ran', ex: "The dog <strong>ran</strong> fast." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'swim', sub: "What's the past tense?", a: 'swam', ex: "We <strong>swam</strong> in the pool." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'drink', sub: "What's the past tense?", a: 'drank', ex: "He <strong>drank</strong> a glass of milk." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'sing', sub: "What's the past tense?", a: 'sang', ex: "They <strong>sang</strong> a song together." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'give', sub: "What's the past tense?", a: 'gave', ex: "She <strong>gave</strong> me a gift." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'buy', sub: "What's the past tense?", a: 'bought', ex: "Dad <strong>bought</strong> ice cream." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'find', sub: "What's the past tense?", a: 'found', ex: "I <strong>found</strong> my lost key." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'sleep', sub: "What's the past tense?", a: 'slept', ex: "The baby <strong>slept</strong> for two hours." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'tell', sub: "What's the past tense?", a: 'told', ex: "Grandma <strong>told</strong> us a story." },
+    { cat: 'irregular', label: 'Irregular Verb', q: 'speak', sub: "What's the past tense?", a: 'spoke', ex: "The teacher <strong>spoke</strong> loudly." },
+    { cat: 'regular', label: 'Regular Verb', q: 'play', sub: "Past tense (add -ed)?", a: 'played', ex: "We <strong>played</strong> in the park." },
+    { cat: 'regular', label: 'Regular Verb', q: 'study', sub: "Past tense?<br>(ends in y → ied)", a: 'studied', ex: "I <strong>studied</strong> for the test." },
+    { cat: 'regular', label: 'Regular Verb', q: 'stop', sub: "Past tense?<br>(short vowel + consonant → double)", a: 'stopped', ex: "The car <strong>stopped</strong> at the light." },
+    { cat: 'regular', label: 'Regular Verb', q: 'dance', sub: "Past tense?<br>(ends in e → just add d)", a: 'danced', ex: "She <strong>danced</strong> all night." },
+    { cat: 'regular', label: 'Regular Verb', q: 'walk', sub: "Past tense (add -ed)?", a: 'walked', ex: "He <strong>walked</strong> to school." },
+    { cat: 'grammar', label: 'Future: Will vs Going to', q: "I'm thirsty. I ___ drink water.", sub: "will OR am going to?", a: 'will', ex: 'Decision made right now = <strong>will</strong>.' },
+    { cat: 'grammar', label: 'Future: Will vs Going to', q: "Look at those clouds! It ___ rain.", sub: "will OR is going to?", a: 'is going to', ex: 'Evidence we can see = <strong>be going to</strong>.' },
+    { cat: 'grammar', label: 'Future: Will vs Going to', q: "Tomorrow we ___ visit Grandma. (we already planned it)", sub: "will OR are going to?", a: 'are going to', ex: 'Plan decided before now = <strong>be going to</strong>.' },
+    { cat: 'grammar', label: 'Future: Will vs Going to', q: "I promise I ___ help you!", sub: "will OR am going to?", a: 'will', ex: 'Promises always use <strong>will</strong>.' },
+    { cat: 'grammar', label: 'Quotation Marks', q: 'Punctuate: Mom said Time for dinner', sub: "Where do the quotation marks go?", a: 'Mom said, "Time for dinner!"', ex: 'Comma before the quote. Capital letter starts it. End punctuation goes <strong>inside</strong>.' },
+    { cat: 'grammar', label: 'Quotation Marks', q: 'Punctuate: I love pizza said Helô', sub: "Fix the sentence.", a: '"I love pizza," said Helô.', ex: 'Comma <strong>inside</strong> the quote before "said".' },
+    { cat: 'grammar', label: 'Possessives', q: "How do you show the book belongs to Helô?", sub: "Use 's", a: "Helô's book", ex: "It's <strong>Helô's</strong> book (one owner, add 's)." },
+    { cat: 'grammar', label: 'Possessives', q: "The ball belongs to many boys. How do you write it?", sub: "Plural ending in s → just apostrophe", a: "the boys' ball", ex: "Plural already ends in s → <strong>boys'</strong> (just apostrophe)." },
+    { cat: 'grammar', label: 'Possessives', q: "The tail of the dog = ?", sub: "Use 's", a: "the dog's tail", ex: "The <strong>dog's</strong> tail is wagging." },
+    { cat: 'grammar', label: 'Adverbs of Frequency', q: "Which adverb means 100%?", sub: "How often?", a: 'always', ex: "I <strong>always</strong> brush my teeth. (100%)" },
+    { cat: 'grammar', label: 'Adverbs of Frequency', q: "Which adverb means 0%?", sub: "How often?", a: 'never', ex: "She <strong>never</strong> eats broccoli. (0%)" },
+    { cat: 'grammar', label: 'Adverbs of Frequency', q: "Put in order: She / is / happy / always", sub: "Where does 'always' go with 'is'?", a: 'She is always happy.', ex: 'With verb "to be" → adverb goes <strong>AFTER</strong>.' },
+    { cat: 'grammar', label: 'Adverbs of Frequency', q: "Put in order: He / plays / soccer / often", sub: "Where does 'often' go?", a: 'He often plays soccer.', ex: 'With other verbs → adverb goes <strong>BEFORE</strong> the verb.' },
+    { cat: 'grammar', label: 'Past: Negative', q: "Make negative: I ate pizza.", sub: "Use didn't + base verb", a: "I didn't eat pizza.", ex: "Past negative = <strong>didn't</strong> + base verb (not 'ate')." },
+    { cat: 'grammar', label: 'Past: Question', q: "Make a question: You went home.", sub: "Use Did + base verb", a: 'Did you go home?', ex: "Past question = <strong>Did</strong> + subject + base verb (not 'went')." },
+    { cat: 'stories', label: 'Story: The 3 Gifts', q: 'What is the main lesson of "The 3 Gifts"?', sub: 'Think about the message', a: 'The value of love and kindness', ex: 'The gifts teach us that love, wisdom, and friendship are the best presents.' },
+    { cat: 'stories', label: 'Story: Stone Soup', q: 'What is "Stone Soup" really about?', sub: 'The main theme', a: 'Sharing and cooperation', ex: 'When everyone shares a little, the whole village eats together.' },
+    { cat: 'stories', label: 'Story: Stone Soup', q: 'What did the travelers use to start the soup?', sub: "It's in the title!", a: 'A stone (a rock)', ex: 'They put a <strong>stone</strong> in the pot to start the magic soup.' },
+    { cat: 'stories', label: 'Story: The Elephant Shepherd', q: 'Who is the main character?', sub: 'A person who takes care of elephants', a: 'A shepherd (a person who cares for animals)', ex: 'A <strong>shepherd</strong> usually takes care of sheep — but this one takes care of elephants!' },
+    { cat: 'stories', label: 'Vocabulary', q: 'What does "prediction" mean?', sub: 'Reading skill word', a: 'A guess about what will happen', ex: 'I make a <strong>prediction</strong> using clues from the text.' },
+    { cat: 'stories', label: 'Vocabulary', q: 'What is "text evidence"?', sub: 'Reading skill word', a: 'Proof from the story that supports your answer', ex: 'Find <strong>text evidence</strong> = point to the words that prove it.' },
+    { cat: 'stories', label: 'Vocabulary', q: 'What is a "character"?', sub: 'Story element', a: 'A person or animal in the story', ex: 'The main <strong>character</strong> is who the story is about.' },
+    { cat: 'stories', label: 'Vocabulary', q: 'What is the "plot"?', sub: 'Story element', a: 'The events of the story (what happens)', ex: '<strong>Plot</strong> = beginning, middle, problem, solution, end.' },
+    { cat: 'stories', label: 'Writing', q: 'What is a "biography"?', sub: 'Writing type', a: "The story of a real person's life", ex: 'A <strong>biography</strong> tells real facts in chronological order.' },
+    { cat: 'stories', label: 'Writing', q: 'Put in order: Revise, Plan, Publish, Draft, Edit', sub: 'Writing process stages', a: 'Plan → Draft → Revise → Edit → Publish', ex: 'First you <strong>plan</strong>, then write a <strong>draft</strong>, then improve it.' },
+  ];
+
+  let cards = [...allCards];
+  let currentIndex = 0;
+  let showingAnswer = false;
+  let currentFilter = 'all';
+  const knownSet = new Set();
+  const reviewSet = new Set();
+
+  const flashcard = document.getElementById('flashcard');
+  const cardLabel = document.getElementById('cardLabel');
+  const cardCounter = document.getElementById('cardCounter');
+  const cardContent = document.getElementById('cardContent');
+  const cardHint = document.getElementById('cardHint');
+  const categoryBadge = document.getElementById('categoryBadge');
+  const progressText = document.getElementById('progressText');
+  const progressFill = document.getElementById('progressFill');
+  const statGood = document.getElementById('statGood');
+  const statReview = document.getElementById('statReview');
+  const statLeft = document.getElementById('statLeft');
+  const finishedScreen = document.getElementById('finishedScreen');
+  const finishedStats = document.getElementById('finishedStats');
+
+  function getCardId(card) { return card.cat + '::' + card.q; }
+
+  function renderFront(card) {
+    cardContent.innerHTML =
+      '<div class="card-prompt">' + card.q + '</div>' +
+      '<div class="card-sub">' + card.sub + '</div>';
+    cardHint.textContent = '👆 tap to see answer';
+    flashcard.classList.remove('is-back');
+  }
+
+  function renderBack(card) {
+    cardContent.innerHTML =
+      '<div class="card-answer">' + card.a + '</div>' +
+      (card.ex ? '<div class="card-example">' + card.ex + '</div>' : '');
+    cardHint.textContent = '👆 tap to see question';
+    flashcard.classList.add('is-back');
+  }
+
+  function renderCard() {
+    if (cards.length === 0) {
+      cardContent.innerHTML = '<div class="card-prompt">🎉</div><div class="card-sub">No cards match this filter!</div>';
+      cardLabel.textContent = '';
+      cardCounter.textContent = '';
+      cardHint.textContent = '';
+      return;
+    }
+    const card = cards[currentIndex];
+    showingAnswer = false;
+    cardLabel.textContent = card.label;
+    cardCounter.textContent = (currentIndex + 1) + '/' + cards.length;
+    renderFront(card);
+
+    const catNames = { irregular: 'Irregular', regular: 'Regular', grammar: 'Grammar', stories: 'Stories' };
+    categoryBadge.textContent = catNames[card.cat] || card.cat;
+
+    progressText.textContent = (currentIndex + 1) + ' / ' + cards.length;
+    progressFill.style.width = ((currentIndex + 1) / cards.length * 100) + '%';
+    updateStats();
+  }
+
+  function toggleAnswer() {
+    if (cards.length === 0) return;
+    const card = cards[currentIndex];
+    if (!card || card.cat === 'info') return;
+
+    flashcard.classList.add('fading');
+    setTimeout(function() {
+      showingAnswer = !showingAnswer;
+      if (showingAnswer) renderBack(card);
+      else renderFront(card);
+      flashcard.classList.remove('fading');
+    }, 120);
+  }
+
+  function updateStats() {
+    statGood.textContent = knownSet.size;
+    statReview.textContent = reviewSet.size;
+    statLeft.textContent = Math.max(0, allCards.length - knownSet.size);
+  }
+
+  function nextCard() {
+    if (currentIndex < cards.length - 1) {
+      currentIndex++;
+      renderCard();
+    } else {
+      showFinished();
+    }
+  }
+
+  function prevCard() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderCard();
+    }
+  }
+
+  function showFinished() {
+    flashcard.style.display = 'none';
+    document.querySelector('.controls').style.display = 'none';
+    finishedScreen.classList.add('show');
+    finishedStats.innerHTML = '✅ <strong>' + knownSet.size + '</strong> cards mastered<br>🔁 <strong>' + reviewSet.size + '</strong> cards to review';
+  }
+
+  function restart() {
+    currentIndex = 0;
+    flashcard.style.display = '';
+    document.querySelector('.controls').style.display = '';
+    finishedScreen.classList.remove('show');
+    applyFilter(currentFilter);
+  }
+
+  function shuffle() {
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      var tmp = cards[i];
+      cards[i] = cards[j];
+      cards[j] = tmp;
+    }
+    currentIndex = 0;
+    renderCard();
+  }
+
+  function applyFilter(filter) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.filter === filter);
+    });
+    if (filter === 'all') cards = allCards.slice();
+    else if (filter === 'review') {
+      cards = allCards.filter(function(c) { return reviewSet.has(getCardId(c)); });
+      if (cards.length === 0) {
+        cards = [{ cat: 'info', label: '', q: '😊', sub: 'No cards marked for review yet!', a: '', ex: '' }];
+      }
+    } else cards = allCards.filter(function(c) { return c.cat === filter; });
+    currentIndex = 0;
+    renderCard();
+  }
+
+  flashcard.addEventListener('click', toggleAnswer);
+
+  flashcard.addEventListener('keydown', function(e) {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      toggleAnswer();
+    }
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', function(e) { e.stopPropagation(); nextCard(); });
+  document.getElementById('prevBtn').addEventListener('click', function(e) { e.stopPropagation(); prevCard(); });
+
+  document.getElementById('gotItBtn').addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (cards.length === 0 || cards[currentIndex].cat === 'info') return;
+    var id = getCardId(cards[currentIndex]);
+    knownSet.add(id);
+    reviewSet.delete(id);
+    nextCard();
+  });
+
+  document.getElementById('reviewBtn').addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (cards.length === 0 || cards[currentIndex].cat === 'info') return;
+    var id = getCardId(cards[currentIndex]);
+    reviewSet.add(id);
+    knownSet.delete(id);
+    nextCard();
+  });
+
+  document.getElementById('shuffleBtn').addEventListener('click', shuffle);
+  document.getElementById('resetBtn').addEventListener('click', function() {
+    if (confirm('Reset all progress?')) {
+      knownSet.clear();
+      reviewSet.clear();
+      applyFilter('all');
+    }
+  });
+
+  document.getElementById('restartBtn').addEventListener('click', restart);
+
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { applyFilter(btn.dataset.filter); });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.target === flashcard) return;
+    if (e.key === 'ArrowRight') nextCard();
+    else if (e.key === 'ArrowLeft') prevCard();
+    else if (e.key === ' ') { e.preventDefault(); toggleAnswer(); }
+  });
+
+  document.querySelector('[data-filter="all"]').textContent = 'All (' + allCards.length + ')';
+
+  renderCard();
+</script>
+</body>
+</html>

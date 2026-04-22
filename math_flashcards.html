@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matemática — Flashcards</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--orange:#f4721e;--shadow:6px 6px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:20px 16px 40px;background-image:radial-gradient(circle at 20% 10%,rgba(244,114,30,.15) 0%,transparent 40%),radial-gradient(circle at 90% 80%,rgba(58,134,255,.12) 0%,transparent 40%)}
+.container{max-width:700px;margin:0 auto}
+header{text-align:center;margin-bottom:22px}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.6rem,5vw,2.2rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--orange);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--blue);margin-top:4px}
+.top-bar{display:flex;justify-content:space-between;align-items:center;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:10px 14px;box-shadow:3px 3px 0 var(--ink);margin-bottom:14px;font-size:.9rem;font-weight:700;flex-wrap:wrap;gap:8px}
+.progress{display:flex;align-items:center;gap:8px}
+.progress-bar{width:100px;height:10px;background:#eee;border:2px solid var(--ink);border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);width:0%;transition:width .4s}
+.cat-badge{padding:3px 10px;border:2px solid var(--ink);border-radius:20px;font-size:.75rem;background:var(--yellow);text-transform:uppercase;letter-spacing:.5px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.filter-btn{font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:700;padding:5px 11px;border:2px solid var(--ink);border-radius:20px;background:#fff;cursor:pointer;transition:all .15s}
+.filter-btn.active{background:var(--ink);color:var(--paper)}
+.flashcard{width:100%;min-height:320px;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);padding:44px 22px 40px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,#fff 0%,#fff4e6 100%);cursor:pointer;position:relative;margin-bottom:18px;transition:background .25s ease,opacity .15s ease;user-select:none;-webkit-user-select:none}
+.flashcard.is-back{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.flashcard.fading{opacity:0}
+.card-label{position:absolute;top:13px;left:16px;font-family:'Caveat',cursive;font-size:.95rem;color:var(--purple);font-weight:700}
+.card-counter{position:absolute;top:13px;right:16px;font-size:.78rem;color:#888;font-weight:700}
+.card-hint{position:absolute;bottom:13px;left:50%;transform:translateX(-50%);font-family:'Caveat',cursive;font-size:.95rem;color:#999;white-space:nowrap}
+.card-content{width:100%}
+.card-prompt{font-family:'Fraunces',serif;font-size:clamp(1.3rem,4vw,1.8rem);font-weight:900;line-height:1.3;margin-bottom:10px}
+.card-sub{font-size:.93rem;color:#666;font-style:italic;line-height:1.4}
+.card-answer{font-family:'Fraunces',serif;font-size:clamp(1.3rem,4vw,1.8rem);font-weight:900;color:var(--blue);margin-bottom:10px;line-height:1.3}
+.card-example{background:rgba(255,190,11,.25);border-left:3px solid var(--yellow);padding:9px 12px;border-radius:6px;font-size:.88rem;font-style:italic;max-width:95%;margin:0 auto;line-height:1.5}
+.card-example strong{color:var(--red);font-style:normal}
+.controls{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:10px;margin-bottom:12px}
+.btn{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;padding:12px 14px;border:3px solid var(--ink);border-radius:12px;background:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all .1s}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn-nav{font-size:1.2rem;padding:12px 12px}
+.btn-got{background:var(--green);color:#fff}
+.btn-rev{background:var(--red);color:#fff}
+.tools{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.tool-btn{font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:700;padding:7px 13px;border:2px solid var(--ink);border-radius:20px;background:#fff;cursor:pointer}
+.tool-btn:hover{background:var(--yellow)}
+.stats{margin-top:18px;padding:13px;background:#fff;border:3px solid var(--ink);border-radius:14px;display:flex;justify-content:space-around;text-align:center;font-size:.83rem}
+.stat-value{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:900;display:block}
+.stat-value.green{color:var(--green)}.stat-value.red{color:var(--red)}.stat-value.blue{color:var(--blue)}
+.finished{text-align:center;padding:36px 20px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);display:none}
+.finished.show{display:block}
+.finished h2{font-family:'Fraunces',serif;font-size:1.9rem;color:var(--green);margin-bottom:10px}
+.finished .big{font-size:3.5rem;display:block;margin-bottom:8px}
+@media(max-width:480px){.controls{grid-template-columns:1fr 1fr}.btn-nav{grid-column:span 1}.flashcard{min-height:300px;padding:40px 16px 38px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Mate<span class="accent">mática</span> — Flashcards</h1>
+  <p class="subtitle">Toque no card para ver a resposta! 🎴</p>
+</header>
+
+<div class="top-bar">
+  <div class="progress">
+    <span id="progressText">1 / 40</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+  <div class="cat-badge" id="catBadge">Frações</div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">Todos (40)</button>
+  <button class="filter-btn" data-filter="poligonos">Polígonos</button>
+  <button class="filter-btn" data-filter="fracoes">Frações</button>
+  <button class="filter-btn" data-filter="operacoes">Operações</button>
+  <button class="filter-btn" data-filter="medidas">Medidas</button>
+  <button class="filter-btn" data-filter="graficos">Gráficos</button>
+  <button class="filter-btn" data-filter="review">⚠️ Revisar</button>
+</div>
+
+<div class="flashcard" id="flashcard" role="button" tabindex="0">
+  <div class="card-label" id="cardLabel">Frações</div>
+  <div class="card-counter" id="cardCounter">1/40</div>
+  <div class="card-content" id="cardContent"></div>
+  <div class="card-hint" id="cardHint">👆 toque para ver a resposta</div>
+</div>
+
+<div class="controls">
+  <button class="btn btn-nav" id="prevBtn">◀</button>
+  <button class="btn btn-rev" id="reviewBtn">Revisar de novo</button>
+  <button class="btn btn-got" id="gotItBtn">Acertei! ✓</button>
+  <button class="btn btn-nav" id="nextBtn">▶</button>
+</div>
+
+<div class="tools">
+  <button class="tool-btn" id="shuffleBtn">🔀 Embaralhar</button>
+  <button class="tool-btn" id="resetBtn">↺ Resetar</button>
+</div>
+
+<div class="stats">
+  <div><span class="stat-value green" id="statGood">0</span><span>Acertei</span></div>
+  <div><span class="stat-value red" id="statReview">0</span><span>Revisar</span></div>
+  <div><span class="stat-value blue" id="statLeft">40</span><span>Faltam</span></div>
+</div>
+
+<div class="finished" id="finishedScreen">
+  <span class="big">🎉</span>
+  <h2>Arrasou, Helô!</h2>
+  <p style="margin-bottom:14px">Você revisou todos os cards.</p>
+  <p id="finishedStats" style="margin-bottom:20px"></p>
+  <button class="btn" id="restartBtn" style="background:var(--blue);color:#fff">Recomeçar 🔁</button>
+</div>
+</div>
+
+<script>
+var allCards = [
+  // POLÍGONOS (8)
+  {cat:'poligonos',label:'Polígonos',q:'Quantos lados tem um triângulo?',sub:'',a:'3 lados',ex:'Triângulo = 3 lados e <strong>3 vértices</strong>.'},
+  {cat:'poligonos',label:'Polígonos',q:'O que é um vértice?',sub:'',a:'O ponto onde dois lados se encontram (canto)',ex:'Um quadrado tem <strong>4 vértices</strong>, um por cada canto.'},
+  {cat:'poligonos',label:'Polígonos',q:'Um hexágono tem quantos lados?',sub:'',a:'6 lados e 6 vértices',ex:'Hexa = 6. Hexágono tem <strong>6</strong> lados e <strong>6</strong> vértices.'},
+  {cat:'poligonos',label:'Polígonos',q:'O que é uma aresta em polígonos planos?',sub:'',a:'É o lado — a linha reta que forma a figura',ex:'Um pentágono tem <strong>5 arestas</strong> (5 lados).'},
+  {cat:'poligonos',label:'Polígonos',q:'Um pentágono tem quantos vértices?',sub:'',a:'5 vértices',ex:'Em qualquer polígono: número de lados = número de vértices.'},
+  {cat:'poligonos',label:'Polígonos',q:'Qual é a regra entre lados e vértices?',sub:'',a:'Lados = Vértices (sempre igual em polígonos)',ex:'Triângulo: 3 lados = 3 vértices. Hexágono: 6 = 6.'},
+  {cat:'poligonos',label:'Polígonos',q:'Um retângulo tem quantos lados e vértices?',sub:'',a:'4 lados e 4 vértices',ex:'Quadrilátero = 4 lados. Retângulo é um quadrilátero.'},
+  {cat:'poligonos',label:'Polígonos',q:'Como se chama um polígono de 8 lados?',sub:'',a:'Octógono',ex:'Octo = 8. <strong>Octógono</strong> = 8 lados e 8 vértices.'},
+
+  // FRAÇÕES (12)
+  {cat:'fracoes',label:'Frações',q:'O que é o numerador de uma fração?',sub:'',a:'A parte de cima — quantas partes temos',ex:'Em 3/5, o numerador é <strong>3</strong> (temos 3 partes).'},
+  {cat:'fracoes',label:'Frações',q:'O que é o denominador de uma fração?',sub:'',a:'A parte de baixo — em quantas partes o todo foi dividido',ex:'Em 3/5, o denominador é <strong>5</strong> (dividido em 5 partes).'},
+  {cat:'fracoes',label:'Frações',q:'O que é uma fração própria?',sub:'Pense: maior ou menor que 1?',a:'Numerador < Denominador (vale menos de 1 inteiro)',ex:'<strong>3/5</strong> é própria: 3 < 5. Vale menos de 1 inteiro.'},
+  {cat:'fracoes',label:'Frações',q:'O que é uma fração imprópria?',sub:'Pense: maior ou menor que 1?',a:'Numerador > Denominador (vale mais de 1 inteiro)',ex:'<strong>7/4</strong> é imprópria: 7 > 4. Vale mais de 1 inteiro.'},
+  {cat:'fracoes',label:'Frações',q:'O que é uma fração aparente?',sub:'',a:'Numerador ÷ Denominador = número inteiro exato',ex:'<strong>6/3</strong> = 2 exato. É uma fração aparente (= inteiro).'},
+  {cat:'fracoes',label:'Frações',q:'Classifique: 5/8',sub:'Própria, imprópria ou aparente?',a:'Própria (5 < 8)',ex:'5 < 8 → numerador menor → <strong>fração própria</strong>.'},
+  {cat:'fracoes',label:'Frações',q:'Classifique: 9/4',sub:'Própria, imprópria ou aparente?',a:'Imprópria (9 > 4)',ex:'9 > 4 → numerador maior → <strong>fração imprópria</strong>.'},
+  {cat:'fracoes',label:'Frações',q:'Classifique: 8/4',sub:'Própria, imprópria ou aparente?',a:'Aparente (8 ÷ 4 = 2, exato)',ex:'8 ÷ 4 = 2 inteiro → <strong>fração aparente</strong>.'},
+  {cat:'fracoes',label:'Frações',q:'Converta para fração imprópria: 2 ¾',sub:'inteiro × denominador + numerador',a:'11/4',ex:'2 × 4 = 8, + 3 = <strong>11</strong>. Resultado: <strong>11/4</strong>.'},
+  {cat:'fracoes',label:'Frações',q:'Converta para fração imprópria: 3 ½',sub:'',a:'7/2',ex:'3 × 2 = 6, + 1 = <strong>7</strong>. Resultado: <strong>7/2</strong>.'},
+  {cat:'fracoes',label:'Frações',q:'Converta para número misto: 11/4',sub:'Divide e usa o resto',a:'2 ¾',ex:'11 ÷ 4 = <strong>2</strong> (resto <strong>3</strong>) → número misto: <strong>2 ¾</strong>.'},
+  {cat:'fracoes',label:'Frações',q:'Converta para número misto: 9/2',sub:'',a:'4 ½',ex:'9 ÷ 2 = <strong>4</strong> (resto <strong>1</strong>) → número misto: <strong>4 ½</strong>.'},
+
+  // OPERAÇÕES (10)
+  {cat:'operacoes',label:'Operações com Frações',q:'3/8 + 2/8 = ?',sub:'Denominadores iguais',a:'5/8',ex:'Soma só o numerador: 3+2=<strong>5</strong>. Denominador fica <strong>8</strong>.'},
+  {cat:'operacoes',label:'Operações com Frações',q:'7/10 − 3/10 = ?',sub:'Denominadores iguais',a:'4/10',ex:'Subtrai o numerador: 7−3=<strong>4</strong>. Denominador fica <strong>10</strong>.'},
+  {cat:'operacoes',label:'Operações com Frações',q:'5/12 + 4/12 = ?',sub:'',a:'9/12',ex:'5+4=<strong>9</strong>. Denominador mantém: <strong>9/12</strong>.'},
+  {cat:'operacoes',label:'Operações com Frações',q:'9/10 − 5/10 = ?',sub:'',a:'4/10',ex:'9−5=<strong>4</strong>. Denominador mantém: <strong>4/10</strong>.'},
+  {cat:'operacoes',label:'Operações com Frações',q:'Qual é a regra de ouro para somar frações?',sub:'',a:'Denominadores iguais: opera só o numerador e mantém o denominador',ex:'3/5 + 1/5 = <strong>4/5</strong>. O 5 não muda!'},
+  {cat:'operacoes',label:'Operações com Frações',q:'Maria comeu 2/6 da pizza e João comeu 3/6. Quanto comeram juntos?',sub:'Situação-problema',a:'5/6 da pizza',ex:'2/6 + 3/6 = <strong>5/6</strong>. Juntos comeram <strong>5/6</strong>.'},
+  {cat:'operacoes',label:'Operações com Frações',q:'Tinha 7/8 de suco. Bebi 3/8. Quanto sobrou?',sub:'Situação-problema',a:'4/8 de suco',ex:'7/8 − 3/8 = <strong>4/8</strong>. Sobrou <strong>4/8</strong>.'},
+  {cat:'operacoes',label:'Operações com Frações',q:'1/4 + 1/4 + 1/4 = ?',sub:'',a:'3/4',ex:'1+1+1=<strong>3</strong>. Denominador mantém: <strong>3/4</strong>.'},
+  {cat:'operacoes',label:'Operações com Frações',q:'10/12 − 7/12 = ?',sub:'',a:'3/12',ex:'10−7=<strong>3</strong>. Denominador mantém: <strong>3/12</strong>.'},
+  {cat:'operacoes',label:'Operações com Frações',q:'2/5 + 2/5 = ?',sub:'',a:'4/5',ex:'2+2=<strong>4</strong>. Denominador mantém: <strong>4/5</strong>.'},
+
+  // MEDIDAS (5)
+  {cat:'medidas',label:'Medidas de Comprimento',q:'1 km = quantos metros?',sub:'',a:'1.000 metros',ex:'Quilômetro é a maior unidade comum: <strong>1 km = 1.000 m</strong>.'},
+  {cat:'medidas',label:'Medidas de Comprimento',q:'1 metro = quantos centímetros?',sub:'',a:'100 centímetros',ex:'<strong>1 m = 100 cm</strong>. Uma régua de 30 cm = 0,30 m.'},
+  {cat:'medidas',label:'Medidas de Comprimento',q:'1 metro = quantos milímetros?',sub:'',a:'1.000 milímetros',ex:'<strong>1 m = 100 cm = 1.000 mm</strong>.'},
+  {cat:'medidas',label:'Medidas de Comprimento',q:'Para converter cm para m, o que faço?',sub:'',a:'Divido por 100',ex:'250 cm ÷ 100 = <strong>2,50 m</strong>.'},
+  {cat:'medidas',label:'Medidas de Comprimento',q:'Para converter m para cm, o que faço?',sub:'',a:'Multiplico por 100',ex:'3 m × 100 = <strong>300 cm</strong>.'},
+
+  // GRÁFICOS (5)
+  {cat:'graficos',label:'Tabelas e Gráficos',q:'Para que serve um gráfico de colunas (barras)?',sub:'',a:'Comparar quantidades entre categorias diferentes',ex:'Ex: comparar a nota de cada aluno. Barra maior = valor maior.'},
+  {cat:'graficos',label:'Tabelas e Gráficos',q:'Para que serve um gráfico de linhas?',sub:'',a:'Mostrar como um valor muda ao longo do tempo',ex:'Ex: temperatura de janeiro a dezembro. Linha subindo = aumento.'},
+  {cat:'graficos',label:'Tabelas e Gráficos',q:'Quais são os 3 passos para ler um gráfico?',sub:'',a:'1) Leia o título  2) Leia os eixos  3) Encontre o valor pedido',ex:'Título diz o assunto. Eixo X = categorias. Eixo Y = valores.'},
+  {cat:'graficos',label:'Tabelas e Gráficos',q:'Em uma tabela, como você encontra um valor?',sub:'',a:'Cruza a linha (horizontal) com a coluna (vertical)',ex:'Linha "João" + coluna "Nota" = nota do João.'},
+  {cat:'graficos',label:'Tabelas e Gráficos',q:'O que o eixo Y (vertical) de um gráfico normalmente representa?',sub:'',a:'O valor numérico (quantidade, porcentagem, etc.)',ex:'Ex: eixo Y de 0 a 100 → valores possíveis das barras.'},
+];
+
+var cards = allCards.slice();
+var currentIndex = 0;
+var showingAnswer = false;
+var currentFilter = 'all';
+var knownSet = new Set();
+var reviewSet = new Set();
+
+var flashcard = document.getElementById('flashcard');
+var cardLabel = document.getElementById('cardLabel');
+var cardCounter = document.getElementById('cardCounter');
+var cardContent = document.getElementById('cardContent');
+var cardHint = document.getElementById('cardHint');
+var catBadge = document.getElementById('catBadge');
+var progressText = document.getElementById('progressText');
+var progressFill = document.getElementById('progressFill');
+var statGood = document.getElementById('statGood');
+var statReview = document.getElementById('statReview');
+var statLeft = document.getElementById('statLeft');
+var finishedScreen = document.getElementById('finishedScreen');
+var finishedStats = document.getElementById('finishedStats');
+
+function getId(card){ return card.cat+'::'+card.q; }
+
+function renderFront(card){
+  cardContent.innerHTML='<div class="card-prompt">'+card.q+'</div>'+(card.sub?'<div class="card-sub">'+card.sub+'</div>':'');
+  cardHint.textContent='👆 toque para ver a resposta';
+  flashcard.classList.remove('is-back');
+}
+
+function renderBack(card){
+  cardContent.innerHTML='<div class="card-answer">'+card.a+'</div>'+(card.ex?'<div class="card-example">'+card.ex+'</div>':'');
+  cardHint.textContent='👆 toque para ver a pergunta';
+  flashcard.classList.add('is-back');
+}
+
+function renderCard(){
+  if(!cards.length){
+    cardContent.innerHTML='<div class="card-prompt">🎉</div><div class="card-sub">Nenhum card nesse filtro!</div>';
+    cardLabel.textContent=''; cardCounter.textContent=''; cardHint.textContent='';
+    return;
+  }
+  var card=cards[currentIndex];
+  showingAnswer=false;
+  cardLabel.textContent=card.label;
+  cardCounter.textContent=(currentIndex+1)+'/'+cards.length;
+  renderFront(card);
+  var cats={poligonos:'Polígonos',fracoes:'Frações',operacoes:'Operações',medidas:'Medidas',graficos:'Gráficos'};
+  catBadge.textContent=cats[card.cat]||card.cat;
+  progressText.textContent=(currentIndex+1)+' / '+cards.length;
+  progressFill.style.width=((currentIndex+1)/cards.length*100)+'%';
+  updateStats();
+}
+
+function toggleAnswer(){
+  if(!cards.length) return;
+  var card=cards[currentIndex];
+  if(!card||card.cat==='info') return;
+  flashcard.classList.add('fading');
+  setTimeout(function(){
+    showingAnswer=!showingAnswer;
+    if(showingAnswer) renderBack(card); else renderFront(card);
+    flashcard.classList.remove('fading');
+  },120);
+}
+
+function updateStats(){
+  statGood.textContent=knownSet.size;
+  statReview.textContent=reviewSet.size;
+  statLeft.textContent=Math.max(0,allCards.length-knownSet.size);
+}
+
+function nextCard(){
+  if(currentIndex<cards.length-1){currentIndex++;renderCard();}
+  else showFinished();
+}
+
+function prevCard(){
+  if(currentIndex>0){currentIndex--;renderCard();}
+}
+
+function showFinished(){
+  flashcard.style.display='none';
+  document.querySelector('.controls').style.display='none';
+  finishedScreen.classList.add('show');
+  finishedStats.innerHTML='✅ <strong>'+knownSet.size+'</strong> acertados<br>🔁 <strong>'+reviewSet.size+'</strong> para revisar';
+}
+
+function restart(){
+  currentIndex=0;
+  flashcard.style.display='';
+  document.querySelector('.controls').style.display='';
+  finishedScreen.classList.remove('show');
+  applyFilter(currentFilter);
+}
+
+function shuffle(){
+  for(var i=cards.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=cards[i];cards[i]=cards[j];cards[j]=t;}
+  currentIndex=0;renderCard();
+}
+
+function applyFilter(filter){
+  currentFilter=filter;
+  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.toggle('active',b.dataset.filter===filter);});
+  if(filter==='all') cards=allCards.slice();
+  else if(filter==='review'){
+    cards=allCards.filter(function(c){return reviewSet.has(getId(c));});
+    if(!cards.length) cards=[{cat:'info',label:'',q:'😊',sub:'Nenhum card marcado para revisar!',a:'',ex:''}];
+  } else cards=allCards.filter(function(c){return c.cat===filter;});
+  currentIndex=0;renderCard();
+}
+
+flashcard.addEventListener('click',toggleAnswer);
+flashcard.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();toggleAnswer();}});
+
+document.getElementById('nextBtn').addEventListener('click',function(e){e.stopPropagation();nextCard();});
+document.getElementById('prevBtn').addEventListener('click',function(e){e.stopPropagation();prevCard();});
+document.getElementById('gotItBtn').addEventListener('click',function(e){
+  e.stopPropagation();
+  if(!cards.length||cards[currentIndex].cat==='info') return;
+  var id=getId(cards[currentIndex]);knownSet.add(id);reviewSet.delete(id);nextCard();
+});
+document.getElementById('reviewBtn').addEventListener('click',function(e){
+  e.stopPropagation();
+  if(!cards.length||cards[currentIndex].cat==='info') return;
+  var id=getId(cards[currentIndex]);reviewSet.add(id);knownSet.delete(id);nextCard();
+});
+document.getElementById('shuffleBtn').addEventListener('click',shuffle);
+document.getElementById('resetBtn').addEventListener('click',function(){
+  if(confirm('Resetar todo o progresso?')){knownSet.clear();reviewSet.clear();applyFilter('all');}
+});
+document.getElementById('restartBtn').addEventListener('click',restart);
+document.querySelectorAll('.filter-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){applyFilter(btn.dataset.filter);});
+});
+document.addEventListener('keydown',function(e){
+  if(e.target===flashcard) return;
+  if(e.key==='ArrowRight') nextCard();
+  else if(e.key==='ArrowLeft') prevCard();
+  else if(e.key===' '){e.preventDefault();toggleAnswer();}
+});
+document.querySelector('[data-filter="all"]').textContent='Todos ('+allCards.length+')';
+renderCard();
+</script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helô's Language Arts Study Sheet — Year 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fef9ec;
+    --ink: #1a1a2e;
+    --red: #e63946;
+    --yellow: #ffbe0b;
+    --blue: #3a86ff;
+    --green: #06a77d;
+    --pink: #ff70a6;
+    --purple: #7209b7;
+    --card: #ffffff;
+    --shadow: 4px 4px 0 var(--ink);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 24px 16px;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(255, 190, 11, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(58, 134, 255, 0.12) 0%, transparent 40%);
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding: 24px;
+    background: var(--card);
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+
+  header::before {
+    content: '✏️';
+    position: absolute;
+    top: -20px;
+    left: 24px;
+    font-size: 40px;
+    transform: rotate(-15deg);
+  }
+
+  header::after {
+    content: '📚';
+    position: absolute;
+    top: -20px;
+    right: 24px;
+    font-size: 40px;
+    transform: rotate(15deg);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  h1 .accent {
+    color: var(--red);
+    font-style: italic;
+  }
+
+  .subtitle {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: var(--blue);
+  }
+
+  .test-date {
+    display: inline-block;
+    background: var(--yellow);
+    padding: 6px 16px;
+    border: 2px solid var(--ink);
+    border-radius: 20px;
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 3px solid var(--ink);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+
+  .card-number {
+    position: absolute;
+    top: -14px;
+    left: 16px;
+    background: var(--ink);
+    color: var(--paper);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+  }
+
+  .card h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: 12px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card.reading { background: linear-gradient(135deg, #fff 0%, #fff4e6 100%); }
+  .card.reading h2 { color: var(--red); }
+
+  .card.writing { background: linear-gradient(135deg, #fff 0%, #e6f4ff 100%); }
+  .card.writing h2 { color: var(--blue); }
+
+  .card.speaking { background: linear-gradient(135deg, #fff 0%, #e6fff4 100%); }
+  .card.speaking h2 { color: var(--green); }
+
+  .card.grammar {
+    background: linear-gradient(135deg, #fff 0%, #fff0f7 100%);
+    grid-column: 1 / -1;
+  }
+  .card.grammar h2 { color: var(--purple); }
+
+  .card p, .card li {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .card ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .card ul li {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+
+  .card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  .tip {
+    background: var(--yellow);
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 12px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+
+  .tip::before {
+    content: '💡 ';
+  }
+
+  .grammar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .grammar-box {
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .grammar-box h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .grammar-box .example {
+    background: #fff;
+    border-left: 3px solid var(--pink);
+    padding: 6px 10px;
+    margin: 6px 0;
+    font-size: 0.88rem;
+    font-style: italic;
+  }
+
+  .grammar-box .example strong {
+    color: var(--red);
+    font-style: normal;
+  }
+
+  code, .verb {
+    background: #1a1a2e;
+    color: #fef9ec;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+  }
+
+  .verb-table {
+    width: 100%;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    border-collapse: collapse;
+  }
+
+  .verb-table th {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 6px;
+    text-align: left;
+    font-family: 'Fraunces', serif;
+  }
+
+  .verb-table td {
+    padding: 5px 6px;
+    border-bottom: 1px dashed #ccc;
+  }
+
+  .verb-table tr:last-child td { border-bottom: none; }
+
+  footer {
+    text-align: center;
+    margin-top: 32px;
+    padding: 20px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: var(--blue);
+  }
+
+  footer .star {
+    color: var(--yellow);
+    -webkit-text-stroke: 1px var(--ink);
+    font-size: 1.6rem;
+  }
+
+  @media print {
+    body { background: white; padding: 8px; }
+    .card:hover { transform: none; box-shadow: var(--shadow); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>Language <span class="accent">Arts</span> Cheat Sheet</h1>
+    <p class="subtitle">Everything you need for the test, Helô! ⭐</p>
+    <div class="test-date">📖 Test: Wednesday, April 22</div>
+  </header>
+
+  <div class="grid">
+
+    <!-- READING -->
+    <section class="card reading">
+      <div class="card-number">1</div>
+      <h2>📖 Reading &amp; Comprehension</h2>
+      <ul>
+        <li>Find <strong>text evidence</strong> — use clues from the story to support your prediction.</li>
+        <li>Describe <strong>characters</strong>: who they are, what they do, how they feel.</li>
+        <li>Identify <strong>plot elements</strong>: beginning → middle → end, problem, solution.</li>
+        <li>Use clues: <em>words, pictures, context.</em></li>
+      </ul>
+      <div class="tip">When a question asks "why?", point to the exact sentence that proves your answer.</div>
+    </section>
+
+    <!-- WRITING -->
+    <section class="card writing">
+      <div class="card-number">2</div>
+      <h2>✍️ Writing &amp; Creating</h2>
+      <ul>
+        <li><strong>Mind Maps</strong> — plan your ideas before writing.</li>
+        <li><strong>Biographies</strong> — real person, real facts, in <em>chronological order</em> (birth → childhood → achievements → today).</li>
+        <li>Writing stages: <code>Plan → Draft → Revise → Edit → Publish</code></li>
+      </ul>
+      <div class="tip">Biography rule: start with birth, end with "today" or "now". Use past tense!</div>
+    </section>
+
+    <!-- SPEAKING -->
+    <section class="card speaking">
+      <div class="card-number">3</div>
+      <h2>🎤 Listening &amp; Speaking</h2>
+      <ul>
+        <li>Join discussions — <strong>build on</strong> what your friends say.</li>
+        <li>Perform <strong>dialogues</strong> with good pronunciation.</li>
+        <li>Retell a story using facts &amp; descriptive details.</li>
+        <li>Stories to remember: <em>The 3 Gifts</em>, <em>Stone Soup</em>, <em>The Elephant Shepherd</em>.</li>
+      </ul>
+      <div class="tip">Listen first, think, then speak. "I agree with... and I'd like to add..."</div>
+    </section>
+
+    <!-- GRAMMAR — BIG CARD -->
+    <section class="card grammar">
+      <div class="card-number">4</div>
+      <h2>🔤 Grammar Power-Ups</h2>
+
+      <div class="grammar-grid">
+
+        <!-- WILL vs GOING TO -->
+        <div class="grammar-box">
+          <h3>🔮 Will vs. Be Going To</h3>
+          <p><strong>Will</strong> = decision <em>right now</em>, promise, or prediction.</p>
+          <div class="example">I'm thirsty. I <strong>will</strong> drink water.</div>
+          <p><strong>Be going to</strong> = plan decided <em>before</em>, or clear evidence.</p>
+          <div class="example">Look at those clouds! It <strong>is going to</strong> rain.</div>
+        </div>
+
+        <!-- REGULAR VERBS -->
+        <div class="grammar-box">
+          <h3>⏪ Regular Verbs (Past)</h3>
+          <p>Just add <code>-ed</code>:</p>
+          <table class="verb-table">
+            <tr><th>Now</th><th>Yesterday</th></tr>
+            <tr><td>play</td><td>play<strong>ed</strong></td></tr>
+            <tr><td>walk</td><td>walk<strong>ed</strong></td></tr>
+            <tr><td>dance</td><td>danc<strong>ed</strong></td></tr>
+            <tr><td>study</td><td>stud<strong>ied</strong></td></tr>
+            <tr><td>stop</td><td>stop<strong>ped</strong></td></tr>
+          </table>
+        </div>
+
+        <!-- IRREGULAR VERBS -->
+        <div class="grammar-box">
+          <h3>🎲 Irregular Verbs (Past)</h3>
+          <p>They change completely. Memorize!</p>
+          <table class="verb-table">
+            <tr><th>Now</th><th>Yesterday</th></tr>
+            <tr><td>go</td><td>went</td></tr>
+            <tr><td>eat</td><td>ate</td></tr>
+            <tr><td>see</td><td>saw</td></tr>
+            <tr><td>have</td><td>had</td></tr>
+            <tr><td>come</td><td>came</td></tr>
+            <tr><td>do</td><td>did</td></tr>
+            <tr><td>make</td><td>made</td></tr>
+            <tr><td>take</td><td>took</td></tr>
+            <tr><td>write</td><td>wrote</td></tr>
+            <tr><td>read</td><td>read (same spelling!)</td></tr>
+          </table>
+        </div>
+
+        <!-- QUOTATION MARKS -->
+        <div class="grammar-box">
+          <h3>💬 Quotation Marks</h3>
+          <p>Used for <strong>dialogue</strong> — what a person says.</p>
+          <div class="example">Mom said, <strong>"Time for dinner!"</strong></div>
+          <div class="example"><strong>"I love pizza,"</strong> said Helô.</div>
+          <p>Rules: capital letter starts the quote. Comma or period goes <em>inside</em> the marks.</p>
+        </div>
+
+        <!-- POSSESSIVES -->
+        <div class="grammar-box">
+          <h3>👑 Possessives ('s)</h3>
+          <p>Shows ownership — <em>who owns what</em>.</p>
+          <div class="example">This is <strong>Helô's</strong> book.</div>
+          <div class="example">The <strong>dog's</strong> tail is wagging.</div>
+          <p>Plural ending in -s? Just add apostrophe:</p>
+          <div class="example">The <strong>boys'</strong> ball (many boys).</div>
+        </div>
+
+        <!-- ADVERBS OF FREQUENCY -->
+        <div class="grammar-box">
+          <h3>⏰ Adverbs of Frequency</h3>
+          <p>How often?</p>
+          <table class="verb-table">
+            <tr><td>always</td><td>100%</td></tr>
+            <tr><td>usually</td><td>90%</td></tr>
+            <tr><td>often</td><td>70%</td></tr>
+            <tr><td>sometimes</td><td>50%</td></tr>
+            <tr><td>rarely</td><td>10%</td></tr>
+            <tr><td>never</td><td>0%</td></tr>
+          </table>
+          <div class="example">I <strong>always</strong> brush my teeth.</div>
+          <p style="margin-top:6px;"><em>Adverbs of intensity:</em> very, really, quite, extremely.</p>
+        </div>
+
+      </div>
+
+      <div class="tip" style="margin-top: 16px;">Position trick: frequency adverbs go <strong>before</strong> the main verb, but <strong>after</strong> the verb "to be". → <em>She <u>is</u> always happy / She always <u>plays</u>.</em></div>
+    </section>
+
+  </div>
+
+  <footer>
+    <span class="star">★</span> You've got this, Helô! <span class="star">★</span>
+  </footer>
+
+</div>
+</body>
+</html>
