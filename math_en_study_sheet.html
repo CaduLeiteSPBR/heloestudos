@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math — Study Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--teal:#0096a0;--shadow:4px 4px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 8%,rgba(0,150,160,.13) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(114,9,183,.11) 0%,transparent 40%)}
+.container{max-width:1100px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:22px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'📐';position:absolute;top:-18px;left:20px;font-size:36px;transform:rotate(-12deg)}
+header::after{content:'📊';position:absolute;top:-18px;right:20px;font-size:36px;transform:rotate(12deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--teal);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:4px}
+.test-date{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;transition:transform .2s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card-num{position:absolute;top:-14px;left:14px;background:var(--ink);color:var(--paper);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1rem}
+.card h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;margin-bottom:12px;margin-top:4px;display:flex;align-items:center;gap:8px}
+.card.geometry{background:linear-gradient(135deg,#fff 0%,#e6fffe 100%)}
+.card.geometry h2{color:var(--teal)}
+.card.triangles{background:linear-gradient(135deg,#fff 0%,#f0e6ff 100%)}
+.card.triangles h2{color:var(--purple)}
+.card.fractions{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.card.fractions h2{color:var(--blue)}
+.card.measurement{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%)}
+.card.measurement h2{color:var(--green)}
+.card.data{background:linear-gradient(135deg,#fff 0%,#fff4e6 100%);grid-column:1/-1}
+.card.data h2{color:var(--red)}
+.card ul{list-style:none;padding:0}
+.card ul li{padding-left:18px;position:relative;margin-bottom:6px;font-size:.93rem;line-height:1.5}
+.card ul li::before{content:'→';position:absolute;left:0;color:var(--teal);font-weight:700}
+.tip{background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:9px 12px;margin-top:12px;font-family:'Caveat',cursive;font-size:1.1rem;line-height:1.3}
+.tip::before{content:'💡 '}
+table.ref{width:100%;font-size:.85rem;margin-top:8px;border-collapse:collapse}
+table.ref th{background:var(--ink);color:var(--paper);padding:5px 8px;text-align:left;font-family:'Fraunces',serif}
+table.ref td{padding:5px 8px;border-bottom:1px dashed #ccc}
+table.ref tr:last-child td{border-bottom:none}
+.box{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.6}
+.box strong{color:var(--blue)}
+.sym-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.sym-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px;text-align:center;font-size:.82rem}
+.sym-card .sym-icon{font-size:1.8rem;display:block;margin-bottom:4px}
+.sym-card strong{display:block;font-size:.88rem;color:var(--teal)}
+.tri-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:10px}
+.tri-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px;text-align:center;font-size:.82rem;line-height:1.5}
+.tri-card strong{display:block;color:var(--purple);font-size:.88rem;margin-bottom:2px}
+.angle-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.angle-chip{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:7px 10px;font-size:.82rem;text-align:center;flex:1;min-width:80px}
+.angle-chip strong{display:block;color:var(--purple)}
+footer{text-align:center;margin-top:28px;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1><span class="accent">Math</span> Study Sheet</h1>
+  <p class="subtitle">Everything you need for today's test! ⭐</p>
+  <div class="test-date">📖 Test: Friday, April 24</div>
+</header>
+
+<div class="grid">
+
+  <!-- SYMMETRY -->
+  <section class="card geometry">
+    <div class="card-num">1</div>
+    <h2>🔄 Symmetry & Transformations</h2>
+    <div class="sym-grid">
+      <div class="sym-card">
+        <span class="sym-icon">🪞</span>
+        <strong>Reflection</strong>
+        Flip over a line (mirror image)
+      </div>
+      <div class="sym-card">
+        <span class="sym-icon">🔃</span>
+        <strong>Rotation</strong>
+        Turn around a point (90°, 180°, 270°)
+      </div>
+      <div class="sym-card">
+        <span class="sym-icon">➡️</span>
+        <strong>Translation</strong>
+        Slide in any direction (shape stays the same)
+      </div>
+    </div>
+    <div class="tip">All 3 transformations keep the shape the SAME size. Only position or orientation changes!</div>
+  </section>
+
+  <!-- TRIANGLES & ANGLES -->
+  <section class="card triangles">
+    <div class="card-num">2</div>
+    <h2>📐 Triangles & Angles</h2>
+    <div class="tri-grid">
+      <div class="tri-card"><strong>Equilateral</strong>3 equal sides<br>3 equal angles (60° each)</div>
+      <div class="tri-card"><strong>Isosceles</strong>2 equal sides<br>2 equal angles</div>
+      <div class="tri-card"><strong>Scalene</strong>No equal sides<br>No equal angles</div>
+      <div class="tri-card"><strong>Right</strong>One 90° angle<br>(right angle)</div>
+    </div>
+    <div class="angle-row">
+      <div class="angle-chip"><strong>Acute</strong>Less than 90°</div>
+      <div class="angle-chip"><strong>Right</strong>Exactly 90°</div>
+      <div class="angle-chip"><strong>Obtuse</strong>More than 90°</div>
+    </div>
+    <div class="tip">All 3 angles of any triangle always add up to 180°!</div>
+  </section>
+
+  <!-- FRACTIONS -->
+  <section class="card fractions">
+    <div class="card-num">3</div>
+    <h2>➗ Fractions</h2>
+    <ul>
+      <li><strong>Same denominator:</strong> add/subtract only the numerator</li>
+      <li>The denominator <strong>never changes</strong></li>
+    </ul>
+    <div class="box">
+      <div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:8px">
+        3/8 + 4/8 = <span style="color:var(--blue)">7/8</span> &nbsp;|&nbsp; 9/10 − 3/10 = <span style="color:var(--blue)">6/10</span>
+      </div>
+    </div>
+    <ul style="margin-top:10px">
+      <li><strong>Numerical expressions:</strong> follow order of operations</li>
+      <li>Parentheses first, then × ÷, then + −</li>
+    </ul>
+    <div class="box">
+      <strong>Example:</strong> (3 + 2) × 4 = 5 × 4 = <strong>20</strong><br>
+      <strong>Example:</strong> 3 + 2 × 4 = 3 + 8 = <strong>11</strong>
+    </div>
+    <div class="tip">Read the expression carefully — parentheses change everything!</div>
+  </section>
+
+  <!-- MEASUREMENT -->
+  <section class="card measurement">
+    <div class="card-num">4</div>
+    <h2>⏱️ Measurement</h2>
+    <table class="ref">
+      <tr><th colspan="2">Time conversions</th></tr>
+      <tr><td>60 seconds</td><td>= 1 minute</td></tr>
+      <tr><td>60 minutes</td><td>= 1 hour</td></tr>
+      <tr><td>24 hours</td><td>= 1 day</td></tr>
+      <tr><td>7 days</td><td>= 1 week</td></tr>
+      <tr><td>12 months</td><td>= 1 year</td></tr>
+      <tr><td>365 days</td><td>= 1 year</td></tr>
+    </table>
+    <table class="ref" style="margin-top:10px">
+      <tr><th colspan="2">Length units</th></tr>
+      <tr><td>1 km</td><td>= 1,000 m</td></tr>
+      <tr><td>1 m</td><td>= 100 cm</td></tr>
+      <tr><td>1 m</td><td>= 1,000 mm</td></tr>
+      <tr><td>1 cm</td><td>= 10 mm</td></tr>
+    </table>
+    <div class="tip">To convert big → small: multiply. Small → big: divide.</div>
+  </section>
+
+  <!-- DATA -->
+  <section class="card data">
+    <div class="card-num">5</div>
+    <h2>📊 Data & Problem Solving</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:4px">
+      <div class="box">
+        <strong>📊 Bar / Column graph</strong><br>
+        Compares quantities across categories.<br>
+        Taller bar = bigger value.<br>
+        <em>Read: title → axes → find bar → read value.</em>
+      </div>
+      <div class="box">
+        <strong>📈 Line graph</strong><br>
+        Shows change over time.<br>
+        Line going up = increasing.<br>
+        <em>Read: title → axes → find point → read value.</em>
+      </div>
+      <div class="box">
+        <strong>📋 Data table</strong><br>
+        Organizes data in rows and columns.<br>
+        Find value: row ∩ column.<br>
+        <em>Always check what each row/column represents.</em>
+      </div>
+      <div class="box">
+        <strong>🔢 Solving word problems</strong><br>
+        1. Read the question carefully<br>
+        2. Find the data in the graph/table<br>
+        3. Choose the operation (+, −, ×, ÷)<br>
+        4. Show your work and check the answer
+      </div>
+    </div>
+    <div class="tip">Always read the title and axis labels FIRST — they tell you what the data is about!</div>
+  </section>
+
+</div>
+<footer>⭐ You've got this, Helô! Good luck! ⭐</footer>
+</div>
+</body>
+</html>

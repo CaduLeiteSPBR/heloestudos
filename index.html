@@ -6,202 +6,132 @@
 <title>Helô — Central de Estudos</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--orange:#f4721e;--pink:#ff70a6;--shadow:5px 5px 0 var(--ink)}
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--orange:#f4721e;--teal:#0096a0;--shadow:5px 5px 0 var(--ink)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:24px 16px 56px;background-image:radial-gradient(circle at 15% 8%,rgba(255,190,11,.18) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(58,134,255,.14) 0%,transparent 40%)}
-.container{max-width:860px;margin:0 auto}
-
-/* HEADER */
-header{text-align:center;margin-bottom:32px;padding:26px 20px 20px;background:#fff;border:3px solid var(--ink);border-radius:24px;box-shadow:var(--shadow);position:relative}
+.container{max-width:900px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:24px 20px 18px;background:#fff;border:3px solid var(--ink);border-radius:24px;box-shadow:var(--shadow);position:relative}
 header::before{content:'📚';position:absolute;top:-20px;left:20px;font-size:40px;transform:rotate(-12deg)}
 header::after{content:'✏️';position:absolute;top:-20px;right:20px;font-size:40px;transform:rotate(12deg)}
 h1{font-family:'Fraunces',serif;font-size:clamp(2rem,6vw,3.2rem);font-weight:900;line-height:1}
 h1 .accent{color:var(--red);font-style:italic}
 .header-sub{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:6px}
 .school-badge{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.88rem}
-
-/* SUBJECT SECTION */
-.subject-section{margin-bottom:36px}
-.subject-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding:14px 18px;background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:3px 3px 0 var(--ink)}
-.subject-emoji{font-size:2rem;flex-shrink:0}
-.subject-info h2{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900}
-.subject-info .test-info{font-size:.85rem;color:#666;margin-top:2px}
-.subject-info .test-info strong{color:var(--ink)}
-.done-badge{margin-left:auto;padding:4px 12px;border:2px solid var(--green);border-radius:20px;font-size:.75rem;font-weight:700;color:var(--green);white-space:nowrap;flex-shrink:0}
-.tomorrow-badge{margin-left:auto;padding:4px 12px;border:2px solid var(--red);border-radius:20px;font-size:.75rem;font-weight:700;color:var(--red);white-space:nowrap;flex-shrink:0;background:#fff0f0}
-
-/* MATERIAL CARDS */
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.mat-card{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:18px 16px;box-shadow:4px 4px 0 var(--ink);text-decoration:none;color:var(--ink);display:flex;align-items:flex-start;gap:14px;transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden}
-.mat-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
-.mat-card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
-.mat-card .mat-icon{font-size:2rem;flex-shrink:0;line-height:1}
-.mat-card .mat-info{}
-.mat-card .mat-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;margin-bottom:4px}
-.mat-card .mat-desc{font-size:.82rem;color:#666;line-height:1.4}
-.mat-card .mat-tag{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;border:1.5px solid;margin-top:6px;text-transform:uppercase;letter-spacing:.4px}
-
-/* Color themes per card */
-.mat-card.sheet{background:linear-gradient(135deg,#fff 0%,#fff4e6 100%)}
-.mat-card.sheet .mat-tag{background:rgba(244,114,30,.12);border-color:var(--orange);color:var(--orange)}
-.mat-card.flash{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
-.mat-card.flash .mat-tag{background:rgba(58,134,255,.12);border-color:var(--blue);color:var(--blue)}
-.mat-card.quiz{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%)}
-.mat-card.quiz .mat-tag{background:rgba(6,167,125,.12);border-color:var(--green);color:var(--green)}
-
-/* COLOR ACCENTS per subject */
-.la .subject-header{background:linear-gradient(135deg,#fff 0%,#f0f6ff 100%)}
-.la .subject-info h2{color:var(--blue)}
-.math .subject-header{background:linear-gradient(135deg,#fff 0%,#fff8ee 100%)}
-.math .subject-info h2{color:var(--orange)}
-
-/* SCHEDULE */
-.schedule{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:18px;box-shadow:var(--shadow);margin-bottom:32px}
-.schedule h3{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:900;margin-bottom:12px}
+.schedule{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:18px;box-shadow:var(--shadow);margin-bottom:28px}
+.schedule h3{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;margin-bottom:12px}
 .sched-list{display:flex;flex-direction:column;gap:6px}
 .sched-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;font-size:.88rem;border:1.5px solid var(--ink)}
-.sched-item.past{opacity:.45}
+.sched-item.done{opacity:.6;background:#f4fff9;border-color:var(--green)}
 .sched-item.today{background:var(--yellow);font-weight:700}
-.sched-item.tomorrow{background:#fff0f0;border-color:var(--red);font-weight:700}
-.sched-item .sched-date{font-weight:700;min-width:70px;font-size:.82rem}
-.sched-item .sched-subj{flex:1}
-.sched-item .sched-pill{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.sched-item.upcoming{background:#fff}
+.sched-date{font-weight:700;min-width:70px;font-size:.82rem;flex-shrink:0}
+.sched-subj{flex:1}
+.sched-pill{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0}
 .pill-done{background:#e6fff4;color:var(--green);border:1px solid var(--green)}
-.pill-today{background:var(--orange);color:#fff}
-.pill-next{background:var(--red);color:#fff}
+.pill-today{background:var(--teal);color:#fff}
 .pill-upcoming{background:#eee;color:#666}
-
-/* FOOTER */
-footer{text-align:center;margin-top:36px;font-family:'Caveat',cursive;font-size:1.5rem;color:var(--blue)}
+.subject-section{margin-bottom:28px}
+.subject-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:14px 18px;background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:3px 3px 0 var(--ink)}
+.subject-emoji{font-size:2rem;flex-shrink:0}
+.subject-info h2{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900}
+.subject-info .test-info{font-size:.83rem;color:#666;margin-top:2px}
+.subject-info .test-info strong{color:var(--ink)}
+.status-badge{margin-left:auto;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:700;white-space:nowrap;flex-shrink:0;border:2px solid}
+.badge-done{color:var(--green);border-color:var(--green)}
+.badge-today{color:#fff;background:var(--teal);border-color:var(--teal)}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.mat-card{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:16px 14px;box-shadow:4px 4px 0 var(--ink);text-decoration:none;color:var(--ink);display:flex;align-items:flex-start;gap:12px;transition:transform .15s,box-shadow .15s}
+.mat-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.mat-card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.mat-icon{font-size:1.8rem;flex-shrink:0;line-height:1}
+.mat-title{font-family:'Fraunces',serif;font-size:1rem;font-weight:900;margin-bottom:3px}
+.mat-desc{font-size:.78rem;color:#666;line-height:1.4}
+.mat-tag{display:inline-block;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;border:1.5px solid;margin-top:5px;text-transform:uppercase;letter-spacing:.4px}
+.mat-card.sheet{background:linear-gradient(135deg,#fff 0%,#fff4e6 100%)}
+.mat-card.sheet .mat-tag{background:rgba(244,114,30,.1);border-color:var(--orange);color:var(--orange)}
+.mat-card.flash{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.mat-card.flash .mat-tag{background:rgba(58,134,255,.1);border-color:var(--blue);color:var(--blue)}
+.mat-card.quiz{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%)}
+.mat-card.quiz .mat-tag{background:rgba(6,167,125,.1);border-color:var(--green);color:var(--green)}
+.la .subject-info h2{color:var(--blue)}
+.la .subject-header{background:linear-gradient(135deg,#fff 0%,#f0f6ff 100%)}
+.matem .subject-info h2{color:var(--orange)}
+.matem .subject-header{background:linear-gradient(135deg,#fff 0%,#fff8ee 100%)}
+.math-en .subject-info h2{color:var(--teal)}
+.math-en .subject-header{background:linear-gradient(135deg,#fff 0%,#e6fffe 100%)}
+footer{text-align:center;margin-top:32px;font-family:'Caveat',cursive;font-size:1.5rem;color:var(--blue)}
 footer .star{color:var(--yellow);font-size:1.7rem}
 </style>
 </head>
 <body>
 <div class="container">
-
 <header>
   <h1>Central de <span class="accent">Estudos</span></h1>
-  <p class="header-sub">Seus materiais de revisão, tudo num lugar só 📖</p>
+  <p class="header-sub">Todos os seus materiais de revisão 📖</p>
   <div class="school-badge">🏫 Pueri Domus — Year 5 — 1º Trimestre 2026</div>
 </header>
 
-<!-- SCHEDULE -->
 <div class="schedule">
   <h3>📅 Calendário de Provas</h3>
   <div class="sched-list">
-    <div class="sched-item past">
-      <span class="sched-date">22/04 Qua</span>
-      <span class="sched-subj">Language Arts</span>
-      <span class="sched-pill pill-done">✓ Feita</span>
-    </div>
-    <div class="sched-item tomorrow">
-      <span class="sched-date">23/04 Qui</span>
-      <span class="sched-subj">📐 Matemática</span>
-      <span class="sched-pill pill-next">⚡ Amanhã</span>
-    </div>
-    <div class="sched-item">
-      <span class="sched-date">24/04 Sex</span>
-      <span class="sched-subj">Math (inglês)</span>
-      <span class="sched-pill pill-upcoming">Em breve</span>
-    </div>
-    <div class="sched-item">
-      <span class="sched-date">27/04 Seg</span>
-      <span class="sched-subj">Língua Portuguesa</span>
-      <span class="sched-pill pill-upcoming">Em breve</span>
-    </div>
-    <div class="sched-item">
-      <span class="sched-date">28/04 Ter</span>
-      <span class="sched-subj">Ciências / Science</span>
-      <span class="sched-pill pill-upcoming">Em breve</span>
-    </div>
-    <div class="sched-item">
-      <span class="sched-date">29/04 Qua</span>
-      <span class="sched-subj">História, Geo, Social Studies</span>
-      <span class="sched-pill pill-upcoming">Em breve</span>
-    </div>
+    <div class="sched-item done"><span class="sched-date">22/04 Qua</span><span class="sched-subj">📖 Language Arts</span><span class="sched-pill pill-done">✓ Feita</span></div>
+    <div class="sched-item done"><span class="sched-date">23/04 Qui</span><span class="sched-subj">📐 Matemática</span><span class="sched-pill pill-done">✓ Feita</span></div>
+    <div class="sched-item today"><span class="sched-date">24/04 Sex</span><span class="sched-subj">📊 Math (English)</span><span class="sched-pill pill-today">⚡ Hoje!</span></div>
+    <div class="sched-item upcoming"><span class="sched-date">27/04 Seg</span><span class="sched-subj">Língua Portuguesa</span><span class="sched-pill pill-upcoming">Em breve</span></div>
+    <div class="sched-item upcoming"><span class="sched-date">28/04 Ter</span><span class="sched-subj">Ciências / Science</span><span class="sched-pill pill-upcoming">Em breve</span></div>
+    <div class="sched-item upcoming"><span class="sched-date">29/04 Qua</span><span class="sched-subj">História, Geo & Social Studies</span><span class="sched-pill pill-upcoming">Em breve</span></div>
   </div>
 </div>
 
-<!-- MATEMÁTICA (amanhã) -->
-<div class="subject-section math">
+<div class="subject-section math-en">
+  <div class="subject-header">
+    <div class="subject-emoji">📊</div>
+    <div class="subject-info">
+      <h2>Math (English)</h2>
+      <div class="test-info">Test: <strong>Friday, April 24</strong> · Geometry, symmetry, fractions, measurement, data</div>
+    </div>
+    <div class="status-badge badge-today">⚡ Hoje!</div>
+  </div>
+  <div class="cards-grid">
+    <a href="math_en_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Study Sheet</div><div class="mat-desc">Symmetry, triangles, angles, fractions, measurement and graphs.</div><span class="mat-tag">Start here</span></div></a>
+    <a href="math_en_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40 cards)</div><div class="mat-desc">Tap to flip. Filter by topic. Mark "Got it" or "Review again".</div><span class="mat-tag">Memorize</span></div></a>
+    <a href="math_en_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Quiz (15 questions)</div><div class="mat-desc">Multiple choice with instant feedback and full answer key.</div><span class="mat-tag">Practice test</span></div></a>
+  </div>
+</div>
+
+<div class="subject-section matem">
   <div class="subject-header">
     <div class="subject-emoji">📐</div>
     <div class="subject-info">
       <h2>Matemática</h2>
       <div class="test-info">Prova: <strong>quinta-feira, 23/04</strong> · Frações, polígonos, medidas, gráficos</div>
     </div>
-    <div class="tomorrow-badge">⚡ Amanhã!</div>
+    <div class="status-badge badge-done">✓ Concluída</div>
   </div>
   <div class="cards-grid">
-    <a href="math_study_sheet.html" class="mat-card sheet">
-      <div class="mat-icon">📄</div>
-      <div class="mat-info">
-        <div class="mat-title">Resumo Visual</div>
-        <div class="mat-desc">Todos os conteúdos em uma página: polígonos, frações, operações, medidas e gráficos.</div>
-        <span class="mat-tag">Começa aqui</span>
-      </div>
-    </a>
-    <a href="math_flashcards.html" class="mat-card flash">
-      <div class="mat-icon">🎴</div>
-      <div class="mat-info">
-        <div class="mat-title">Flashcards (40 cards)</div>
-        <div class="mat-desc">Toque no card para virar. Filtre por tema. Marque "Acertei" ou "Revisar".</div>
-        <span class="mat-tag">Memorização</span>
-      </div>
-    </a>
-    <a href="math_quiz.html" class="mat-card quiz">
-      <div class="mat-icon">✅</div>
-      <div class="mat-info">
-        <div class="mat-title">Simulado (15 questões)</div>
-        <div class="mat-desc">15 questões de múltipla escolha com feedback imediato e gabarito.</div>
-        <span class="mat-tag">Testar</span>
-      </div>
-    </a>
+    <a href="math_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Resumo Visual</div><div class="mat-desc">Polígonos, frações, operações, medidas e gráficos em uma página.</div><span class="mat-tag">Referência</span></div></a>
+    <a href="math_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40 cards)</div><div class="mat-desc">Toque para virar. Filtre por tema. Marque acertos e erros.</div><span class="mat-tag">Memorização</span></div></a>
+    <a href="math_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Simulado (15 questões)</div><div class="mat-desc">Múltipla escolha com gabarito e explicação imediatos.</div><span class="mat-tag">Testar</span></div></a>
   </div>
 </div>
 
-<!-- LANGUAGE ARTS (já feita) -->
 <div class="subject-section la">
   <div class="subject-header">
     <div class="subject-emoji">📖</div>
     <div class="subject-info">
       <h2>Language Arts</h2>
-      <div class="test-info">Prova: <strong>quarta-feira, 22/04</strong> · Grammar, Reading, Writing, Speaking</div>
+      <div class="test-info">Test: <strong>Wednesday, April 22</strong> · Grammar, Reading, Writing, Speaking</div>
     </div>
-    <div class="done-badge">✓ Concluída</div>
+    <div class="status-badge badge-done">✓ Done</div>
   </div>
   <div class="cards-grid">
-    <a href="language_arts_study_sheet.html" class="mat-card sheet">
-      <div class="mat-icon">📄</div>
-      <div class="mat-info">
-        <div class="mat-title">Resumo Visual</div>
-        <div class="mat-desc">Os 4 blocos da prova: Reading, Writing, Speaking e Grammar em inglês.</div>
-        <span class="mat-tag">Referência</span>
-      </div>
-    </a>
-    <a href="language_arts_flashcards.html" class="mat-card flash">
-      <div class="mat-icon">🎴</div>
-      <div class="mat-info">
-        <div class="mat-title">Flashcards (50 cards)</div>
-        <div class="mat-desc">Verbos irregulares, gramática, vocabulário das histórias. Toque para virar.</div>
-        <span class="mat-tag">Memorização</span>
-      </div>
-    </a>
-    <a href="language_arts_quiz.html" class="mat-card quiz">
-      <div class="mat-icon">✅</div>
-      <div class="mat-info">
-        <div class="mat-title">Simulado (15 questões)</div>
-        <div class="mat-desc">Múltipla escolha cobrindo todos os tópicos com correção instantânea.</div>
-        <span class="mat-tag">Testar</span>
-      </div>
-    </a>
+    <a href="language_arts_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Study Sheet</div><div class="mat-desc">Reading, Writing, Speaking and Grammar — all 4 blocks in English.</div><span class="mat-tag">Reference</span></div></a>
+    <a href="language_arts_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (50 cards)</div><div class="mat-desc">Irregular verbs, grammar rules and story vocabulary.</div><span class="mat-tag">Memorize</span></div></a>
+    <a href="language_arts_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Quiz (15 questions)</div><div class="mat-desc">Multiple choice covering all topics with instant feedback.</div><span class="mat-tag">Practice test</span></div></a>
   </div>
 </div>
 
-<footer>
-  <span class="star">★</span> Você consegue, Helô! Bons estudos! <span class="star">★</span>
-</footer>
-
+<footer><span class="star">★</span> Você consegue, Helô! Bons estudos! <span class="star">★</span></footer>
 </div>
 </body>
 </html>
