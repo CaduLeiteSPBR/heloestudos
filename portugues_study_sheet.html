@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Língua Portuguesa — Resumo</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--pink:#e0449a;--shadow:4px 4px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 8%,rgba(224,68,154,.13) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(114,9,183,.11) 0%,transparent 40%)}
+.container{max-width:1100px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:22px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'📝';position:absolute;top:-18px;left:20px;font-size:36px;transform:rotate(-12deg)}
+header::after{content:'📖';position:absolute;top:-18px;right:20px;font-size:36px;transform:rotate(12deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--pink);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:4px}
+.test-date{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;transition:transform .2s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card-num{position:absolute;top:-14px;left:14px;background:var(--ink);color:var(--paper);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1rem}
+.card h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;margin-bottom:12px;margin-top:4px}
+.card.substantivos{background:linear-gradient(135deg,#fff 0%,#fff0f7 100%)}
+.card.substantivos h2{color:var(--pink)}
+.card.verbos{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.card.verbos h2{color:var(--blue)}
+.card.acentuacao{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%)}
+.card.acentuacao h2{color:var(--green)}
+.card.leitura{background:linear-gradient(135deg,#fff 0%,#fff4e6 100%);grid-column:1/-1}
+.card.leitura h2{color:var(--purple)}
+ul.lista{list-style:none;padding:0}
+ul.lista li{padding-left:18px;position:relative;margin-bottom:6px;font-size:.93rem;line-height:1.5}
+ul.lista li::before{content:'→';position:absolute;left:0;color:var(--pink);font-weight:700}
+.tip{background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:9px 12px;margin-top:12px;font-family:'Caveat',cursive;font-size:1.1rem;line-height:1.3}
+.tip::before{content:'💡 '}
+table.ref{width:100%;font-size:.85rem;margin-top:8px;border-collapse:collapse}
+table.ref th{background:var(--ink);color:var(--paper);padding:5px 8px;text-align:left;font-family:'Fraunces',serif}
+table.ref td{padding:5px 8px;border-bottom:1px dashed #ccc;vertical-align:top}
+table.ref tr:last-child td{border-bottom:none}
+table.ref tr:nth-child(even) td{background:#fafafa}
+.chip{display:inline-block;padding:2px 9px;border:2px solid var(--ink);border-radius:20px;font-size:.75rem;font-weight:700;margin:2px 2px 2px 0}
+.chip-pink{background:#fff0f7;color:var(--pink)}
+.chip-blue{background:#e6f4ff;color:var(--blue)}
+.chip-green{background:#e6fff4;color:var(--green)}
+.chip-purple{background:#f0e6ff;color:var(--purple)}
+.box{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.6}
+.box strong{color:var(--blue)}
+.grid-sub{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}
+.sub-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;font-size:.83rem;line-height:1.5}
+.sub-card strong{display:block;font-size:.9rem;margin-bottom:4px}
+footer{text-align:center;margin-top:28px;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Língua <span class="accent">Portuguesa</span></h1>
+  <p class="subtitle">Resumo completo para a prova! ⭐</p>
+  <div class="test-date">📖 Prova: Segunda-feira, 27 de abril</div>
+</header>
+
+<div class="grid">
+
+<!-- SUBSTANTIVOS -->
+<section class="card substantivos">
+  <div class="card-num">1</div>
+  <h2>📝 Substantivos</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">Substantivo é a palavra que dá nome a seres, lugares, sentimentos, objetos e ideias.</p>
+  <div class="grid-sub">
+    <div class="sub-card">
+      <strong><span class="chip chip-pink">Concreto</span></strong>
+      Nomeia seres que existem de verdade (dá para ver, tocar, sentir).<br>
+      <em>Ex: cadeira, cachorro, árvore</em>
+    </div>
+    <div class="sub-card">
+      <strong><span class="chip chip-pink">Abstrato</span></strong>
+      Nomeia sentimentos, estados ou ideias que não têm forma física.<br>
+      <em>Ex: amor, alegria, liberdade</em>
+    </div>
+    <div class="sub-card">
+      <strong><span class="chip chip-blue">Primitivo</span></strong>
+      É a palavra original, que deu origem a outras.<br>
+      <em>Ex: pedra, flor, mar</em>
+    </div>
+    <div class="sub-card">
+      <strong><span class="chip chip-blue">Derivado</span></strong>
+      Vem de outra palavra já existente.<br>
+      <em>Ex: pedreira, florista, marinheiro</em>
+    </div>
+    <div class="sub-card">
+      <strong><span class="chip chip-green">Simples</span></strong>
+      Formado por apenas um radical (uma raiz).<br>
+      <em>Ex: sol, casa, livro</em>
+    </div>
+    <div class="sub-card">
+      <strong><span class="chip chip-green">Composto</span></strong>
+      Formado por dois ou mais radicais.<br>
+      <em>Ex: guarda-chuva, beija-flor</em>
+    </div>
+    <div class="sub-card">
+      <strong><span class="chip chip-purple">Comum</span></strong>
+      Nome genérico, que serve para qualquer ser da mesma espécie.<br>
+      <em>Ex: cidade, menino, rio</em>
+    </div>
+    <div class="sub-card">
+      <strong><span class="chip chip-purple">Próprio</span></strong>
+      Nome específico de um ser, lugar ou pessoa. Sempre com maiúscula.<br>
+      <em>Ex: São Paulo, Lucas, Amazonas</em>
+    </div>
+  </div>
+  <div class="tip">Um substantivo pode ter mais de uma classificação ao mesmo tempo! Ex: "amor" é abstrato, primitivo e simples.</div>
+</section>
+
+<!-- VERBOS -->
+<section class="card verbos">
+  <div class="card-num">2</div>
+  <h2>🔤 Verbos</h2>
+  <p style="font-size:.9rem;margin-bottom:8px">Verbo é a palavra que indica ação, estado ou fenômeno. Ele muda de acordo com o tempo e a pessoa.</p>
+
+  <table class="ref">
+    <tr><th>Modo Indicativo</th><th>Quando usar</th><th>Exemplo (verbo: correr)</th></tr>
+    <tr><td><strong>Presente</strong></td><td>Ação que acontece agora</td><td>Eu corro, ele corre</td></tr>
+    <tr><td><strong>Pretérito Imperfeito</strong></td><td>Ação habitual no passado</td><td>Eu corria, ele corria</td></tr>
+    <tr><td><strong>Pretérito Perfeito</strong></td><td>Ação acabada no passado</td><td>Eu corri, ele correu</td></tr>
+    <tr><td><strong>Futuro do Presente</strong></td><td>Ação que vai acontecer</td><td>Eu correrei, ele correrá</td></tr>
+  </table>
+
+  <div class="box" style="margin-top:12px">
+    <strong>Formas nominais:</strong><br>
+    <span class="chip chip-blue">Infinitivo</span> forma básica do verbo, termina em <strong>-ar, -er, -ir</strong><br>
+    <em>Ex: correr, cantar, sorrir</em><br><br>
+    <span class="chip chip-blue">Gerúndio</span> indica ação em andamento, termina em <strong>-ando, -endo, -indo</strong><br>
+    <em>Ex: correndo, cantando, sorrindo</em>
+  </div>
+  <div class="tip">Dica rápida: gerúndio = ação acontecendo agora mesmo. "Eu estou correndo" = gerúndio de correr.</div>
+</section>
+
+<!-- ACENTUAÇÃO -->
+<section class="card acentuacao">
+  <div class="card-num">3</div>
+  <h2>✏️ Proparoxítonas</h2>
+  <p style="font-size:.9rem;margin-bottom:8px">Proparoxítona é a palavra cuja sílaba tônica (a mais forte) fica na <strong>antepenúltima sílaba</strong> (terceira contando do fim).</p>
+  <div class="box" style="margin-top:0">
+    <strong>Regra:</strong> TODAS as proparoxítonas são acentuadas no português. Sempre!
+  </div>
+
+  <table class="ref" style="margin-top:10px">
+    <tr><th>Palavra</th><th>Divisão silábica</th><th>Sílaba tônica</th></tr>
+    <tr><td><strong>mé-di-co</strong></td><td>mé | di | co</td><td>MÉ (3ª do fim)</td></tr>
+    <tr><td><strong>lâm-pa-da</strong></td><td>lâm | pa | da</td><td>LÂM (3ª do fim)</td></tr>
+    <tr><td><strong>pá-ro-co</strong></td><td>pá | ro | co</td><td>PÁ (3ª do fim)</td></tr>
+    <tr><td><strong>his-tó-ri-co</strong></td><td>his | tó | ri | co</td><td>TÓ (3ª do fim)</td></tr>
+    <tr><td><strong>ma-te-má-ti-ca</strong></td><td>ma | te | má | ti | ca</td><td>MÁ (3ª do fim)</td></tr>
+    <tr><td><strong>ó-ti-mo</strong></td><td>ó | ti | mo</td><td>Ó (3ª do fim)</td></tr>
+  </table>
+  <div class="tip">Macete: conta 3 sílabas do final para trás. Se o acento cai na 3ª, é proparoxítona e DEVE ter acento escrito.</div>
+</section>
+
+<!-- LEITURA -->
+<section class="card leitura">
+  <div class="card-num">4</div>
+  <h2>📖 Leitura e Interpretação</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:4px">
+    <div class="box">
+      <strong>🔍 Informação explícita</strong><br>
+      Está escrita diretamente no texto. Você não precisa deduzir nada — é só ler.<br><br>
+      <em>Exemplo: "Maria tinha 10 anos." → A idade de Maria está explícita.</em>
+    </div>
+    <div class="box">
+      <strong>💭 Informação implícita</strong><br>
+      Não está escrita, mas dá para entender pelas pistas do texto. Você precisa interpretar.<br><br>
+      <em>Exemplo: "Maria pegou o guarda-chuva antes de sair." → Está implícito que ia chover.</em>
+    </div>
+    <div class="box">
+      <strong>🗝️ Pistas para interpretar</strong><br>
+      Palavras, expressões, contexto e imagens ajudam a descobrir o que o texto quer dizer. Sempre leia com atenção!<br><br>
+      <em>Pergunte: "O que o autor quer dizer com isso?"</em>
+    </div>
+    <div class="box">
+      <strong>📋 Como responder bem</strong><br>
+      1. Leia o texto inteiro<br>
+      2. Leia a pergunta com atenção<br>
+      3. Volte ao texto para encontrar a resposta<br>
+      4. Use palavras do próprio texto quando puder
+    </div>
+  </div>
+  <div class="tip">Explícito = está escrito. Implícito = precisa interpretar. Se a pergunta diz "de acordo com o texto", a resposta está escrita. Se diz "o que podemos concluir", precisa interpretar.</div>
+</section>
+
+</div>
+<footer>⭐ Você consegue, Helô! Boa prova! ⭐</footer>
+</div>
+</body>
+</html>

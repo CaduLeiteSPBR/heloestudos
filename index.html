@@ -6,7 +6,7 @@
 <title>Helô — Central de Estudos</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--orange:#f4721e;--teal:#0096a0;--shadow:5px 5px 0 var(--ink)}
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--orange:#f4721e;--teal:#0096a0;--pink:#e0449a;--shadow:5px 5px 0 var(--ink)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:24px 16px 56px;background-image:radial-gradient(circle at 15% 8%,rgba(255,190,11,.18) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(58,134,255,.14) 0%,transparent 40%)}
 .container{max-width:900px;margin:0 auto}
@@ -23,12 +23,14 @@ h1 .accent{color:var(--red);font-style:italic}
 .sched-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;font-size:.88rem;border:1.5px solid var(--ink)}
 .sched-item.done{opacity:.6;background:#f4fff9;border-color:var(--green)}
 .sched-item.today{background:var(--yellow);font-weight:700}
+.sched-item.next{background:#fff0f7;border-color:var(--pink);font-weight:600}
 .sched-item.upcoming{background:#fff}
 .sched-date{font-weight:700;min-width:70px;font-size:.82rem;flex-shrink:0}
 .sched-subj{flex:1}
 .sched-pill{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0}
 .pill-done{background:#e6fff4;color:var(--green);border:1px solid var(--green)}
 .pill-today{background:var(--teal);color:#fff}
+.pill-next{background:var(--pink);color:#fff}
 .pill-upcoming{background:#eee;color:#666}
 .subject-section{margin-bottom:28px}
 .subject-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:14px 18px;background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:3px 3px 0 var(--ink)}
@@ -39,6 +41,7 @@ h1 .accent{color:var(--red);font-style:italic}
 .status-badge{margin-left:auto;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:700;white-space:nowrap;flex-shrink:0;border:2px solid}
 .badge-done{color:var(--green);border-color:var(--green)}
 .badge-today{color:#fff;background:var(--teal);border-color:var(--teal)}
+.badge-next{color:#fff;background:var(--pink);border-color:var(--pink)}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
 .mat-card{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:16px 14px;box-shadow:4px 4px 0 var(--ink);text-decoration:none;color:var(--ink);display:flex;align-items:flex-start;gap:12px;transition:transform .15s,box-shadow .15s}
 .mat-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
@@ -59,12 +62,15 @@ h1 .accent{color:var(--red);font-style:italic}
 .matem .subject-header{background:linear-gradient(135deg,#fff 0%,#fff8ee 100%)}
 .math-en .subject-info h2{color:var(--teal)}
 .math-en .subject-header{background:linear-gradient(135deg,#fff 0%,#e6fffe 100%)}
+.port .subject-info h2{color:var(--pink)}
+.port .subject-header{background:linear-gradient(135deg,#fff 0%,#fff0f7 100%)}
 footer{text-align:center;margin-top:32px;font-family:'Caveat',cursive;font-size:1.5rem;color:var(--blue)}
 footer .star{color:var(--yellow);font-size:1.7rem}
 </style>
 </head>
 <body>
 <div class="container">
+
 <header>
   <h1>Central de <span class="accent">Estudos</span></h1>
   <p class="header-sub">Todos os seus materiais de revisão 📖</p>
@@ -76,29 +82,48 @@ footer .star{color:var(--yellow);font-size:1.7rem}
   <div class="sched-list">
     <div class="sched-item done"><span class="sched-date">22/04 Qua</span><span class="sched-subj">📖 Language Arts</span><span class="sched-pill pill-done">✓ Feita</span></div>
     <div class="sched-item done"><span class="sched-date">23/04 Qui</span><span class="sched-subj">📐 Matemática</span><span class="sched-pill pill-done">✓ Feita</span></div>
-    <div class="sched-item today"><span class="sched-date">24/04 Sex</span><span class="sched-subj">📊 Math (English)</span><span class="sched-pill pill-today">⚡ Hoje!</span></div>
-    <div class="sched-item upcoming"><span class="sched-date">27/04 Seg</span><span class="sched-subj">Língua Portuguesa</span><span class="sched-pill pill-upcoming">Em breve</span></div>
+    <div class="sched-item done"><span class="sched-date">24/04 Sex</span><span class="sched-subj">📊 Math (English)</span><span class="sched-pill pill-done">✓ Feita</span></div>
+    <div class="sched-item next"><span class="sched-date">27/04 Seg</span><span class="sched-subj">📝 Língua Portuguesa</span><span class="sched-pill pill-next">⚡ Segunda!</span></div>
     <div class="sched-item upcoming"><span class="sched-date">28/04 Ter</span><span class="sched-subj">Ciências / Science</span><span class="sched-pill pill-upcoming">Em breve</span></div>
     <div class="sched-item upcoming"><span class="sched-date">29/04 Qua</span><span class="sched-subj">História, Geo & Social Studies</span><span class="sched-pill pill-upcoming">Em breve</span></div>
   </div>
 </div>
 
+<!-- LÍNGUA PORTUGUESA -->
+<div class="subject-section port">
+  <div class="subject-header">
+    <div class="subject-emoji">📝</div>
+    <div class="subject-info">
+      <h2>Língua Portuguesa</h2>
+      <div class="test-info">Prova: <strong>segunda-feira, 27/04</strong> · Substantivos, verbos, acentuação, interpretação</div>
+    </div>
+    <div class="status-badge badge-next">⚡ Segunda!</div>
+  </div>
+  <div class="cards-grid">
+    <a href="portugues_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Resumo Visual</div><div class="mat-desc">Substantivos, verbos, proparoxítonas e interpretação — tudo numa página.</div><span class="mat-tag">Começa aqui</span></div></a>
+    <a href="portugues_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40 cards)</div><div class="mat-desc">Toque para virar. Filtre por tema. Marque acertos e erros.</div><span class="mat-tag">Memorização</span></div></a>
+    <a href="portugues_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Simulado (15 questões)</div><div class="mat-desc">Múltipla escolha com textos para interpretar e gabarito imediato.</div><span class="mat-tag">Testar</span></div></a>
+  </div>
+</div>
+
+<!-- MATH ENGLISH -->
 <div class="subject-section math-en">
   <div class="subject-header">
     <div class="subject-emoji">📊</div>
     <div class="subject-info">
       <h2>Math (English)</h2>
-      <div class="test-info">Test: <strong>Friday, April 24</strong> · Geometry, symmetry, fractions, measurement, data</div>
+      <div class="test-info">Test: <strong>sexta-feira, 24/04</strong> · Geometry, symmetry, fractions, measurement, data</div>
     </div>
-    <div class="status-badge badge-today">⚡ Hoje!</div>
+    <div class="status-badge badge-done">✓ Feita</div>
   </div>
   <div class="cards-grid">
-    <a href="math_en_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Study Sheet</div><div class="mat-desc">Symmetry, triangles, angles, fractions, measurement and graphs.</div><span class="mat-tag">Start here</span></div></a>
+    <a href="math_en_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Study Sheet</div><div class="mat-desc">Symmetry, triangles, angles, fractions, measurement and graphs.</div><span class="mat-tag">Reference</span></div></a>
     <a href="math_en_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40 cards)</div><div class="mat-desc">Tap to flip. Filter by topic. Mark "Got it" or "Review again".</div><span class="mat-tag">Memorize</span></div></a>
     <a href="math_en_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Quiz (15 questions)</div><div class="mat-desc">Multiple choice with instant feedback and full answer key.</div><span class="mat-tag">Practice test</span></div></a>
   </div>
 </div>
 
+<!-- MATEMÁTICA -->
 <div class="subject-section matem">
   <div class="subject-header">
     <div class="subject-emoji">📐</div>
@@ -115,12 +140,13 @@ footer .star{color:var(--yellow);font-size:1.7rem}
   </div>
 </div>
 
+<!-- LANGUAGE ARTS -->
 <div class="subject-section la">
   <div class="subject-header">
     <div class="subject-emoji">📖</div>
     <div class="subject-info">
       <h2>Language Arts</h2>
-      <div class="test-info">Test: <strong>Wednesday, April 22</strong> · Grammar, Reading, Writing, Speaking</div>
+      <div class="test-info">Test: <strong>quarta-feira, 22/04</strong> · Grammar, Reading, Writing, Speaking</div>
     </div>
     <div class="status-badge badge-done">✓ Done</div>
   </div>
