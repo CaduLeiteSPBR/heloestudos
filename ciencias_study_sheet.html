@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciências — Resumo</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--teal:#0096a0;--orange:#f4721e;--shadow:4px 4px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 8%,rgba(6,167,125,.15) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(0,150,160,.13) 0%,transparent 40%)}
+.container{max-width:1100px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:22px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'🫁';position:absolute;top:-18px;left:20px;font-size:36px;transform:rotate(-12deg)}
+header::after{content:'❤️';position:absolute;top:-18px;right:20px;font-size:36px;transform:rotate(12deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--green);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:4px}
+.test-date{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;transition:transform .2s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card-num{position:absolute;top:-14px;left:14px;background:var(--ink);color:var(--paper);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1rem}
+.card h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;margin-bottom:12px;margin-top:4px}
+.card.respiratorio{background:linear-gradient(135deg,#fff 0%,#e6fffe 100%)}
+.card.respiratorio h2{color:var(--teal)}
+.card.circulatorio{background:linear-gradient(135deg,#fff 0%,#fff0f0 100%)}
+.card.circulatorio h2{color:var(--red)}
+.card.alimentacao{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%);grid-column:1/-1}
+.card.alimentacao h2{color:var(--green)}
+ul.lista{list-style:none;padding:0}
+ul.lista li{padding-left:18px;position:relative;margin-bottom:7px;font-size:.93rem;line-height:1.5}
+ul.lista li::before{content:'→';position:absolute;left:0;color:var(--green);font-weight:700}
+.tip{background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:9px 12px;margin-top:12px;font-family:'Caveat',cursive;font-size:1.1rem;line-height:1.3}
+.tip::before{content:'💡 '}
+table.ref{width:100%;font-size:.85rem;margin-top:8px;border-collapse:collapse}
+table.ref th{background:var(--ink);color:var(--paper);padding:5px 8px;text-align:left;font-family:'Fraunces',serif}
+table.ref td{padding:6px 8px;border-bottom:1px dashed #ccc;vertical-align:top;line-height:1.4}
+table.ref tr:last-child td{border-bottom:none}
+table.ref tr:nth-child(even) td{background:#fafafa}
+.box{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.6}
+.alim-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:10px}
+.alim-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;font-size:.82rem;line-height:1.5;text-align:center}
+.alim-card .alim-icon{font-size:1.8rem;display:block;margin-bottom:4px}
+.alim-card strong{display:block;font-size:.88rem;margin-bottom:2px}
+footer{text-align:center;margin-top:28px;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1><span class="accent">Ciências</span> — Resumo</h1>
+  <p class="subtitle">Sistemas do corpo e alimentação saudável ⭐</p>
+  <div class="test-date">📖 Prova: Terça-feira, 28 de abril</div>
+</header>
+<div class="grid">
+
+<!-- RESPIRATÓRIO -->
+<section class="card respiratorio">
+  <div class="card-num">1</div>
+  <h2>🫁 Sistema Respiratório</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">Responsável por levar <strong>oxigênio</strong> ao sangue e eliminar o <strong>gás carbônico</strong> do corpo.</p>
+  <table class="ref">
+    <tr><th>Órgão</th><th>Função</th></tr>
+    <tr><td><strong>Nariz / Boca</strong></td><td>Entrada do ar. O nariz filtra, aquece e umidifica.</td></tr>
+    <tr><td><strong>Faringe e Laringe</strong></td><td>Passagem do ar da boca/nariz para a traqueia.</td></tr>
+    <tr><td><strong>Traqueia</strong></td><td>Tubo que conduz o ar até os brônquios.</td></tr>
+    <tr><td><strong>Brônquios</strong></td><td>Dois tubos que levam o ar a cada pulmão.</td></tr>
+    <tr><td><strong>Pulmões</strong></td><td>Órgãos principais. Onde acontece a troca de gases.</td></tr>
+    <tr><td><strong>Alvéolos</strong></td><td>Bolsinhas nos pulmões onde o oxigênio entra no sangue e o gás carbônico sai.</td></tr>
+    <tr><td><strong>Diafragma</strong></td><td>Músculo que controla a respiração (sobe e desce).</td></tr>
+  </table>
+  <div class="box" style="margin-top:10px">
+    <strong>Como funciona:</strong><br>
+    Inspiração → ar entra → oxigênio passa para o sangue nos alvéolos<br>
+    Expiração → gás carbônico sai do sangue → é eliminado pelo ar expirado
+  </div>
+  <div class="tip">Os pulmões não movem sozinhos — é o diafragma que faz o trabalho! Quando ele desce, o ar entra. Quando sobe, o ar sai.</div>
+</section>
+
+<!-- CIRCULATÓRIO -->
+<section class="card circulatorio">
+  <div class="card-num">2</div>
+  <h2>❤️ Sistema Circulatório</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">Responsável por transportar <strong>sangue, oxigênio e nutrientes</strong> para todas as células do corpo.</p>
+  <table class="ref">
+    <tr><th>Componente</th><th>Função</th></tr>
+    <tr><td><strong>Coração</strong></td><td>Bomba muscular que impulsiona o sangue pelo corpo. Tem 4 câmaras: 2 átrios e 2 ventrículos.</td></tr>
+    <tr><td><strong>Artérias</strong></td><td>Vasos que levam o sangue oxigenado do coração para o corpo.</td></tr>
+    <tr><td><strong>Veias</strong></td><td>Vasos que trazem o sangue com gás carbônico de volta ao coração.</td></tr>
+    <tr><td><strong>Capilares</strong></td><td>Vasos minúsculos que chegam a todas as células do corpo.</td></tr>
+    <tr><td><strong>Sangue</strong></td><td>Transporta oxigênio, nutrientes, hormônios e defesas imunológicas.</td></tr>
+  </table>
+  <div class="box" style="margin-top:10px">
+    <strong>Parceria pulmões + coração:</strong><br>
+    Coração → pulmões (sangue sem oxigênio)<br>
+    Pulmões → coração (sangue com oxigênio)<br>
+    Coração → corpo todo (oxigênio + nutrientes)<br>
+    Corpo → coração (sangue com gás carbônico)
+  </div>
+  <div class="tip">Artéria = vai do coração (lembra: Artéria = vai embora). Veia = volta ao coração.</div>
+</section>
+
+<!-- ALIMENTAÇÃO -->
+<section class="card alimentacao">
+  <div class="card-num">3</div>
+  <h2>🥗 Alimentação Saudável</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">O que comemos afeta diretamente o funcionamento dos sistemas do nosso corpo. Uma boa alimentação mantém o organismo saudável.</p>
+  <div class="alim-grid">
+    <div class="alim-card">
+      <span class="alim-icon">🍞</span>
+      <strong>Carboidratos</strong>
+      Principal fonte de energia do corpo<br>
+      <em>Ex: pão, arroz, massa, batata</em>
+    </div>
+    <div class="alim-card">
+      <span class="alim-icon">🥩</span>
+      <strong>Proteínas</strong>
+      Constroem e reparam músculos e tecidos<br>
+      <em>Ex: carne, ovo, feijão, leite</em>
+    </div>
+    <div class="alim-card">
+      <span class="alim-icon">🥑</span>
+      <strong>Gorduras</strong>
+      Reserva de energia e proteção dos órgãos<br>
+      <em>Ex: azeite, abacate, castanhas</em>
+    </div>
+    <div class="alim-card">
+      <span class="alim-icon">🍊</span>
+      <strong>Vitaminas</strong>
+      Regulam funções do corpo e fortalecem a imunidade<br>
+      <em>Ex: frutas, legumes, verduras</em>
+    </div>
+    <div class="alim-card">
+      <span class="alim-icon">🥛</span>
+      <strong>Sais Minerais</strong>
+      Fortalecem ossos, dentes e músculos<br>
+      <em>Ex: cálcio (leite), ferro (carne)</em>
+    </div>
+    <div class="alim-card">
+      <span class="alim-icon">💧</span>
+      <strong>Água</strong>
+      Essencial para todas as funções do organismo<br>
+      <em>Beba pelo menos 6-8 copos por dia</em>
+    </div>
+  </div>
+  <div class="tip">Hábitos saudáveis = comer de forma equilibrada + praticar exercícios + dormir bem + beber água. Tudo isso mantém os sistemas do corpo funcionando em harmonia!</div>
+</section>
+
+</div>
+<footer>⭐ Você consegue, Helô! Boa prova! ⭐</footer>
+</div>
+</body>
+</html>

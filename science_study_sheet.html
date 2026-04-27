@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science — Study Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--teal:#0096a0;--orange:#f4721e;--shadow:4px 4px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 8%,rgba(114,9,183,.13) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(244,114,30,.11) 0%,transparent 40%)}
+.container{max-width:1100px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:22px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'🔬';position:absolute;top:-18px;left:20px;font-size:36px;transform:rotate(-12deg)}
+header::after{content:'🧬';position:absolute;top:-18px;right:20px;font-size:36px;transform:rotate(12deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--purple);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:4px}
+.test-date{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;transition:transform .2s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card-num{position:absolute;top:-14px;left:14px;background:var(--ink);color:var(--paper);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1rem}
+.card h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;margin-bottom:12px;margin-top:4px}
+.card.digestive{background:linear-gradient(135deg,#fff 0%,#f0e6ff 100%)}
+.card.digestive h2{color:var(--purple)}
+.card.systems{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.card.systems h2{color:var(--blue)}
+.card.nutrition{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%);grid-column:1/-1}
+.card.nutrition h2{color:var(--green)}
+ul.lista{list-style:none;padding:0}
+ul.lista li{padding-left:18px;position:relative;margin-bottom:7px;font-size:.93rem;line-height:1.5}
+ul.lista li::before{content:'→';position:absolute;left:0;color:var(--purple);font-weight:700}
+.tip{background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:9px 12px;margin-top:12px;font-family:'Caveat',cursive;font-size:1.1rem;line-height:1.3}
+.tip::before{content:'💡 '}
+table.ref{width:100%;font-size:.85rem;margin-top:8px;border-collapse:collapse}
+table.ref th{background:var(--ink);color:var(--paper);padding:5px 8px;text-align:left;font-family:'Fraunces',serif}
+table.ref td{padding:6px 8px;border-bottom:1px dashed #ccc;vertical-align:top;line-height:1.4}
+table.ref tr:last-child td{border-bottom:none}
+table.ref tr:nth-child(even) td{background:#fafafa}
+.box{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.6}
+.nutr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:10px}
+.nutr-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;font-size:.82rem;line-height:1.5;text-align:center}
+.nutr-card .icon{font-size:1.8rem;display:block;margin-bottom:4px}
+.nutr-card strong{display:block;font-size:.88rem;margin-bottom:2px}
+footer{text-align:center;margin-top:28px;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1><span class="accent">Science</span> — Study Sheet</h1>
+  <p class="subtitle">Human body systems and healthy eating! ⭐</p>
+  <div class="test-date">📖 Test: Tuesday, April 28</div>
+</header>
+<div class="grid">
+
+<!-- DIGESTIVE SYSTEM -->
+<section class="card digestive">
+  <div class="card-num">1</div>
+  <h2>🫃 Digestive System</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">The digestive system breaks down food into nutrients that the body can use for energy, growth and repair.</p>
+  <table class="ref">
+    <tr><th>Organ</th><th>What it does</th></tr>
+    <tr><td><strong>Mouth</strong></td><td>Chews food and mixes it with saliva to begin digestion.</td></tr>
+    <tr><td><strong>Esophagus</strong></td><td>Tube that carries food from the mouth to the stomach.</td></tr>
+    <tr><td><strong>Stomach</strong></td><td>Mixes food with acids and digestive juices. Breaks it into a mushy liquid.</td></tr>
+    <tr><td><strong>Small intestine</strong></td><td>Absorbs nutrients from food into the bloodstream. Most digestion happens here.</td></tr>
+    <tr><td><strong>Large intestine</strong></td><td>Absorbs water. Turns leftover material into solid waste.</td></tr>
+    <tr><td><strong>Rectum & Anus</strong></td><td>Store and remove solid waste from the body.</td></tr>
+  </table>
+  <div class="box" style="margin-top:10px">
+    <strong>The journey of food:</strong><br>
+    Mouth → Esophagus → Stomach → Small intestine → Large intestine → Out
+  </div>
+  <div class="tip">Digestion starts in the MOUTH, not the stomach! Saliva already begins breaking down food as you chew.</div>
+</section>
+
+<!-- BODY SYSTEMS -->
+<section class="card systems">
+  <div class="card-num">2</div>
+  <h2>🫀 How Body Systems Work Together</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">The body systems do not work alone — they all depend on each other to keep the body healthy and functioning.</p>
+  <table class="ref">
+    <tr><th>System</th><th>Main job</th><th>Works with</th></tr>
+    <tr><td><strong>Digestive</strong></td><td>Breaks down food into nutrients</td><td>Circulatory (delivers nutrients)</td></tr>
+    <tr><td><strong>Respiratory</strong></td><td>Brings oxygen in, removes CO2</td><td>Circulatory (carries oxygen)</td></tr>
+    <tr><td><strong>Circulatory</strong></td><td>Transports blood, oxygen & nutrients</td><td>All systems</td></tr>
+  </table>
+  <div class="box" style="margin-top:10px">
+    <strong>Example of teamwork:</strong><br>
+    1. You eat food → Digestive system breaks it into nutrients<br>
+    2. Nutrients enter the blood → Circulatory system carries them<br>
+    3. You breathe in → Respiratory system adds oxygen to blood<br>
+    4. Blood delivers oxygen + nutrients to all cells
+  </div>
+  <div class="tip">All systems share one goal: keep every cell in the body alive and working!</div>
+</section>
+
+<!-- NUTRITION -->
+<section class="card nutrition">
+  <div class="card-num">3</div>
+  <h2>🥗 Nutrition and Healthy Eating</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">What we eat directly affects how our body works. A balanced diet gives the body everything it needs.</p>
+  <div class="nutr-grid">
+    <div class="nutr-card"><span class="icon">🍞</span><strong>Carbohydrates</strong>Main source of energy<br><em>Bread, rice, pasta, potato</em></div>
+    <div class="nutr-card"><span class="icon">🥩</span><strong>Proteins</strong>Build and repair muscles and cells<br><em>Meat, eggs, beans, milk</em></div>
+    <div class="nutr-card"><span class="icon">🥑</span><strong>Fats</strong>Energy reserve and organ protection<br><em>Olive oil, avocado, nuts</em></div>
+    <div class="nutr-card"><span class="icon">🍊</span><strong>Vitamins</strong>Regulate body functions and immunity<br><em>Fruits, vegetables, greens</em></div>
+    <div class="nutr-card"><span class="icon">🥛</span><strong>Mineral Salts</strong>Strengthen bones, teeth and muscles<br><em>Calcium (milk), Iron (meat)</em></div>
+    <div class="nutr-card"><span class="icon">💧</span><strong>Water</strong>Essential for all body functions<br><em>Drink 6–8 glasses per day</em></div>
+  </div>
+  <div class="box" style="margin-top:12px">
+    <strong>How eating habits affect the body:</strong><br>
+    Good habits (balanced diet, exercise, water, sleep) → body systems work in harmony<br>
+    Poor habits (too much sugar/fat, no exercise) → can lead to obesity, heart disease, low energy
+  </div>
+  <div class="tip">No single food has everything! That is why we need to eat a VARIETY of foods from different groups every day.</div>
+</section>
+
+</div>
+<footer>⭐ You've got this, Helô! Good luck! ⭐</footer>
+</div>
+</body>
+</html>

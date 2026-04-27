@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciências / Science — Flashcards</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--teal:#0096a0;--orange:#f4721e;--shadow:6px 6px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:20px 16px 40px;background-image:radial-gradient(circle at 20% 10%,rgba(6,167,125,.15) 0%,transparent 40%),radial-gradient(circle at 90% 80%,rgba(114,9,183,.12) 0%,transparent 40%)}
+.container{max-width:700px;margin:0 auto}
+header{text-align:center;margin-bottom:22px}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.5rem,5vw,2.1rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--green);font-style:italic}
+h1 .accent2{color:var(--purple);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--blue);margin-top:4px}
+.top-bar{display:flex;justify-content:space-between;align-items:center;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:10px 14px;box-shadow:3px 3px 0 var(--ink);margin-bottom:14px;font-size:.9rem;font-weight:700;flex-wrap:wrap;gap:8px}
+.progress{display:flex;align-items:center;gap:8px}
+.progress-bar{width:100px;height:10px;background:#eee;border:2px solid var(--ink);border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);width:0%;transition:width .4s}
+.cat-badge{padding:3px 10px;border:2px solid var(--ink);border-radius:20px;font-size:.75rem;background:var(--yellow);text-transform:uppercase;letter-spacing:.5px}
+.filters{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.filter-btn{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:700;padding:4px 10px;border:2px solid var(--ink);border-radius:20px;background:#fff;cursor:pointer;transition:all .15s}
+.filter-btn.active{background:var(--ink);color:var(--paper)}
+.flashcard{width:100%;min-height:320px;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);padding:44px 22px 40px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,#fff 0%,#e6fff4 100%);cursor:pointer;position:relative;margin-bottom:18px;transition:background .25s ease,opacity .15s ease;user-select:none;-webkit-user-select:none}
+.flashcard.is-back{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.flashcard.fading{opacity:0}
+.card-label{position:absolute;top:13px;left:16px;font-family:'Caveat',cursive;font-size:.95rem;color:var(--purple);font-weight:700}
+.card-counter{position:absolute;top:13px;right:16px;font-size:.78rem;color:#888;font-weight:700}
+.card-hint{position:absolute;bottom:13px;left:50%;transform:translateX(-50%);font-family:'Caveat',cursive;font-size:.95rem;color:#999;white-space:nowrap}
+.card-content{width:100%}
+.card-prompt{font-family:'Fraunces',serif;font-size:clamp(1.1rem,4vw,1.6rem);font-weight:900;line-height:1.3;margin-bottom:10px}
+.card-sub{font-size:.93rem;color:#666;font-style:italic;line-height:1.4}
+.card-answer{font-family:'Fraunces',serif;font-size:clamp(1.1rem,4vw,1.6rem);font-weight:900;color:var(--blue);margin-bottom:10px;line-height:1.3}
+.card-example{background:rgba(255,190,11,.25);border-left:3px solid var(--yellow);padding:9px 12px;border-radius:6px;font-size:.88rem;font-style:italic;max-width:95%;margin:0 auto;line-height:1.5}
+.card-example strong{color:var(--red);font-style:normal}
+.controls{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:10px;margin-bottom:12px}
+.btn{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;padding:12px 14px;border:3px solid var(--ink);border-radius:12px;background:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all .1s}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn-nav{font-size:1.2rem;padding:12px 12px}
+.btn-got{background:var(--green);color:#fff}
+.btn-rev{background:var(--red);color:#fff}
+.tools{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.tool-btn{font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:700;padding:7px 13px;border:2px solid var(--ink);border-radius:20px;background:#fff;cursor:pointer}
+.tool-btn:hover{background:var(--yellow)}
+.stats{margin-top:18px;padding:13px;background:#fff;border:3px solid var(--ink);border-radius:14px;display:flex;justify-content:space-around;text-align:center;font-size:.83rem}
+.stat-value{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:900;display:block}
+.stat-value.green{color:var(--green)}.stat-value.red{color:var(--red)}.stat-value.blue{color:var(--blue)}
+.finished{text-align:center;padding:36px 20px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);display:none}
+.finished.show{display:block}
+.finished h2{font-family:'Fraunces',serif;font-size:1.9rem;color:var(--green);margin-bottom:10px}
+.finished .big{font-size:3.5rem;display:block;margin-bottom:8px}
+@media(max-width:480px){.controls{grid-template-columns:1fr 1fr}.btn-nav{grid-column:span 1}.flashcard{min-height:300px;padding:40px 16px 38px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1><span class="accent">Ciências</span> / <span class="accent2">Science</span></h1>
+  <p class="subtitle">Toque no card para ver a resposta! 🎴</p>
+</header>
+<div class="top-bar">
+  <div class="progress"><span id="progressText">1 / 40</span><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
+  <div class="cat-badge" id="catBadge">Respiratório</div>
+</div>
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">Todos (40)</button>
+  <button class="filter-btn" data-filter="respiratorio">🫁 Respiratório</button>
+  <button class="filter-btn" data-filter="circulatorio">❤️ Circulatório</button>
+  <button class="filter-btn" data-filter="digestivo">🫃 Digestivo (EN)</button>
+  <button class="filter-btn" data-filter="alimentacao">🥗 Alimentação</button>
+  <button class="filter-btn" data-filter="review">⚠️ Revisar</button>
+</div>
+<div class="flashcard" id="flashcard" role="button" tabindex="0">
+  <div class="card-label" id="cardLabel">Sistema Respiratório</div>
+  <div class="card-counter" id="cardCounter">1/40</div>
+  <div class="card-content" id="cardContent"></div>
+  <div class="card-hint" id="cardHint">👆 toque para ver a resposta</div>
+</div>
+<div class="controls">
+  <button class="btn btn-nav" id="prevBtn">◀</button>
+  <button class="btn btn-rev" id="reviewBtn">Revisar</button>
+  <button class="btn btn-got" id="gotItBtn">Acertei! ✓</button>
+  <button class="btn btn-nav" id="nextBtn">▶</button>
+</div>
+<div class="tools">
+  <button class="tool-btn" id="shuffleBtn">🔀 Embaralhar</button>
+  <button class="tool-btn" id="resetBtn">↺ Resetar</button>
+</div>
+<div class="stats">
+  <div><span class="stat-value green" id="statGood">0</span><span>Acertei</span></div>
+  <div><span class="stat-value red" id="statReview">0</span><span>Revisar</span></div>
+  <div><span class="stat-value blue" id="statLeft">40</span><span>Faltam</span></div>
+</div>
+<div class="finished" id="finishedScreen">
+  <span class="big">🎉</span>
+  <h2>Arrasou, Helô!</h2>
+  <p style="margin-bottom:14px">Você revisou todos os cards.</p>
+  <p id="finishedStats" style="margin-bottom:20px"></p>
+  <button class="btn" id="restartBtn" style="background:var(--blue);color:#fff">Recomeçar 🔁</button>
+</div>
+</div>
+<script>
+var allCards=[
+  // RESPIRATÓRIO (10)
+  {cat:'respiratorio',label:'Sistema Respiratório',q:'Qual é a função principal do sistema respiratório?',sub:'',a:'Levar oxigênio ao sangue e eliminar gás carbônico',ex:'Sem oxigênio, as células do corpo não conseguem produzir energia.'},
+  {cat:'respiratorio',label:'Sistema Respiratório',q:'O que são os alvéolos?',sub:'',a:'Bolsinhas nos pulmões onde ocorre a troca de gases',ex:'Oxigênio entra no sangue e gás carbônico sai — tudo nos <strong>alvéolos</strong>.'},
+  {cat:'respiratorio',label:'Sistema Respiratório',q:'Qual músculo controla os movimentos de inspiração e expiração?',sub:'',a:'O diafragma',ex:'Diafragma desce → ar entra. Diafragma sobe → ar sai.'},
+  {cat:'respiratorio',label:'Sistema Respiratório',q:'Qual é a função da traqueia?',sub:'',a:'Conduzir o ar da laringe até os brônquios',ex:'A traqueia é um tubo que fica no pescoço e no tórax.'},
+  {cat:'respiratorio',label:'Sistema Respiratório',q:'Qual é a diferença entre inspiração e expiração?',sub:'',a:'Inspiração = ar entra (com oxigênio). Expiração = ar sai (com gás carbônico).',ex:'Inspire profundamente → está levando <strong>oxigênio</strong> para o sangue.'},
+  {cat:'respiratorio',label:'Sistema Respiratório',q:'Qual é a função dos brônquios?',sub:'',a:'Levar o ar de cada lado para dentro dos pulmões',ex:'A traqueia se divide em <strong>dois brônquios</strong> — um para cada pulmão.'},
+  {cat:'respiratorio',label:'Sistema Respiratório',q:'Por que o nariz é importante na respiração?',sub:'',a:'Filtra, aquece e umidifica o ar antes de entrar nos pulmões',ex:'Respirar pelo nariz é mais saudável do que pela boca!'},
+  {cat:'respiratorio',label:'Sistema Respiratório',q:'O que é trocado nos alvéolos?',sub:'',a:'Oxigênio entra no sangue; gás carbônico sai do sangue',ex:'É a "troca de gases": O₂ entra, CO₂ sai.'},
+  {cat:'respiratorio',label:'Sistema Respiratório',q:'Quais são os órgãos principais do sistema respiratório?',sub:'',a:'Nariz, faringe, laringe, traqueia, brônquios, pulmões e alvéolos',ex:'O caminho do ar: nariz → faringe → laringe → traqueia → brônquios → pulmões.'},
+  {cat:'respiratorio',label:'Sistema Respiratório',q:'Como os pulmões e o coração trabalham juntos?',sub:'',a:'O coração manda sangue aos pulmões para receber oxigênio, depois distribui para o corpo',ex:'Parceria essencial: sem um, o outro não funciona direito.'},
+
+  // CIRCULATÓRIO (10)
+  {cat:'circulatorio',label:'Sistema Circulatório',q:'Qual é a função principal do coração?',sub:'',a:'Bombear o sangue para todo o corpo',ex:'O coração bate cerca de 100.000 vezes por dia!'},
+  {cat:'circulatorio',label:'Sistema Circulatório',q:'O que são as artérias?',sub:'',a:'Vasos que levam sangue rico em oxigênio do coração para o corpo',ex:'Artéria = vai embora do coração. Leva oxigênio para os órgãos.'},
+  {cat:'circulatorio',label:'Sistema Circulatório',q:'O que são as veias?',sub:'',a:'Vasos que trazem o sangue com gás carbônico de volta ao coração',ex:'Veia = volta para o coração. Traz o sangue "usado".'},
+  {cat:'circulatorio',label:'Sistema Circulatório',q:'O que são os capilares?',sub:'',a:'Vasos sanguíneos minúsculos que chegam a todas as células',ex:'São tão finos que apenas uma célula passa de cada vez!'},
+  {cat:'circulatorio',label:'Sistema Circulatório',q:'Quantas câmaras tem o coração humano?',sub:'',a:'4 câmaras: 2 átrios (em cima) e 2 ventrículos (embaixo)',ex:'Átrio direito e esquerdo recebem sangue. Ventrículos bombeiam sangue.'},
+  {cat:'circulatorio',label:'Sistema Circulatório',q:'O que o sangue transporta pelo corpo?',sub:'',a:'Oxigênio, nutrientes, hormônios e defesas do sistema imunológico',ex:'O sangue é como um caminhão de entregas para as células!'},
+  {cat:'circulatorio',label:'Sistema Circulatório',q:'Qual é a diferença entre artéria e veia?',sub:'',a:'Artéria leva sangue do coração para o corpo. Veia traz de volta ao coração.',ex:'Macete: Artéria = vai embora. Veia = volta.'},
+  {cat:'circulatorio',label:'Sistema Circulatório',q:'Como o sistema circulatório e o respiratório se relacionam?',sub:'',a:'O circulatório transporta o oxigênio capturado pelos pulmões para todo o corpo',ex:'Respiratório capta o O₂. Circulatório distribui. Parceria perfeita!'},
+  {cat:'circulatorio',label:'Sistema Circulatório',q:'O que acontece com o sangue quando chega aos pulmões?',sub:'',a:'Ele libera o gás carbônico e recebe oxigênio novo',ex:'Sangue "sujo" vai para os pulmões e volta "limpo" e oxigenado.'},
+  {cat:'circulatorio',label:'Sistema Circulatório',q:'Por que hábitos saudáveis são importantes para o coração?',sub:'',a:'Exercícios e boa alimentação fortalecem o coração e os vasos sanguíneos',ex:'Gordura em excesso pode entupir as artérias — por isso evitar frituras!'},
+
+  // DIGESTIVO (10) — em inglês (Science)
+  {cat:'digestivo',label:'Digestive System (EN)',q:'What is the main job of the digestive system?',sub:'In English',a:'To break down food into nutrients the body can use',ex:'Without digestion, cells could not get the energy and materials they need.'},
+  {cat:'digestivo',label:'Digestive System (EN)',q:'Where does digestion begin?',sub:'In English',a:'In the mouth',ex:'Saliva starts breaking down food as soon as you chew. Digestion = mouth first!'},
+  {cat:'digestivo',label:'Digestive System (EN)',q:'What is the job of the stomach?',sub:'In English',a:'Mixes food with acids and digestive juices to break it into a mushy liquid',ex:'The stomach is like a blender — it mashes and mixes everything together.'},
+  {cat:'digestivo',label:'Digestive System (EN)',q:'What is the small intestine\'s job?',sub:'In English',a:'It absorbs nutrients from food into the bloodstream',ex:'Most digestion happens in the <strong>small intestine</strong>. It is about 6 meters long!'},
+  {cat:'digestivo',label:'Digestive System (EN)',q:'What does the large intestine do?',sub:'In English',a:'Absorbs water and turns leftover material into solid waste',ex:'The large intestine is shorter but wider than the small intestine.'},
+  {cat:'digestivo',label:'Digestive System (EN)',q:'What is the esophagus?',sub:'In English',a:'A tube that carries food from the mouth to the stomach',ex:'Food travels down the esophagus by muscle contractions — not just gravity!'},
+  {cat:'digestivo',label:'Digestive System (EN)',q:'What is the correct order of the digestive system?',sub:'In English',a:'Mouth → Esophagus → Stomach → Small intestine → Large intestine → Out',ex:'Remember: food always travels in this order through the digestive system.'},
+  {cat:'digestivo',label:'Digestive System (EN)',q:'How does the digestive system work with the circulatory system?',sub:'In English',a:'The digestive system absorbs nutrients, and the circulatory system carries them to all cells',ex:'Nutrients from food → absorbed in small intestine → blood carries them everywhere.'},
+  {cat:'digestivo',label:'Digestive System (EN)',q:'What happens to food that cannot be digested?',sub:'In English',a:'It passes to the large intestine and is removed as solid waste',ex:'Fiber in food is mostly not digested — it helps the large intestine work properly.'},
+  {cat:'digestivo',label:'Digestive System (EN)',q:'Why is saliva important?',sub:'In English',a:'It contains enzymes that begin breaking down food in the mouth',ex:'Saliva makes food softer and easier to swallow, and starts digesting carbohydrates.'},
+
+  // ALIMENTAÇÃO / NUTRITION (10)
+  {cat:'alimentacao',label:'Alimentação / Nutrition',q:'Qual é a função dos carboidratos?',sub:'PT + EN',a:'Principal fonte de energia do corpo / Main source of energy',ex:'<strong>Pão, arroz, massa, batata</strong> — Bread, rice, pasta, potato.'},
+  {cat:'alimentacao',label:'Alimentação / Nutrition',q:'Qual é a função das proteínas?',sub:'PT + EN',a:'Constroem e reparam músculos e tecidos / Build and repair muscles and cells',ex:'<strong>Carne, ovo, feijão, leite</strong> — Meat, eggs, beans, milk.'},
+  {cat:'alimentacao',label:'Alimentação / Nutrition',q:'Para que servem as gorduras?',sub:'PT + EN',a:'Reserva de energia e proteção dos órgãos / Energy reserve and organ protection',ex:'<strong>Azeite, abacate, castanhas</strong> — Olive oil, avocado, nuts.'},
+  {cat:'alimentacao',label:'Alimentação / Nutrition',q:'Qual é a função das vitaminas?',sub:'PT + EN',a:'Regulam funções do corpo e fortalecem a imunidade / Regulate body functions and immunity',ex:'<strong>Frutas, legumes, verduras</strong> — Fruits, vegetables, greens.'},
+  {cat:'alimentacao',label:'Alimentação / Nutrition',q:'Para que servem os sais minerais?',sub:'PT + EN',a:'Fortalecem ossos, dentes e músculos / Strengthen bones, teeth and muscles',ex:'<strong>Cálcio</strong> (leite/milk), <strong>Ferro</strong> (carne/meat).'},
+  {cat:'alimentacao',label:'Alimentação / Nutrition',q:'Por que a água é essencial?',sub:'',a:'É necessária para TODAS as funções do organismo',ex:'O corpo humano é composto de cerca de 60% de água. Beba bastante!'},
+  {cat:'alimentacao',label:'Alimentação / Nutrition',q:'Como os hábitos alimentares afetam o corpo?',sub:'',a:'Boa alimentação mantém os sistemas funcionando. Má alimentação pode causar doenças.',ex:'Excesso de gordura/açúcar → risco de obesidade e doenças cardíacas.'},
+  {cat:'alimentacao',label:'Alimentação / Nutrition',q:'O que é uma dieta equilibrada?',sub:'What is a balanced diet?',a:'Comer alimentos variados de todos os grupos / Eating varied foods from all groups',ex:'Nenhum alimento isolado tem tudo que o corpo precisa. Variedade é essencial!'},
+  {cat:'alimentacao',label:'Alimentação / Nutrition',q:'Cite 3 hábitos saudáveis além da alimentação',sub:'',a:'Praticar exercícios, dormir bem e beber bastante água',ex:'Exercício + sono + hidratação + alimentação = corpo saudável!'},
+  {cat:'alimentacao',label:'Alimentação / Nutrition',q:'Which nutrient is the MAIN source of energy for the body?',sub:'In English',a:'Carbohydrates',ex:'Carbohydrates give the body the fuel it needs to move, think and grow.'},
+];
+
+var cards=allCards.slice(),currentIndex=0,showingAnswer=false,currentFilter='all';
+var knownSet=new Set(),reviewSet=new Set();
+var flashcard=document.getElementById('flashcard'),cardLabel=document.getElementById('cardLabel'),cardCounter=document.getElementById('cardCounter'),cardContent=document.getElementById('cardContent'),cardHint=document.getElementById('cardHint'),catBadge=document.getElementById('catBadge'),progressText=document.getElementById('progressText'),progressFill=document.getElementById('progressFill'),statGood=document.getElementById('statGood'),statReview=document.getElementById('statReview'),statLeft=document.getElementById('statLeft'),finishedScreen=document.getElementById('finishedScreen'),finishedStats=document.getElementById('finishedStats');
+function getId(c){return c.cat+'::'+c.q;}
+function renderFront(c){cardContent.innerHTML='<div class="card-prompt">'+c.q+'</div>'+(c.sub?'<div class="card-sub">'+c.sub+'</div>':'');cardHint.textContent='👆 toque para ver a resposta';flashcard.classList.remove('is-back');}
+function renderBack(c){cardContent.innerHTML='<div class="card-answer">'+c.a+'</div>'+(c.ex?'<div class="card-example">'+c.ex+'</div>':'');cardHint.textContent='👆 toque para ver a pergunta';flashcard.classList.add('is-back');}
+function renderCard(){if(!cards.length){cardContent.innerHTML='<div class="card-prompt">🎉</div><div class="card-sub">Nenhum card nesse filtro!</div>';cardLabel.textContent='';cardCounter.textContent='';cardHint.textContent='';return;}var c=cards[currentIndex];showingAnswer=false;cardLabel.textContent=c.label;cardCounter.textContent=(currentIndex+1)+'/'+cards.length;renderFront(c);var cats={respiratorio:'Respiratório',circulatorio:'Circulatório',digestivo:'Digestivo (EN)',alimentacao:'Alimentação'};catBadge.textContent=cats[c.cat]||c.cat;progressText.textContent=(currentIndex+1)+' / '+cards.length;progressFill.style.width=((currentIndex+1)/cards.length*100)+'%';updateStats();}
+function toggleAnswer(){if(!cards.length)return;var c=cards[currentIndex];if(!c||c.cat==='info')return;flashcard.classList.add('fading');setTimeout(function(){showingAnswer=!showingAnswer;if(showingAnswer)renderBack(c);else renderFront(c);flashcard.classList.remove('fading');},120);}
+function updateStats(){statGood.textContent=knownSet.size;statReview.textContent=reviewSet.size;statLeft.textContent=Math.max(0,allCards.length-knownSet.size);}
+function nextCard(){if(currentIndex<cards.length-1){currentIndex++;renderCard();}else showFinished();}
+function prevCard(){if(currentIndex>0){currentIndex--;renderCard();}}
+function showFinished(){flashcard.style.display='none';document.querySelector('.controls').style.display='none';finishedScreen.classList.add('show');finishedStats.innerHTML='✅ <strong>'+knownSet.size+'</strong> acertados<br>🔁 <strong>'+reviewSet.size+'</strong> para revisar';}
+function restart(){currentIndex=0;flashcard.style.display='';document.querySelector('.controls').style.display='';finishedScreen.classList.remove('show');applyFilter(currentFilter);}
+function shuffle(){for(var i=cards.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=cards[i];cards[i]=cards[j];cards[j]=t;}currentIndex=0;renderCard();}
+function applyFilter(f){currentFilter=f;document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.toggle('active',b.dataset.filter===f);});if(f==='all')cards=allCards.slice();else if(f==='review'){cards=allCards.filter(function(c){return reviewSet.has(getId(c));});if(!cards.length)cards=[{cat:'info',label:'',q:'😊',sub:'Nenhum card marcado para revisar!',a:'',ex:''}];}else cards=allCards.filter(function(c){return c.cat===f;});currentIndex=0;renderCard();}
+flashcard.addEventListener('click',toggleAnswer);
+flashcard.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();toggleAnswer();}});
+document.getElementById('nextBtn').addEventListener('click',function(e){e.stopPropagation();nextCard();});
+document.getElementById('prevBtn').addEventListener('click',function(e){e.stopPropagation();prevCard();});
+document.getElementById('gotItBtn').addEventListener('click',function(e){e.stopPropagation();if(!cards.length||cards[currentIndex].cat==='info')return;var id=getId(cards[currentIndex]);knownSet.add(id);reviewSet.delete(id);nextCard();});
+document.getElementById('reviewBtn').addEventListener('click',function(e){e.stopPropagation();if(!cards.length||cards[currentIndex].cat==='info')return;var id=getId(cards[currentIndex]);reviewSet.add(id);knownSet.delete(id);nextCard();});
+document.getElementById('shuffleBtn').addEventListener('click',shuffle);
+document.getElementById('resetBtn').addEventListener('click',function(){if(confirm('Resetar todo o progresso?')){knownSet.clear();reviewSet.clear();applyFilter('all');}});
+document.getElementById('restartBtn').addEventListener('click',restart);
+document.querySelectorAll('.filter-btn').forEach(function(btn){btn.addEventListener('click',function(){applyFilter(btn.dataset.filter);});});
+document.addEventListener('keydown',function(e){if(e.target===flashcard)return;if(e.key==='ArrowRight')nextCard();else if(e.key==='ArrowLeft')prevCard();else if(e.key===' '){e.preventDefault();toggleAnswer();}});
+document.querySelector('[data-filter="all"]').textContent='Todos ('+allCards.length+')';
+renderCard();
+</script>
+</body>
+</html>
