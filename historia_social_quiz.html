@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>História, Geo & Social Studies — Simulado</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--terra:#c1440e;--shadow:5px 5px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 10%,rgba(193,68,14,.15) 0%,transparent 40%),radial-gradient(circle at 85% 85%,rgba(58,134,255,.12) 0%,transparent 40%)}
+.container{max-width:680px;margin:0 auto}
+header{text-align:center;margin-bottom:24px;padding:18px 20px 14px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'🗺️';position:absolute;top:-16px;left:20px;font-size:34px;transform:rotate(-10deg)}
+header::after{content:'⭐';position:absolute;top:-16px;right:20px;font-size:34px;transform:rotate(10deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.3rem,4.5vw,1.9rem);font-weight:900;line-height:1.1}
+h1 .accent{color:var(--terra);font-style:italic}
+h1 .accent2{color:var(--blue);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.15rem;color:var(--purple);margin-top:4px}
+.progress-wrap{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-weight:700;font-size:.9rem}
+.progress-bar{flex:1;height:12px;background:#e8e8e8;border:2px solid var(--ink);border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;background:var(--terra);width:0%;transition:width .4s}
+.question-card{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:22px 18px 18px;box-shadow:var(--shadow);margin-bottom:14px}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.q-number{font-family:'Fraunces',serif;font-size:1rem;font-weight:900;background:var(--ink);color:var(--paper);padding:2px 10px;border-radius:20px}
+.q-tag{font-size:.72rem;font-weight:700;padding:3px 10px;border:2px solid var(--ink);border-radius:20px;background:var(--yellow);text-transform:uppercase;letter-spacing:.4px}
+.q-passage{background:#fff8e6;border-left:4px solid var(--terra);padding:10px 13px;border-radius:6px;font-size:.91rem;line-height:1.6;margin-bottom:14px;font-style:italic}
+.q-text{font-size:1.03rem;font-weight:700;line-height:1.4;margin-bottom:16px}
+.options{display:flex;flex-direction:column;gap:9px}
+.option{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border:2px solid #ccc;border-radius:12px;cursor:pointer;background:#fafafa;transition:all .15s;font-size:.95rem;font-weight:500;text-align:left;width:100%;font-family:'DM Sans',sans-serif;line-height:1.4}
+.option:hover:not(.locked){border-color:var(--terra);background:#fff8e6;transform:translateX(3px)}
+.option .letter{font-family:'Fraunces',serif;font-weight:900;font-size:.95rem;min-width:24px;height:24px;display:flex;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:50%;background:#fff;flex-shrink:0;margin-top:1px}
+.option.locked{cursor:default}
+.option.correct{border-color:var(--green);background:#e6fff6}
+.option.correct .letter{background:var(--green);color:#fff;border-color:var(--green)}
+.option.wrong{border-color:var(--red);background:#fff0f0}
+.option.wrong .letter{background:var(--red);color:#fff;border-color:var(--red)}
+.option.show-ok{border-color:var(--green);background:#e6fff6;opacity:.55}
+.feedback{display:none;margin-top:12px;padding:11px 13px;border-radius:10px;font-size:.91rem;line-height:1.5;border:2px solid}
+.feedback.show{display:block}
+.feedback.correct{background:#e6fff6;border-color:var(--green);color:#054f35}
+.feedback.wrong{background:#fff0f0;border-color:var(--red);color:#7a1010}
+.btn-next{display:none;margin-top:12px;width:100%;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;padding:13px;border:3px solid var(--ink);border-radius:12px;background:var(--terra);color:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all .1s}
+.btn-next:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn-next.show{display:block}
+.results{display:none;text-align:center;background:#fff;border:3px solid var(--ink);border-radius:20px;padding:32px 22px;box-shadow:var(--shadow)}
+.results.show{display:block}
+.results .big-emoji{font-size:3.8rem;display:block;margin-bottom:8px}
+.results h2{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:900;margin-bottom:8px}
+.score-display{font-family:'Fraunces',serif;font-size:3.2rem;font-weight:900;color:var(--terra);margin:10px 0}
+.score-label{font-family:'Caveat',cursive;font-size:1.2rem;color:#666;margin-bottom:18px}
+.result-breakdown{display:flex;justify-content:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.result-item{text-align:center;padding:9px 16px;border:2px solid var(--ink);border-radius:12px;background:var(--paper)}
+.r-val{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;display:block}
+.r-val.green{color:var(--green)}.r-val.red{color:var(--red)}
+.r-label{font-size:.78rem;font-weight:700}
+.wrong-list{text-align:left;background:#fff8f8;border:2px solid var(--red);border-radius:12px;padding:13px 15px;margin-bottom:18px;font-size:.88rem;line-height:1.7}
+.wrong-list h3{font-family:'Fraunces',serif;font-size:.95rem;color:var(--red);margin-bottom:7px}
+.btn-restart{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;padding:12px 26px;border:3px solid var(--ink);border-radius:12px;background:var(--green);color:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1><span class="accent">História & Geo</span> + <span class="accent2">Social Studies</span></h1>
+  <p class="subtitle">15 questões — vai com tudo, Helô! 💪</p>
+</header>
+<div class="progress-wrap">
+  <span id="progressLabel">Questão 1 de 15</span>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div id="quizArea"></div>
+<div class="results" id="resultsScreen"></div>
+</div>
+<script>
+var questions=[
+  // CALENDÁRIOS (3)
+  {tag:'Calendários',q:'Em que tipo de calendário o Ramadã (data religiosa islâmica) é baseado?',opts:['Solar','Gregoriano','Lunar','Lunissolar'],c:2,why:'O calendário islâmico é lunar — baseado nas fases da Lua. Por isso o Ramadã muda de data a cada ano no calendário solar.'},
+  {tag:'Calendários',passage:'"Diferentes sociedades, em diferentes tempos e espaços, criaram formas próprias de medir e registrar o tempo."',q:'O que esse trecho nos ensina?',opts:['Existe um único calendário correto para todos','Cada povo criou seu sistema de acordo com sua cultura e contexto','Os calendários sempre foram baseados no Sol','Somente os europeus desenvolveram calendários'],c:1,why:'Cada civilização criou seu calendário conforme sua cultura, religião e observação da natureza. Não existe um único sistema universal.'},
+  {tag:'Calendários',q:'Qual é a base do calendário Gregoriano, usado no Brasil?',opts:['As fases da Lua','O ciclo das marés','O movimento do Sol e as estações','O calendário religioso cristão'],c:2,why:'O Gregoriano é solar — baseado no movimento da Terra ao redor do Sol. Tem 365 dias (366 nos anos bissextos).'},
+
+  // MAPAS (3)
+  {tag:'Mapas Históricos',q:'O que o Imago Mundi representa?',opts:['Um mapa preciso das Grandes Navegações','Um dos primeiros mapas do mundo, com visão simbólica e religiosa','O primeiro mapa do Brasil feito pelos portugueses','Um mapa atual da Babilônia'],c:1,why:'O Imago Mundi (Babilônia, ~600 a.C.) mostra a Terra como um disco plano rodeado de oceano. Era uma visão simbólica, não técnica.'},
+  {tag:'Mapas Históricos',passage:'Em 1502, um cartógrafo português produziu um mapa que mostrava o Brasil, a África e a Ásia com detalhes nunca antes registrados.',q:'A qual documento esse trecho se refere?',opts:['Imago Mundi','Atlas de Ptolomeu','Planisfério de Cantino','Mapa de Waldseemüller'],c:2,why:'O Planisfério de Cantino (1502) foi produzido após as Grandes Navegações e mostrou o mundo com precisão inédita, incluindo o Brasil.'},
+  {tag:'Mapas Históricos',q:'Por que os mapas mudam ao longo da história?',opts:['Porque os continentes se movem rapidamente','Porque variam conforme a época, a cultura e o conhecimento disponível','Porque os governos decidem como o mapa deve ser','Porque o Sol muda de posição'],c:1,why:'Mapas são representações humanas do espaço. Mudam à medida que o conhecimento, a tecnologia e a cultura das sociedades evoluem.'},
+
+  // SERRA DA CAPIVARA E POVOS (4)
+  {tag:'Serra da Capivara',q:'Onde fica o Parque Nacional da Serra da Capivara?',opts:['Minas Gerais','Amazônas','Piauí','Bahia'],c:2,why:'A Serra da Capivara fica no Piauí, Nordeste do Brasil. É Patrimônio Mundial da UNESCO e contém mais de 30.000 pinturas rupestres.'},
+  {tag:'Serra da Capivara',q:'O que as pinturas rupestres da Serra da Capivara representam?',opts:['Mapas desenhados pelos portugueses','Registros da vida cotidiana dos povos pré-históricos que habitavam a região','Textos religiosos dos povos indígenas','Registros climáticos da pré-história'],c:1,why:'As pinturas mostram cenas de caça, dança, rituais e animais extintos — são registros da vida dos povos pré-históricos.'},
+  {tag:'Povos Originários',q:'O que são sambaquis?',opts:['Aldeias indígenas na Amazônia','Monumentos construídos pelos portugueses','Montes de conchas, ossos e restos deixados pelos caçadores-coletores do litoral','Pinturas rupestres encontradas no Piauí'],c:2,why:'Sambaquis são vestígios arqueológicos deixados pelos caçadores-coletores que viviam no litoral brasileiro. São formados por conchas, ossos e instrumentos.'},
+  {tag:'Povos Originários',q:'Segundo a Teoria do Estreito de Bering, como os primeiros humanos chegaram à América?',opts:['De barco pelo Atlântico','Cruzando a pé da Ásia para a América quando o nível do mar estava baixo','Vindos da África pelo sul','De barco pelo Pacífico em direção à América do Sul'],c:1,why:'Há ~15.000 anos, o nível do mar estava mais baixo e havia um corredor de terra ligando a Sibéria ao Alaska — o Estreito de Bering.'},
+
+  // SOCIAL STUDIES (5)
+  {tag:'Social Studies',q:'What was the main impact of the printing press in the 15th century?',opts:['It made communication slower','It allowed books to be produced in large quantities, spreading knowledge faster','It replaced handwriting with digital text','It created the first newspapers'],c:1,why:'The printing press (Gutenberg, 1440s) allowed mass production of identical books for the first time, rapidly spreading knowledge across Europe and beyond.'},
+  {tag:'Social Studies',q:'What is FAKE NEWS?',opts:['News that is too slow to reach people','News published only in printed newspapers','False or misleading information presented as if it were real news','News that is published without images'],c:2,why:'Fake news is false or misleading content designed to look like real news. It can manipulate emotions and spread very fast on social media.'},
+  {tag:'Social Studies',passage:'A dramatic story about a celebrity\'s accident was shared millions of times on social media before anyone confirmed it was true.',q:'This situation illustrates which problem?',opts:['The reliability of printed newspapers','The speed at which fake news spreads before being checked','The lack of access to the internet','The importance of television news'],c:1,why:'Fake news spreads fast because it is dramatic — people share before checking. This is one of the biggest challenges of digital communication today.'},
+  {tag:'Social Studies',q:'Why is it important to compare MULTIPLE sources when reading news?',opts:['To find the longest article','Because one source always lies','Because the same event can be reported differently depending on the point of view','To find the most popular opinion'],c:2,why:'Every source has a point of view. Comparing multiple sources helps you understand the full picture and form your own informed opinion.'},
+  {tag:'Social Studies',q:'Which of the following is the BEST way to check if a news story is reliable?',opts:['Share it immediately if it seems important','Check if the source is trustworthy and if other credible sources confirm the information','Only read news from social media','Believe it if many people have already shared it'],c:1,why:'Reliable news comes from trustworthy sources and can be verified by other credible outlets. Many shares does NOT mean something is true.'},
+];
+
+var currentQ=0,score=0,wrongQuestions=[],answered=false;
+function renderQuestion(){
+  var q=questions[currentQ];answered=false;
+  document.getElementById('progressFill').style.width=(currentQ/questions.length*100)+'%';
+  document.getElementById('progressLabel').textContent='Questão '+(currentQ+1)+' de '+questions.length;
+  var letters=['A','B','C','D'];
+  var passHTML=q.passage?'<div class="q-passage">'+q.passage+'</div>':'';
+  var optsHTML=q.opts.map(function(o,i){return '<button class="option" data-index="'+i+'"><span class="letter">'+letters[i]+'</span><span>'+o+'</span></button>';}).join('');
+  document.getElementById('quizArea').innerHTML='<div class="question-card"><div class="q-meta"><span class="q-number">Q'+(currentQ+1)+'</span><span class="q-tag">'+q.tag+'</span></div>'+passHTML+'<div class="q-text">'+q.q+'</div><div class="options">'+optsHTML+'</div><div class="feedback" id="feedback"></div><button class="btn-next" id="btnNext">'+(currentQ<questions.length-1?'Próxima →':'Ver resultado 🎉')+'</button></div>';
+  document.querySelectorAll('.option').forEach(function(btn){btn.addEventListener('click',function(){if(answered)return;selectAnswer(parseInt(btn.dataset.index));});});
+  document.getElementById('btnNext').addEventListener('click',function(){currentQ++;if(currentQ<questions.length)renderQuestion();else showResults();});
+}
+function selectAnswer(chosen){
+  answered=true;var q=questions[currentQ];var isCorrect=chosen===q.c;var letters=['A','B','C','D'];
+  if(isCorrect)score++;else wrongQuestions.push({n:currentQ+1,text:q.q,correct:letters[q.c]+') '+q.opts[q.c]});
+  document.querySelectorAll('.option').forEach(function(btn,i){btn.classList.add('locked');if(i===q.c&&i===chosen)btn.classList.add('correct');else if(i===chosen)btn.classList.add('wrong');else if(i===q.c)btn.classList.add('show-ok');});
+  var fb=document.getElementById('feedback');fb.classList.add('show');fb.classList.add(isCorrect?'correct':'wrong');
+  fb.innerHTML='<strong>'+(isCorrect?'✅ Correto!':'❌ Não foi dessa vez.')+'</strong> '+q.why;
+  document.getElementById('btnNext').classList.add('show');
+}
+function showResults(){
+  document.getElementById('quizArea').style.display='none';document.getElementById('progressLabel').parentElement.style.display='none';
+  var pct=Math.round(score/questions.length*100);var emoji,msg;
+  if(pct>=90){emoji='🏆';msg='Excelente! Pronta para a prova!';}
+  else if(pct>=70){emoji='🌟';msg='Muito bem! Revise os erros e vai arrasar!';}
+  else if(pct>=50){emoji='💪';msg='Bom esforço! Revise os tópicos e tente de novo.';}
+  else{emoji='📚';msg='Continue estudando! Revise os resumos e flashcards.';}
+  var wrongHTML='';
+  if(wrongQuestions.length){wrongHTML='<div class="wrong-list"><h3>⚠️ Revise esses tópicos:</h3>';wrongQuestions.forEach(function(w){wrongHTML+='<div>Q'+w.n+': '+w.text+'<br><strong>✓ '+w.correct+'</strong></div><br>';});wrongHTML+='</div>';}
+  var rs=document.getElementById('resultsScreen');
+  rs.innerHTML='<span class="big-emoji">'+emoji+'</span><h2>'+msg+'</h2><div class="score-display">'+score+' / '+questions.length+'</div><div class="score-label">'+pct+'% de acerto</div><div class="result-breakdown"><div class="result-item"><span class="r-val green">'+score+'</span><span class="r-label">Acertos</span></div><div class="result-item"><span class="r-val red">'+wrongQuestions.length+'</span><span class="r-label">Erros</span></div><div class="result-item"><span class="r-val" style="color:var(--terra)">'+pct+'%</span><span class="r-label">Nota</span></div></div>'+wrongHTML+'<button class="btn-restart" id="btnRestart">Tentar novamente 🔁</button>';
+  rs.classList.add('show');
+  document.getElementById('btnRestart').addEventListener('click',function(){currentQ=0;score=0;wrongQuestions=[];answered=false;document.getElementById('quizArea').style.display='';document.getElementById('progressLabel').parentElement.style.display='';rs.classList.remove('show');renderQuestion();});
+}
+renderQuestion();
+</script>
+</body>
+</html>

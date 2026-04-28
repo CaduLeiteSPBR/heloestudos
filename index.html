@@ -6,7 +6,7 @@
 <title>Helô — Central de Estudos</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--orange:#f4721e;--teal:#0096a0;--pink:#e0449a;--shadow:5px 5px 0 var(--ink)}
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--orange:#f4721e;--teal:#0096a0;--pink:#e0449a;--terra:#c1440e;--shadow:5px 5px 0 var(--ink)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:24px 16px 56px;background-image:radial-gradient(circle at 15% 8%,rgba(255,190,11,.18) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(58,134,255,.14) 0%,transparent 40%)}
 .container{max-width:900px;margin:0 auto}
@@ -17,53 +17,69 @@ h1{font-family:'Fraunces',serif;font-size:clamp(2rem,6vw,3.2rem);font-weight:900
 h1 .accent{color:var(--red);font-style:italic}
 .header-sub{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:6px}
 .school-badge{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.88rem}
+
+/* SCHEDULE */
 .schedule{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:18px;box-shadow:var(--shadow);margin-bottom:28px}
 .schedule h3{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;margin-bottom:12px}
 .sched-list{display:flex;flex-direction:column;gap:6px}
 .sched-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;font-size:.88rem;border:1.5px solid var(--ink)}
 .sched-item.done{opacity:.55;background:#f4fff9;border-color:var(--green)}
-.sched-item.next{background:#e6fff4;border-color:var(--green);font-weight:700}
-.sched-item.upcoming{background:#fff}
+.sched-item.today{background:var(--yellow);font-weight:700;border-color:var(--ink)}
+.sched-item.next{background:#fff8e6;border-color:var(--terra);font-weight:700}
 .sched-date{font-weight:700;min-width:70px;font-size:.82rem;flex-shrink:0}
 .sched-subj{flex:1}
 .sched-pill{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0}
 .pill-done{background:#e6fff4;color:var(--green);border:1px solid var(--green)}
-.pill-next{background:var(--green);color:#fff}
-.pill-upcoming{background:#eee;color:#666}
-.subject-section{margin-bottom:24px}
-.subject-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:14px 18px;background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:3px 3px 0 var(--ink)}
-.subject-emoji{font-size:2rem;flex-shrink:0}
-.subject-info h2{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:900}
-.subject-info .test-info{font-size:.82rem;color:#666;margin-top:2px}
+.pill-today{background:var(--yellow);color:var(--ink);border:1px solid var(--ink)}
+.pill-next{background:var(--terra);color:#fff}
+
+/* CONGRATS BANNER */
+.congrats{background:linear-gradient(135deg,#e6fff4 0%,#fff4e6 100%);border:3px solid var(--green);border-radius:16px;padding:18px 20px;margin-bottom:28px;text-align:center;box-shadow:3px 3px 0 var(--green)}
+.congrats h2{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--green);margin-bottom:6px}
+.congrats p{font-size:.95rem;color:var(--ink);line-height:1.5}
+
+/* SUBJECT SECTIONS */
+.subject-section{margin-bottom:22px}
+.subject-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:13px 18px;background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:3px 3px 0 var(--ink)}
+.subject-emoji{font-size:1.9rem;flex-shrink:0}
+.subject-info h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900}
+.subject-info .test-info{font-size:.8rem;color:#666;margin-top:2px}
 .subject-info .test-info strong{color:var(--ink)}
-.status-badge{margin-left:auto;padding:4px 12px;border-radius:20px;font-size:.73rem;font-weight:700;white-space:nowrap;flex-shrink:0;border:2px solid}
+.status-badge{margin-left:auto;padding:4px 11px;border-radius:20px;font-size:.72rem;font-weight:700;white-space:nowrap;flex-shrink:0;border:2px solid}
 .badge-done{color:var(--green);border-color:var(--green)}
-.badge-next{color:#fff;background:var(--green);border-color:var(--green)}
-.badge-soon{color:var(--orange);border-color:var(--orange)}
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
-.mat-card{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:14px 13px;box-shadow:4px 4px 0 var(--ink);text-decoration:none;color:var(--ink);display:flex;align-items:flex-start;gap:11px;transition:transform .15s,box-shadow .15s}
+.badge-next{color:#fff;background:var(--terra);border-color:var(--terra)}
+
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.mat-card{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:13px 12px;box-shadow:4px 4px 0 var(--ink);text-decoration:none;color:var(--ink);display:flex;align-items:flex-start;gap:10px;transition:transform .15s,box-shadow .15s}
 .mat-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
 .mat-card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
-.mat-icon{font-size:1.7rem;flex-shrink:0;line-height:1}
-.mat-title{font-family:'Fraunces',serif;font-size:.95rem;font-weight:900;margin-bottom:2px}
-.mat-desc{font-size:.75rem;color:#666;line-height:1.4}
-.mat-tag{display:inline-block;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:20px;border:1.5px solid;margin-top:4px;text-transform:uppercase;letter-spacing:.4px}
+.mat-icon{font-size:1.6rem;flex-shrink:0;line-height:1}
+.mat-title{font-family:'Fraunces',serif;font-size:.92rem;font-weight:900;margin-bottom:2px}
+.mat-desc{font-size:.73rem;color:#666;line-height:1.4}
+.mat-tag{display:inline-block;font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:20px;border:1.5px solid;margin-top:4px;text-transform:uppercase;letter-spacing:.4px}
 .mat-card.sheet{background:linear-gradient(135deg,#fff 0%,#fff4e6 100%)}
 .mat-card.sheet .mat-tag{background:rgba(244,114,30,.1);border-color:var(--orange);color:var(--orange)}
 .mat-card.flash{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
 .mat-card.flash .mat-tag{background:rgba(58,134,255,.1);border-color:var(--blue);color:var(--blue)}
 .mat-card.quiz{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%)}
 .mat-card.quiz .mat-tag{background:rgba(6,167,125,.1);border-color:var(--green);color:var(--green)}
-.la .subject-info h2{color:var(--blue)}
-.la .subject-header{background:linear-gradient(135deg,#fff 0%,#f0f6ff 100%)}
-.matem .subject-info h2{color:var(--orange)}
-.matem .subject-header{background:linear-gradient(135deg,#fff 0%,#fff8ee 100%)}
-.math-en .subject-info h2{color:var(--teal)}
-.math-en .subject-header{background:linear-gradient(135deg,#fff 0%,#e6fffe 100%)}
-.port .subject-info h2{color:var(--pink)}
-.port .subject-header{background:linear-gradient(135deg,#fff 0%,#fff0f7 100%)}
+.mat-card.sheet2{background:linear-gradient(135deg,#fff 0%,#fff8e6 100%)}
+.mat-card.sheet2 .mat-tag{background:rgba(193,68,14,.1);border-color:var(--terra);color:var(--terra)}
+
+/* Subject header colors */
+.hist .subject-info h2{color:var(--terra)}
+.hist .subject-header{background:linear-gradient(135deg,#fff 0%,#fff8e6 100%)}
 .cien .subject-info h2{color:var(--green)}
 .cien .subject-header{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%)}
+.port .subject-info h2{color:var(--pink)}
+.port .subject-header{background:linear-gradient(135deg,#fff 0%,#fff0f7 100%)}
+.math-en .subject-info h2{color:var(--teal)}
+.math-en .subject-header{background:linear-gradient(135deg,#fff 0%,#e6fffe 100%)}
+.matem .subject-info h2{color:var(--orange)}
+.matem .subject-header{background:linear-gradient(135deg,#fff 0%,#fff8ee 100%)}
+.la .subject-info h2{color:var(--blue)}
+.la .subject-header{background:linear-gradient(135deg,#fff 0%,#f0f6ff 100%)}
+
 footer{text-align:center;margin-top:32px;font-family:'Caveat',cursive;font-size:1.5rem;color:var(--blue)}
 footer .star{color:var(--yellow);font-size:1.7rem}
 </style>
@@ -84,8 +100,26 @@ footer .star{color:var(--yellow);font-size:1.7rem}
     <div class="sched-item done"><span class="sched-date">23/04 Qui</span><span class="sched-subj">📐 Matemática</span><span class="sched-pill pill-done">✓ Feita</span></div>
     <div class="sched-item done"><span class="sched-date">24/04 Sex</span><span class="sched-subj">📊 Math (English)</span><span class="sched-pill pill-done">✓ Feita</span></div>
     <div class="sched-item done"><span class="sched-date">27/04 Seg</span><span class="sched-subj">📝 Língua Portuguesa</span><span class="sched-pill pill-done">✓ Feita</span></div>
-    <div class="sched-item next"><span class="sched-date">28/04 Ter</span><span class="sched-subj">🫁 Ciências / Science</span><span class="sched-pill pill-next">⚡ Amanhã!</span></div>
-    <div class="sched-item upcoming"><span class="sched-date">29/04 Qua</span><span class="sched-subj">História, Geo & Social Studies</span><span class="sched-pill pill-upcoming">Em breve</span></div>
+    <div class="sched-item done"><span class="sched-date">28/04 Ter</span><span class="sched-subj">🫁 Ciências / Science</span><span class="sched-pill pill-done">✓ Feita</span></div>
+    <div class="sched-item next"><span class="sched-date">29/04 Qua</span><span class="sched-subj">🗺️ História, Geo & Social Studies</span><span class="sched-pill pill-next">⚡ Hoje!</span></div>
+  </div>
+</div>
+
+<!-- HISTÓRIA / GEO / SOCIAL STUDIES -->
+<div class="subject-section hist">
+  <div class="subject-header">
+    <div class="subject-emoji">🗺️</div>
+    <div class="subject-info">
+      <h2>História, Geo & Social Studies</h2>
+      <div class="test-info">Prova: <strong>quarta-feira, 29/04</strong> · Calendários, mapas, Serra da Capivara, povos originários, fake news</div>
+    </div>
+    <div class="status-badge badge-next">⚡ Hoje!</div>
+  </div>
+  <div class="cards-grid">
+    <a href="historia_geo_study_sheet.html" class="mat-card sheet2"><div class="mat-icon">🗺️</div><div class="mat-info"><div class="mat-title">História & Geo (PT)</div><div class="mat-desc">Calendários, Imago Mundi, Cantino, Capivara, povos e sambaquis.</div><span class="mat-tag">Começa aqui</span></div></a>
+    <a href="social_studies_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📡</div><div class="mat-info"><div class="mat-title">Social Studies (EN)</div><div class="mat-desc">Communication history and fake news — speed & reliability.</div><span class="mat-tag">Start here</span></div></a>
+    <a href="historia_social_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards PT + EN (40)</div><div class="mat-desc">Calendários, mapas, Capivara, povos e Social Studies.</div><span class="mat-tag">Memorização</span></div></a>
+    <a href="historia_social_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Simulado (15 questões)</div><div class="mat-desc">PT e EN com textos de contexto e gabarito comentado.</div><span class="mat-tag">Testar</span></div></a>
   </div>
 </div>
 
@@ -97,13 +131,13 @@ footer .star{color:var(--yellow);font-size:1.7rem}
       <h2>Ciências / Science</h2>
       <div class="test-info">Prova: <strong>terça-feira, 28/04</strong> · Sistemas respiratório, circulatório, digestivo e alimentação</div>
     </div>
-    <div class="status-badge badge-next">⚡ Amanhã!</div>
+    <div class="status-badge badge-done">✓ Feita</div>
   </div>
   <div class="cards-grid">
-    <a href="ciencias_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Ciências — Resumo (PT)</div><div class="mat-desc">Sistema respiratório, circulatório e alimentação saudável.</div><span class="mat-tag">Começa aqui</span></div></a>
-    <a href="science_study_sheet.html" class="mat-card sheet"><div class="mat-icon">🔬</div><div class="mat-info"><div class="mat-title">Science — Study Sheet (EN)</div><div class="mat-desc">Digestive system, body systems teamwork and nutrition.</div><span class="mat-tag">Start here</span></div></a>
-    <a href="ciencias_science_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards PT + EN (40)</div><div class="mat-desc">Todos os sistemas em português e inglês. Filtros por tema.</div><span class="mat-tag">Memorização</span></div></a>
-    <a href="ciencias_science_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Simulado (15 questões)</div><div class="mat-desc">PT e EN. Gabarito com explicação imediata.</div><span class="mat-tag">Testar</span></div></a>
+    <a href="ciencias_study_sheet.html" class="mat-card sheet2"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Ciências (PT)</div><div class="mat-desc">Respiratório, circulatório e alimentação saudável.</div><span class="mat-tag">Referência</span></div></a>
+    <a href="science_study_sheet.html" class="mat-card sheet"><div class="mat-icon">🔬</div><div class="mat-info"><div class="mat-title">Science (EN)</div><div class="mat-desc">Digestive system, body systems and nutrition.</div><span class="mat-tag">Reference</span></div></a>
+    <a href="ciencias_science_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40)</div><div class="mat-desc">PT + EN. Filtros por sistema.</div><span class="mat-tag">Memorização</span></div></a>
+    <a href="ciencias_science_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Simulado (15 questões)</div><div class="mat-desc">PT e EN com gabarito.</div><span class="mat-tag">Testar</span></div></a>
   </div>
 </div>
 
@@ -119,8 +153,8 @@ footer .star{color:var(--yellow);font-size:1.7rem}
   </div>
   <div class="cards-grid">
     <a href="portugues_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Resumo Visual</div><div class="mat-desc">Substantivos, verbos, proparoxítonas e interpretação.</div><span class="mat-tag">Referência</span></div></a>
-    <a href="portugues_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40 cards)</div><div class="mat-desc">Toque para virar. Filtre por tema.</div><span class="mat-tag">Memorização</span></div></a>
-    <a href="portugues_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Simulado (15 questões)</div><div class="mat-desc">Múltipla escolha com textos e gabarito imediato.</div><span class="mat-tag">Testar</span></div></a>
+    <a href="portugues_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40)</div><div class="mat-desc">Toque para virar. Filtre por tema.</div><span class="mat-tag">Memorização</span></div></a>
+    <a href="portugues_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Simulado (15 questões)</div><div class="mat-desc">Com textos e gabarito imediato.</div><span class="mat-tag">Testar</span></div></a>
   </div>
 </div>
 
@@ -136,7 +170,7 @@ footer .star{color:var(--yellow);font-size:1.7rem}
   </div>
   <div class="cards-grid">
     <a href="math_en_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Study Sheet</div><div class="mat-desc">Symmetry, triangles, fractions, measurement, graphs.</div><span class="mat-tag">Reference</span></div></a>
-    <a href="math_en_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40 cards)</div><div class="mat-desc">Tap to flip. Filter by topic.</div><span class="mat-tag">Memorize</span></div></a>
+    <a href="math_en_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40)</div><div class="mat-desc">Tap to flip. Filter by topic.</div><span class="mat-tag">Memorize</span></div></a>
     <a href="math_en_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Quiz (15 questions)</div><div class="mat-desc">Multiple choice with instant feedback.</div><span class="mat-tag">Practice test</span></div></a>
   </div>
 </div>
@@ -152,9 +186,9 @@ footer .star{color:var(--yellow);font-size:1.7rem}
     <div class="status-badge badge-done">✓ Feita</div>
   </div>
   <div class="cards-grid">
-    <a href="math_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Resumo Visual</div><div class="mat-desc">Polígonos, frações, operações, medidas e gráficos.</div><span class="mat-tag">Referência</span></div></a>
-    <a href="math_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40 cards)</div><div class="mat-desc">Toque para virar. Filtre por tema.</div><span class="mat-tag">Memorização</span></div></a>
-    <a href="math_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Simulado (15 questões)</div><div class="mat-desc">Múltipla escolha com gabarito imediato.</div><span class="mat-tag">Testar</span></div></a>
+    <a href="math_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Resumo Visual</div><div class="mat-desc">Polígonos, frações, medidas e gráficos.</div><span class="mat-tag">Referência</span></div></a>
+    <a href="math_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40)</div><div class="mat-desc">Toque para virar. Filtre por tema.</div><span class="mat-tag">Memorização</span></div></a>
+    <a href="math_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Simulado (15 questões)</div><div class="mat-desc">Múltipla escolha com gabarito.</div><span class="mat-tag">Testar</span></div></a>
   </div>
 </div>
 
@@ -170,12 +204,12 @@ footer .star{color:var(--yellow);font-size:1.7rem}
   </div>
   <div class="cards-grid">
     <a href="language_arts_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Study Sheet</div><div class="mat-desc">Reading, Writing, Speaking and Grammar.</div><span class="mat-tag">Reference</span></div></a>
-    <a href="language_arts_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (50 cards)</div><div class="mat-desc">Irregular verbs, grammar rules, story vocabulary.</div><span class="mat-tag">Memorize</span></div></a>
+    <a href="language_arts_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (50)</div><div class="mat-desc">Irregular verbs, grammar and story vocabulary.</div><span class="mat-tag">Memorize</span></div></a>
     <a href="language_arts_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Quiz (15 questions)</div><div class="mat-desc">Multiple choice with instant feedback.</div><span class="mat-tag">Practice test</span></div></a>
   </div>
 </div>
 
-<footer><span class="star">★</span> Você consegue, Helô! Bons estudos! <span class="star">★</span></footer>
+<footer><span class="star">★</span> Parabéns, Helô! Semana de provas completa! <span class="star">★</span></footer>
 </div>
 </body>
 </html>

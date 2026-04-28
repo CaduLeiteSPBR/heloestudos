@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Studies — Study Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--orange:#f4721e;--shadow:4px 4px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 8%,rgba(58,134,255,.13) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(230,57,70,.11) 0%,transparent 40%)}
+.container{max-width:1100px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:22px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'📡';position:absolute;top:-18px;left:20px;font-size:36px;transform:rotate(-12deg)}
+header::after{content:'📰';position:absolute;top:-18px;right:20px;font-size:36px;transform:rotate(12deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.6rem,5vw,2.6rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--blue);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--purple);margin-top:4px}
+.test-date{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;transition:transform .2s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card-num{position:absolute;top:-14px;left:14px;background:var(--ink);color:var(--paper);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1rem}
+.card h2{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:900;margin-bottom:12px;margin-top:4px}
+.card.comm{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.card.comm h2{color:var(--blue)}
+.card.fakenews{background:linear-gradient(135deg,#fff 0%,#fff0f0 100%);grid-column:1/-1}
+.card.fakenews h2{color:var(--red)}
+ul.lista{list-style:none;padding:0}
+ul.lista li{padding-left:18px;position:relative;margin-bottom:7px;font-size:.92rem;line-height:1.5}
+ul.lista li::before{content:'→';position:absolute;left:0;color:var(--blue);font-weight:700}
+.tip{background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:9px 12px;margin-top:12px;font-family:'Caveat',cursive;font-size:1.1rem;line-height:1.3}
+.tip::before{content:'💡 '}
+table.ref{width:100%;font-size:.84rem;margin-top:8px;border-collapse:collapse}
+table.ref th{background:var(--ink);color:var(--paper);padding:5px 8px;text-align:left;font-family:'Fraunces',serif}
+table.ref td{padding:6px 8px;border-bottom:1px dashed #ccc;vertical-align:top;line-height:1.4}
+table.ref tr:last-child td{border-bottom:none}
+table.ref tr:nth-child(even) td{background:#fafafa}
+.box{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.6}
+.fn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}
+.fn-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;font-size:.83rem;line-height:1.5}
+.fn-card strong{display:block;font-size:.9rem;margin-bottom:4px}
+.fn-card.bad strong{color:var(--red)}
+.fn-card.good strong{color:var(--green)}
+footer{text-align:center;margin-top:28px;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1><span class="accent">Social Studies</span></h1>
+  <p class="subtitle">Communication & Media Literacy ⭐</p>
+  <div class="test-date">📖 Test: Wednesday, April 29</div>
+</header>
+
+<div class="grid">
+
+<!-- COMMUNICATION TIMELINE -->
+<section class="card comm">
+  <div class="card-num">1</div>
+  <h2>📡 Evolution of Communication</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">Communication has changed dramatically from prehistoric times to the present. Each new invention made it faster and reached more people.</p>
+  <table class="ref">
+    <tr><th>Era</th><th>Method</th><th>Key features</th></tr>
+    <tr><td><strong>Prehistoric</strong></td><td>Cave paintings, gestures, sounds</td><td>Very slow. Only reached people nearby. No writing.</td></tr>
+    <tr><td><strong>Ancient</strong></td><td>Writing (clay tablets, papyrus), messengers</td><td>First permanent records. Still slow — days or months to travel.</td></tr>
+    <tr><td><strong>Middle Ages</strong></td><td>Handwritten manuscripts, town criers</td><td>Only educated people could read. Very few copies of each text.</td></tr>
+    <tr><td><strong>15th century</strong></td><td>Printing press (Gutenberg, 1440s)</td><td>Mass production of books. Knowledge spread much faster.</td></tr>
+    <tr><td><strong>19th century</strong></td><td>Telegraph, telephone, newspapers</td><td>Messages across long distances in minutes for the first time.</td></tr>
+    <tr><td><strong>20th century</strong></td><td>Radio, TV, telephone networks</td><td>Reached millions of people at the same time. Audio and video.</td></tr>
+    <tr><td><strong>21st century</strong></td><td>Internet, smartphones, social media</td><td>Instant global communication. Anyone can publish anything.</td></tr>
+  </table>
+  <div class="tip">The biggest change in history: before the internet, only a few people could publish news. Today, anyone with a phone can reach millions in seconds — which creates both opportunities and dangers!</div>
+</section>
+
+<!-- FAKE NEWS -->
+<section class="card fakenews">
+  <div class="card-num">2</div>
+  <h2>⚠️ Fake News, Speed and Reliability</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">The speed of modern communication creates new challenges. Not everything we read or see online is true. Being a critical reader is a superpower!</p>
+
+  <div class="fn-grid">
+    <div class="fn-card bad">
+      <strong>❌ What is Fake News?</strong>
+      False or misleading information presented as real news.<br><br>
+      It can spread opinions, manipulate emotions, or cause harm.<br><br>
+      Fake news spreads very fast on social media because people share without checking.
+    </div>
+    <div class="fn-card bad">
+      <strong>⚡ The speed problem</strong>
+      Information today travels in seconds around the world.<br><br>
+      False news spreads faster than true news — because it is often more dramatic and shocking.<br><br>
+      By the time the truth appears, millions have already seen the lie.
+    </div>
+    <div class="fn-card good">
+      <strong>✅ Reliability — how to check</strong>
+      Before sharing, ask:<br><br>
+      Who wrote this? Is the source trustworthy?<br>
+      When was it published? Is it recent?<br>
+      Can you find the same info in other reliable sources?<br>
+      Does the headline match the actual article?
+    </div>
+    <div class="fn-card good">
+      <strong>🔍 Different points of view</strong>
+      The same event can be reported differently depending on who is telling it.<br><br>
+      Reading multiple sources helps you understand the full picture.<br><br>
+      A good reader compares points of view before forming an opinion.
+    </div>
+  </div>
+
+  <div class="box" style="margin-top:14px">
+    <strong>Key vocabulary for the test:</strong><br>
+    <strong>Fake news</strong> = false information spread as if it were real news<br>
+    <strong>Reliability</strong> = how trustworthy a source of information is<br>
+    <strong>Speed</strong> = how fast information travels (today: instantly around the world)<br>
+    <strong>Point of view</strong> = the perspective from which someone tells a story or event<br>
+    <strong>Critical thinking</strong> = questioning information before believing or sharing it
+  </div>
+  <div class="tip">The 3 questions to ask before sharing anything online: Is this TRUE? Is this SOURCE reliable? Does sharing this HELP or HARM?</div>
+</section>
+
+</div>
+<footer>⭐ You've got this, Helô! Good luck! ⭐</footer>
+</div>
+</body>
+</html>

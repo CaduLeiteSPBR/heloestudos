@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>História, Geo & Social Studies — Flashcards</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--terra:#c1440e;--shadow:6px 6px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:20px 16px 40px;background-image:radial-gradient(circle at 20% 10%,rgba(193,68,14,.15) 0%,transparent 40%),radial-gradient(circle at 90% 80%,rgba(58,134,255,.12) 0%,transparent 40%)}
+.container{max-width:700px;margin:0 auto}
+header{text-align:center;margin-bottom:22px}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.4rem,4.5vw,2rem);font-weight:900;line-height:1.1}
+h1 .accent{color:var(--terra);font-style:italic}
+h1 .accent2{color:var(--blue);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--blue);margin-top:4px}
+.top-bar{display:flex;justify-content:space-between;align-items:center;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:10px 14px;box-shadow:3px 3px 0 var(--ink);margin-bottom:14px;font-size:.9rem;font-weight:700;flex-wrap:wrap;gap:8px}
+.progress{display:flex;align-items:center;gap:8px}
+.progress-bar{width:100px;height:10px;background:#eee;border:2px solid var(--ink);border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);width:0%;transition:width .4s}
+.cat-badge{padding:3px 10px;border:2px solid var(--ink);border-radius:20px;font-size:.75rem;background:var(--yellow);text-transform:uppercase;letter-spacing:.5px}
+.filters{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.filter-btn{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:700;padding:4px 10px;border:2px solid var(--ink);border-radius:20px;background:#fff;cursor:pointer;transition:all .15s}
+.filter-btn.active{background:var(--ink);color:var(--paper)}
+.flashcard{width:100%;min-height:320px;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);padding:44px 22px 40px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,#fff 0%,#fff8e6 100%);cursor:pointer;position:relative;margin-bottom:18px;transition:background .25s ease,opacity .15s ease;user-select:none;-webkit-user-select:none}
+.flashcard.is-back{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.flashcard.fading{opacity:0}
+.card-label{position:absolute;top:13px;left:16px;font-family:'Caveat',cursive;font-size:.95rem;color:var(--purple);font-weight:700}
+.card-counter{position:absolute;top:13px;right:16px;font-size:.78rem;color:#888;font-weight:700}
+.card-hint{position:absolute;bottom:13px;left:50%;transform:translateX(-50%);font-family:'Caveat',cursive;font-size:.95rem;color:#999;white-space:nowrap}
+.card-content{width:100%}
+.card-prompt{font-family:'Fraunces',serif;font-size:clamp(1.1rem,3.8vw,1.6rem);font-weight:900;line-height:1.3;margin-bottom:10px}
+.card-sub{font-size:.92rem;color:#666;font-style:italic;line-height:1.4}
+.card-answer{font-family:'Fraunces',serif;font-size:clamp(1.1rem,3.8vw,1.6rem);font-weight:900;color:var(--blue);margin-bottom:10px;line-height:1.3}
+.card-example{background:rgba(255,190,11,.25);border-left:3px solid var(--yellow);padding:9px 12px;border-radius:6px;font-size:.88rem;font-style:italic;max-width:95%;margin:0 auto;line-height:1.5}
+.card-example strong{color:var(--red);font-style:normal}
+.controls{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:10px;margin-bottom:12px}
+.btn{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;padding:12px 14px;border:3px solid var(--ink);border-radius:12px;background:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all .1s}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn-nav{font-size:1.2rem;padding:12px 12px}
+.btn-got{background:var(--green);color:#fff}
+.btn-rev{background:var(--red);color:#fff}
+.tools{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.tool-btn{font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:700;padding:7px 13px;border:2px solid var(--ink);border-radius:20px;background:#fff;cursor:pointer}
+.tool-btn:hover{background:var(--yellow)}
+.stats{margin-top:18px;padding:13px;background:#fff;border:3px solid var(--ink);border-radius:14px;display:flex;justify-content:space-around;text-align:center;font-size:.83rem}
+.stat-value{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:900;display:block}
+.stat-value.green{color:var(--green)}.stat-value.red{color:var(--red)}.stat-value.blue{color:var(--blue)}
+.finished{text-align:center;padding:36px 20px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);display:none}
+.finished.show{display:block}
+.finished h2{font-family:'Fraunces',serif;font-size:1.9rem;color:var(--green);margin-bottom:10px}
+.finished .big{font-size:3.5rem;display:block;margin-bottom:8px}
+@media(max-width:480px){.controls{grid-template-columns:1fr 1fr}.btn-nav{grid-column:span 1}.flashcard{min-height:300px;padding:40px 16px 38px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1><span class="accent">História & Geo</span> + <span class="accent2">Social Studies</span></h1>
+  <p class="subtitle">Toque no card para ver a resposta! 🎴</p>
+</header>
+<div class="top-bar">
+  <div class="progress"><span id="progressText">1 / 40</span><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
+  <div class="cat-badge" id="catBadge">Tempo</div>
+</div>
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">Todos (40)</button>
+  <button class="filter-btn" data-filter="tempo">🗓️ Tempo</button>
+  <button class="filter-btn" data-filter="mapas">🗺️ Mapas</button>
+  <button class="filter-btn" data-filter="capivara">🪨 Capivara</button>
+  <button class="filter-btn" data-filter="povos">🌿 Povos</button>
+  <button class="filter-btn" data-filter="social">📡 Social Studies</button>
+  <button class="filter-btn" data-filter="review">⚠️ Revisar</button>
+</div>
+<div class="flashcard" id="flashcard" role="button" tabindex="0">
+  <div class="card-label" id="cardLabel">Calendários</div>
+  <div class="card-counter" id="cardCounter">1/40</div>
+  <div class="card-content" id="cardContent"></div>
+  <div class="card-hint" id="cardHint">👆 toque para ver a resposta</div>
+</div>
+<div class="controls">
+  <button class="btn btn-nav" id="prevBtn">◀</button>
+  <button class="btn btn-rev" id="reviewBtn">Revisar</button>
+  <button class="btn btn-got" id="gotItBtn">Acertei! ✓</button>
+  <button class="btn btn-nav" id="nextBtn">▶</button>
+</div>
+<div class="tools">
+  <button class="tool-btn" id="shuffleBtn">🔀 Embaralhar</button>
+  <button class="tool-btn" id="resetBtn">↺ Resetar</button>
+</div>
+<div class="stats">
+  <div><span class="stat-value green" id="statGood">0</span><span>Acertei</span></div>
+  <div><span class="stat-value red" id="statReview">0</span><span>Revisar</span></div>
+  <div><span class="stat-value blue" id="statLeft">40</span><span>Faltam</span></div>
+</div>
+<div class="finished" id="finishedScreen">
+  <span class="big">🎉</span>
+  <h2>Arrasou, Helô!</h2>
+  <p style="margin-bottom:14px">Você revisou todos os cards.</p>
+  <p id="finishedStats" style="margin-bottom:20px"></p>
+  <button class="btn" id="restartBtn" style="background:var(--blue);color:#fff">Recomeçar 🔁</button>
+</div>
+</div>
+<script>
+var allCards=[
+  // TEMPO / CALENDÁRIOS (8)
+  {cat:'tempo',label:'Calendários',q:'O que é um calendário solar?',sub:'',a:'Baseia-se no movimento do Sol e nas estações do ano',ex:'O <strong>Calendário Gregoriano</strong>, usado hoje no Brasil, é solar.'},
+  {cat:'tempo',label:'Calendários',q:'O que é um calendário lunar?',sub:'',a:'Baseia-se nas fases da Lua',ex:'O <strong>Calendário Islâmico</strong> é lunar — por isso o Ramadã muda de data todo ano.'},
+  {cat:'tempo',label:'Calendários',q:'Por que diferentes povos criaram calendários diferentes?',sub:'',a:'Cada povo organizou o tempo de acordo com sua cultura, religião e observação da natureza',ex:'Egípcios observavam o Nilo. Maias observavam astros. Cada um criou seu sistema.'},
+  {cat:'tempo',label:'Calendários',q:'Para que servem os calendários?',sub:'',a:'Para organizar a vida social, marcar festas e rituais, e planejar colheitas e eventos',ex:'Sem calendário, seria impossível combinar datas, celebrar festas ou organizar a agricultura.'},
+  {cat:'tempo',label:'Calendários',q:'O Calendário Gregoriano é solar ou lunar?',sub:'',a:'Solar — baseado no movimento da Terra ao redor do Sol',ex:'É o calendário oficial do Brasil e da maioria dos países. Tem 365 dias (366 no ano bissexto).'},
+  {cat:'tempo',label:'Calendários',q:'O que é um calendário religioso?',sub:'',a:'Organiza o tempo em torno de datas e eventos sagrados de uma religião',ex:'Calendário cristão marca Natal, Páscoa. Calendário judaico marca Rosh Hashaná, Yom Kipur.'},
+  {cat:'tempo',label:'Calendários',q:'O que é um calendário lunissolar?',sub:'',a:'Combina ciclos do Sol e da Lua',ex:'Calendários <strong>Hebraico</strong> e <strong>Chinês</strong> são lunissolares — usam os dois referenciais.'},
+  {cat:'tempo',label:'Calendários',q:'Existe um único calendário correto para todos os povos?',sub:'',a:'Não — existem muitos calendários, cada um válido dentro de sua cultura',ex:'Cada civilização desenvolveu seu sistema. Todos são igualmente válidos culturalmente.'},
+
+  // MAPAS (8)
+  {cat:'mapas',label:'Mapas Históricos',q:'O que é o Imago Mundi?',sub:'',a:'Um dos primeiros mapas do mundo, feito na Babilônia por volta de 600 a.C.',ex:'Mostra a Terra como um disco plano rodeado de oceano. Tem caráter <strong>simbólico e religioso</strong>.'},
+  {cat:'mapas',label:'Mapas Históricos',q:'O que o Imago Mundi representa sobre o conhecimento da época?',sub:'',a:'Mostra como os babilônios pensavam o mundo — era uma visão simbólica, não geográfica precisa',ex:'Para eles, Babilônia era o centro do mundo. Os limites eram o oceano misterioso ao redor.'},
+  {cat:'mapas',label:'Mapas Históricos',q:'O que é o Planisfério de Cantino?',sub:'',a:'Um mapa português de 1502, feito após as Grandes Navegações, que mostra o Brasil, África e Ásia',ex:'É um dos primeiros mapas a mostrar o Brasil com precisão, após a chegada de Cabral em 1500.'},
+  {cat:'mapas',label:'Mapas Históricos',q:'Qual foi a importância do Planisfério de Cantino?',sub:'',a:'Demonstrou os avanços cartográficos e geográficos trazidos pelas Grandes Navegações',ex:'Os portugueses navegaram e mapearam regiões desconhecidas — o Planisfério registrou isso.'},
+  {cat:'mapas',label:'Mapas Históricos',q:'Os mapas mudam ao longo do tempo. Por quê?',sub:'',a:'Porque variam conforme a época, a cultura e o conhecimento disponível',ex:'Um mapa babilônio de 600 a.C. e um mapa atual são completamente diferentes — o conhecimento cresceu!'},
+  {cat:'mapas',label:'Mapas Históricos',q:'Qual a diferença entre o Imago Mundi e o Planisfério de Cantino?',sub:'',a:'Imago Mundi = visão simbólica. Cantino = representação geográfica com navegações reais.',ex:'2.100 anos de diferença e descobertas separam os dois mapas.'},
+  {cat:'mapas',label:'Mapas Históricos',q:'Quando foi feito o Planisfério de Cantino?',sub:'',a:'Em 1502, dois anos após a chegada dos portugueses ao Brasil',ex:'O mapa já mostrava o Brasil, provando que os portugueses mapearam rapidamente o que encontraram.'},
+  {cat:'mapas',label:'Mapas Históricos',q:'O Imago Mundi era geograficamente preciso?',sub:'',a:'Não — era uma visão simbólica e religiosa do mundo, não um mapa técnico',ex:'A Babilônia aparecia no centro. Os limites eram mitológicos, não geográficos reais.'},
+
+  // SERRA DA CAPIVARA (8)
+  {cat:'capivara',label:'Serra da Capivara',q:'Onde fica o Parque Nacional da Serra da Capivara?',sub:'',a:'No Piauí, no Nordeste do Brasil',ex:'É um dos sítios arqueológicos mais importantes do mundo — e fica no Brasil!'},
+  {cat:'capivara',label:'Serra da Capivara',q:'Por que a Serra da Capivara é tão importante?',sub:'',a:'Contém as pinturas rupestres mais antigas das Américas e evidências de ocupação humana há 50.000 anos',ex:'Isso mostra que humanos viviam no Brasil muito antes do que se pensava.'},
+  {cat:'capivara',label:'Serra da Capivara',q:'O que são pinturas rupestres?',sub:'',a:'Desenhos feitos em rochas ou cavernas pelos povos pré-históricos',ex:'Mostravam cenas de caça, rituais, animais e vida cotidiana — uma forma de comunicação antes da escrita.'},
+  {cat:'capivara',label:'Serra da Capivara',q:'Quantas pinturas rupestres existem na Serra da Capivara?',sub:'',a:'Mais de 30.000 pinturas rupestres',ex:'São cenas de caça, dança, rituais e animais extintos — um registro incrível da vida pré-histórica.'},
+  {cat:'capivara',label:'Serra da Capivara',q:'A Serra da Capivara é reconhecida internacionalmente?',sub:'',a:'Sim — é Patrimônio Mundial da UNESCO',ex:'A UNESCO reconhece locais de valor histórico e cultural excepcional para toda a humanidade.'},
+  {cat:'capivara',label:'Serra da Capivara',q:'O que as pinturas da Serra da Capivara mostram?',sub:'',a:'Cenas de caça, danças, rituais, animais extintos e a vida cotidiana dos povos pré-históricos',ex:'São como "fotos" da vida de quem viveu ali milhares de anos atrás.'},
+  {cat:'capivara',label:'Serra da Capivara',q:'Qual é a importância arqueológica das descobertas na Serra da Capivara?',sub:'',a:'Provam que humanos habitavam o Brasil há pelo menos 50.000 anos',ex:'Isso mudou o que os cientistas acreditavam sobre quando os humanos chegaram na América.'},
+  {cat:'capivara',label:'Serra da Capivara',q:'As pinturas rupestres são uma forma de comunicação?',sub:'',a:'Sim — eram uma forma de registrar a vida e transmitir conhecimento antes da escrita existir',ex:'Assim como hoje escrevemos ou tiramos fotos, eles pintavam nas rochas para "registrar" sua história.'},
+
+  // POVOS ORIGINÁRIOS E CHEGADA NA AMÉRICA (8)
+  {cat:'povos',label:'Povos Originários',q:'O que são os povos originários?',sub:'',a:'Os povos que já habitavam o Brasil muito antes da chegada dos portugueses em 1500',ex:'Tinham línguas, culturas, rituais, técnicas agrícolas e organização social próprias.'},
+  {cat:'povos',label:'Povos Originários',q:'O que são sambaquis?',sub:'',a:'Montes formados por conchas, ossos, instrumentos e restos humanos deixados por povos do litoral',ex:'São vestígios arqueológicos dos <strong>caçadores-coletores do litoral</strong> que viveram no Brasil há milhares de anos.'},
+  {cat:'povos',label:'Povos Originários',q:'O que os sambaquis revelam sobre os povos que os criaram?',sub:'',a:'Como viviam, o que comiam (mariscos, peixes) e como enterravam seus mortos',ex:'São como "arquivos" deixados pelos primeiros habitantes do litoral brasileiro.'},
+  {cat:'povos',label:'Povos Originários',q:'Qual é a Teoria do Estreito de Bering?',sub:'',a:'Humanos cruzaram da Ásia para a América a pé, quando o nível do mar estava baixo, há cerca de 15.000 anos',ex:'O Estreito de Bering liga a Sibéria (Rússia) ao Alaska (EUA). Nessa época era um corredor de terra.'},
+  {cat:'povos',label:'Povos Originários',q:'Qual é a Teoria do Litoral do Pacífico?',sub:'',a:'Grupos vieram de barco ao longo da costa do Pacífico, podendo ter chegado há mais tempo',ex:'Essa teoria explica como humanos poderiam ter chegado ao sul da América mais rapidamente.'},
+  {cat:'povos',label:'Povos Originários',q:'Por que os povos originários são importantes para a cultura brasileira?',sub:'',a:'São parte fundamental da formação da identidade, língua e cultura do Brasil',ex:'Palavras como "Ipanema", "Paraná" e "Abacaxi" vêm de línguas indígenas!'},
+  {cat:'povos',label:'Povos Originários',q:'Quais eram os principais modos de vida dos primeiros habitantes do Brasil?',sub:'',a:'Caçadores-coletores (litoral e interior) e agricultores (que plantavam mandioca e milho)',ex:'Cada grupo adaptou seu modo de vida ao ambiente em que vivia.'},
+  {cat:'povos',label:'Povos Originários',q:'A chegada do ser humano na América ainda é tema de debate?',sub:'',a:'Sim — as evidências da Serra da Capivara (50.000 anos) desafiam a teoria tradicional do Bering (15.000 anos)',ex:'A ciência continua estudando o assunto. Por enquanto, temos teorias, não uma resposta definitiva.'},
+
+  // SOCIAL STUDIES (8)
+  {cat:'social',label:'Social Studies (EN)',q:'What was the FIRST form of communication used by humans?',sub:'In English',a:'Cave paintings, gestures and sounds',ex:'Prehistoric humans communicated through art, body language and vocal sounds — no writing yet.'},
+  {cat:'social',label:'Social Studies (EN)',q:'What was the impact of the printing press (1440s)?',sub:'In English',a:'It allowed mass production of books, spreading knowledge much faster',ex:'Before: one person copying one book by hand. After: hundreds of identical copies printed quickly.'},
+  {cat:'social',label:'Social Studies (EN)',q:'What is fake news?',sub:'In English',a:'False or misleading information presented as if it were real news',ex:'Fake news can spread opinions, manipulate emotions, and cause real harm to people.'},
+  {cat:'social',label:'Social Studies (EN)',q:'Why does fake news spread so fast?',sub:'In English',a:'Because it is often dramatic and shocking — and people share without checking if it is true',ex:'By the time the truth appears, millions have already seen and shared the false story.'},
+  {cat:'social',label:'Social Studies (EN)',q:'What does RELIABILITY mean in the context of media?',sub:'In English',a:'How trustworthy a source of information is',ex:'A reliable source: is accurate, transparent about who runs it, and can be verified.'},
+  {cat:'social',label:'Social Studies (EN)',q:'What are 3 questions to ask before sharing news?',sub:'In English',a:'Is this true? Is the source reliable? Does sharing this help or harm?',ex:'Critical thinking before sharing = one of the most important skills today.'},
+  {cat:'social',label:'Social Studies (EN)',q:'What changed most about communication in the 21st century?',sub:'In English',a:'Anyone with a phone can now publish and reach millions instantly — anyone can be a publisher',ex:'Before: only newspapers, TV and radio could reach mass audiences. Now: everyone can.'},
+  {cat:'social',label:'Social Studies (EN)',q:'Why is it important to read multiple sources about the same event?',sub:'In English',a:'Because the same event can be reported differently depending on the point of view of each source',ex:'Comparing sources helps you understand the full picture and form your own informed opinion.'},
+];
+
+var cards=allCards.slice(),currentIndex=0,showingAnswer=false,currentFilter='all';
+var knownSet=new Set(),reviewSet=new Set();
+var flashcard=document.getElementById('flashcard'),cardLabel=document.getElementById('cardLabel'),cardCounter=document.getElementById('cardCounter'),cardContent=document.getElementById('cardContent'),cardHint=document.getElementById('cardHint'),catBadge=document.getElementById('catBadge'),progressText=document.getElementById('progressText'),progressFill=document.getElementById('progressFill'),statGood=document.getElementById('statGood'),statReview=document.getElementById('statReview'),statLeft=document.getElementById('statLeft'),finishedScreen=document.getElementById('finishedScreen'),finishedStats=document.getElementById('finishedStats');
+function getId(c){return c.cat+'::'+c.q;}
+function renderFront(c){cardContent.innerHTML='<div class="card-prompt">'+c.q+'</div>'+(c.sub?'<div class="card-sub">'+c.sub+'</div>':'');cardHint.textContent='👆 toque para ver a resposta';flashcard.classList.remove('is-back');}
+function renderBack(c){cardContent.innerHTML='<div class="card-answer">'+c.a+'</div>'+(c.ex?'<div class="card-example">'+c.ex+'</div>':'');cardHint.textContent='👆 toque para ver a pergunta';flashcard.classList.add('is-back');}
+function renderCard(){if(!cards.length){cardContent.innerHTML='<div class="card-prompt">🎉</div><div class="card-sub">Nenhum card nesse filtro!</div>';cardLabel.textContent='';cardCounter.textContent='';cardHint.textContent='';return;}var c=cards[currentIndex];showingAnswer=false;cardLabel.textContent=c.label;cardCounter.textContent=(currentIndex+1)+'/'+cards.length;renderFront(c);var cats={tempo:'Calendários',mapas:'Mapas',capivara:'Capivara',povos:'Povos',social:'Social Studies'};catBadge.textContent=cats[c.cat]||c.cat;progressText.textContent=(currentIndex+1)+' / '+cards.length;progressFill.style.width=((currentIndex+1)/cards.length*100)+'%';updateStats();}
+function toggleAnswer(){if(!cards.length)return;var c=cards[currentIndex];if(!c||c.cat==='info')return;flashcard.classList.add('fading');setTimeout(function(){showingAnswer=!showingAnswer;if(showingAnswer)renderBack(c);else renderFront(c);flashcard.classList.remove('fading');},120);}
+function updateStats(){statGood.textContent=knownSet.size;statReview.textContent=reviewSet.size;statLeft.textContent=Math.max(0,allCards.length-knownSet.size);}
+function nextCard(){if(currentIndex<cards.length-1){currentIndex++;renderCard();}else showFinished();}
+function prevCard(){if(currentIndex>0){currentIndex--;renderCard();}}
+function showFinished(){flashcard.style.display='none';document.querySelector('.controls').style.display='none';finishedScreen.classList.add('show');finishedStats.innerHTML='✅ <strong>'+knownSet.size+'</strong> acertados<br>🔁 <strong>'+reviewSet.size+'</strong> para revisar';}
+function restart(){currentIndex=0;flashcard.style.display='';document.querySelector('.controls').style.display='';finishedScreen.classList.remove('show');applyFilter(currentFilter);}
+function shuffle(){for(var i=cards.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=cards[i];cards[i]=cards[j];cards[j]=t;}currentIndex=0;renderCard();}
+function applyFilter(f){currentFilter=f;document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.toggle('active',b.dataset.filter===f);});if(f==='all')cards=allCards.slice();else if(f==='review'){cards=allCards.filter(function(c){return reviewSet.has(getId(c));});if(!cards.length)cards=[{cat:'info',label:'',q:'😊',sub:'Nenhum card marcado para revisar!',a:'',ex:''}];}else cards=allCards.filter(function(c){return c.cat===f;});currentIndex=0;renderCard();}
+flashcard.addEventListener('click',toggleAnswer);
+flashcard.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();toggleAnswer();}});
+document.getElementById('nextBtn').addEventListener('click',function(e){e.stopPropagation();nextCard();});
+document.getElementById('prevBtn').addEventListener('click',function(e){e.stopPropagation();prevCard();});
+document.getElementById('gotItBtn').addEventListener('click',function(e){e.stopPropagation();if(!cards.length||cards[currentIndex].cat==='info')return;var id=getId(cards[currentIndex]);knownSet.add(id);reviewSet.delete(id);nextCard();});
+document.getElementById('reviewBtn').addEventListener('click',function(e){e.stopPropagation();if(!cards.length||cards[currentIndex].cat==='info')return;var id=getId(cards[currentIndex]);reviewSet.add(id);knownSet.delete(id);nextCard();});
+document.getElementById('shuffleBtn').addEventListener('click',shuffle);
+document.getElementById('resetBtn').addEventListener('click',function(){if(confirm('Resetar todo o progresso?')){knownSet.clear();reviewSet.clear();applyFilter('all');}});
+document.getElementById('restartBtn').addEventListener('click',restart);
+document.querySelectorAll('.filter-btn').forEach(function(btn){btn.addEventListener('click',function(){applyFilter(btn.dataset.filter);});});
+document.addEventListener('keydown',function(e){if(e.target===flashcard)return;if(e.key==='ArrowRight')nextCard();else if(e.key==='ArrowLeft')prevCard();else if(e.key===' '){e.preventDefault();toggleAnswer();}});
+document.querySelector('[data-filter="all"]').textContent='Todos ('+allCards.length+')';
+renderCard();
+</script>
+</body>
+</html>

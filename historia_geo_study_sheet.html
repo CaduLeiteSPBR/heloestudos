@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>História e Geografia — Resumo</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--brown:#8B4513;--terra:#c1440e;--shadow:4px 4px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 8%,rgba(139,69,19,.13) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(193,68,14,.11) 0%,transparent 40%)}
+.container{max-width:1100px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:22px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'🗺️';position:absolute;top:-18px;left:20px;font-size:36px;transform:rotate(-12deg)}
+header::after{content:'🏛️';position:absolute;top:-18px;right:20px;font-size:36px;transform:rotate(12deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.6rem,5vw,2.6rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--terra);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:4px}
+.test-date{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;transition:transform .2s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card-num{position:absolute;top:-14px;left:14px;background:var(--ink);color:var(--paper);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1rem}
+.card h2{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:900;margin-bottom:12px;margin-top:4px}
+.card.tempo{background:linear-gradient(135deg,#fff 0%,#fff8e6 100%)}
+.card.tempo h2{color:var(--brown)}
+.card.mapas{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.card.mapas h2{color:var(--blue)}
+.card.capivara{background:linear-gradient(135deg,#fff 0%,#fff4e6 100%)}
+.card.capivara h2{color:var(--terra)}
+.card.povos{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%);grid-column:1/-1}
+.card.povos h2{color:var(--green)}
+ul.lista{list-style:none;padding:0}
+ul.lista li{padding-left:18px;position:relative;margin-bottom:7px;font-size:.92rem;line-height:1.5}
+ul.lista li::before{content:'→';position:absolute;left:0;color:var(--terra);font-weight:700}
+.tip{background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:9px 12px;margin-top:12px;font-family:'Caveat',cursive;font-size:1.1rem;line-height:1.3}
+.tip::before{content:'💡 '}
+table.ref{width:100%;font-size:.84rem;margin-top:8px;border-collapse:collapse}
+table.ref th{background:var(--ink);color:var(--paper);padding:5px 8px;text-align:left;font-family:'Fraunces',serif}
+table.ref td{padding:6px 8px;border-bottom:1px dashed #ccc;vertical-align:top;line-height:1.4}
+table.ref tr:last-child td{border-bottom:none}
+table.ref tr:nth-child(even) td{background:#fafafa}
+.box{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.6}
+.povos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}
+.povo-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;font-size:.83rem;line-height:1.5}
+.povo-card strong{display:block;font-size:.9rem;margin-bottom:4px;color:var(--green)}
+footer{text-align:center;margin-top:28px;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>História e <span class="accent">Geografia</span></h1>
+  <p class="subtitle">Tempo, mapas, povos e memória do Brasil ⭐</p>
+  <div class="test-date">📖 Prova: Quarta-feira, 29 de abril</div>
+</header>
+
+<div class="grid">
+
+<!-- REGISTROS DO TEMPO -->
+<section class="card tempo">
+  <div class="card-num">1</div>
+  <h2>🗓️ Registros do Tempo e Calendários</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">Diferentes sociedades, em diferentes épocas e lugares, criaram suas próprias formas de medir e registrar o tempo.</p>
+  <table class="ref">
+    <tr><th>Tipo</th><th>Base</th><th>Exemplo / Uso</th></tr>
+    <tr><td><strong>Solar</strong></td><td>Movimento do Sol</td><td>Calendário Gregoriano (usado hoje no Brasil e no mundo)</td></tr>
+    <tr><td><strong>Lunar</strong></td><td>Fases da Lua</td><td>Calendário Islâmico (Ramadã e datas religiosas muçulmanas)</td></tr>
+    <tr><td><strong>Lunissolar</strong></td><td>Sol + Lua</td><td>Calendário Hebraico e Chinês</td></tr>
+    <tr><td><strong>Religioso</strong></td><td>Datas sagradas</td><td>Calendário Cristão (Páscoa, Natal) e Hindu</td></tr>
+  </table>
+  <div class="box">
+    <strong>Por que os calendários são importantes?</strong><br>
+    Eles organizam a vida social (festas, colheitas, rituais), marcam datas religiosas e permitem que as sociedades planejem o futuro.
+  </div>
+  <div class="tip">Cada povo criou seu calendário de acordo com sua cultura, religião e observação da natureza. Não existe um único "calendário correto" — existem muitos!</div>
+</section>
+
+<!-- MAPAS HISTÓRICOS -->
+<section class="card mapas">
+  <div class="card-num">2</div>
+  <h2>🗺️ Memórias do Espaço — Mapas Históricos</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">Os mapas são representações do espaço que variam conforme a época, a cultura e o conhecimento disponível.</p>
+  <table class="ref">
+    <tr><th>Mapa</th><th>Época</th><th>O que representa</th></tr>
+    <tr><td><strong>Imago Mundi</strong></td><td>~600 a.C. (Babilônia)</td><td>Um dos primeiros mapas do mundo. Mostra a Terra como um disco plano rodeado de oceano. Tem caráter simbólico e religioso, não geográfico preciso.</td></tr>
+    <tr><td><strong>Planisfério de Cantino</strong></td><td>1502 (Portugal)</td><td>Mapa das Grandes Navegações. Mostra o Brasil, África e Ásia com grande precisão para a época. Evidencia os avanços cartográficos após as navegações portuguesas.</td></tr>
+  </table>
+  <div class="tip">O Imago Mundi conta como os babilônios PENSAVAM o mundo. O Planisfério de Cantino mostra o que os portugueses DESCOBRIRAM navegando. A diferença é enorme!</div>
+</section>
+
+<!-- SERRA DA CAPIVARA -->
+<section class="card capivara">
+  <div class="card-num">3</div>
+  <h2>🪨 Parque Nacional da Serra da Capivara</h2>
+  <ul class="lista">
+    <li>Localizado no <strong>Piauí</strong>, no Nordeste do Brasil</li>
+    <li>É um <strong>Patrimônio Mundial da UNESCO</strong> — um dos mais importantes sítios arqueológicos do mundo</li>
+    <li>Contém mais de <strong>30.000 pinturas rupestres</strong> — as mais antigas das Américas</li>
+    <li>As pinturas mostram cenas de caça, dança, rituais e animais extintos</li>
+    <li>Revela que humanos habitavam o Brasil <strong>há pelo menos 50.000 anos</strong> — muito antes do que se pensava</li>
+  </ul>
+  <div class="box">
+    <strong>O que são pinturas rupestres?</strong><br>
+    São desenhos feitos em rochas ou paredes de cavernas pelos povos pré-históricos. Eram uma forma de registrar a vida cotidiana, rituais e crenças — uma espécie de "escrita" antes da escrita existir.
+  </div>
+  <div class="tip">Serra da Capivara é no Piauí! E as pinturas são importantíssimas porque provam que o Brasil foi habitado por humanos muito antes da chegada dos portugueses.</div>
+</section>
+
+<!-- POVOS ORIGINÁRIOS -->
+<section class="card povos">
+  <div class="card-num">4</div>
+  <h2>🌿 Povos Originários e Primeiros Habitantes</h2>
+  <div class="povos-grid">
+    <div class="povo-card">
+      <strong>🌎 Chegada do ser humano na América</strong>
+      Existem duas teorias principais:<br><br>
+      <em>Teoria do Estreito de Bering:</em> humanos cruzaram a pé da Ásia para a América há ~15.000 anos, quando o mar estava baixo.<br><br>
+      <em>Teoria do Litoral do Pacífico:</em> grupos vieram de barco ao longo da costa, podendo ter chegado há mais tempo.
+    </div>
+    <div class="povo-card">
+      <strong>🐚 Sambaquis</strong>
+      São montes formados por conchas, ossos de peixes, instrumentos e restos humanos.<br><br>
+      Deixados pelos <strong>caçadores-coletores do litoral</strong> que habitavam as costas brasileiras há milhares de anos.<br><br>
+      São vestígios arqueológicos que mostram como esses povos viviam, o que comiam e como enterravam seus mortos.
+    </div>
+    <div class="povo-card">
+      <strong>🏹 Povos Originários</strong>
+      São os povos que já habitavam o Brasil <strong>muito antes da chegada dos portugueses</strong> (1500).<br><br>
+      Tinham culturas riquíssimas: línguas próprias, rituais, técnicas de plantio, medicina, arte e organização social.<br><br>
+      São parte fundamental da formação da identidade e da cultura brasileira.
+    </div>
+    <div class="povo-card">
+      <strong>📍 Grupos humanos no Brasil pré-histórico</strong>
+      Diferentes grupos habitaram o território brasileiro:<br><br>
+      Caçadores e coletores (como os que deixaram os sambaquis)<br><br>
+      Agricultores (plantavam mandioca, milho e outros alimentos)<br><br>
+      Cada grupo tinha formas próprias de organização e cultura.
+    </div>
+  </div>
+  <div class="tip">Sambaqui = monte de conchas no litoral = vestígio dos primeiros habitantes do Brasil. Serra da Capivara = pinturas rupestres no interior = evidência de que humanos viveram aqui há pelo menos 50.000 anos!</div>
+</section>
+
+</div>
+<footer>⭐ Você consegue, Helô! Boa prova! ⭐</footer>
+</div>
+</body>
+</html>
