@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math — Flashcards | 2nd Tri</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--teal:#0096a0;--shadow:6px 6px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:20px 16px 40px;background-image:radial-gradient(circle at 20% 10%,rgba(0,150,160,.15) 0%,transparent 40%),radial-gradient(circle at 90% 80%,rgba(114,9,183,.12) 0%,transparent 40%)}
+.container{max-width:700px;margin:0 auto}
+header{text-align:center;margin-bottom:22px}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.5rem,5vw,2.1rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--teal);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--blue);margin-top:4px}
+.top-bar{display:flex;justify-content:space-between;align-items:center;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:10px 14px;box-shadow:3px 3px 0 var(--ink);margin-bottom:14px;font-size:.9rem;font-weight:700;flex-wrap:wrap;gap:8px}
+.progress{display:flex;align-items:center;gap:8px}
+.progress-bar{width:100px;height:10px;background:#eee;border:2px solid var(--ink);border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);width:0%;transition:width .4s}
+.cat-badge{padding:3px 10px;border:2px solid var(--ink);border-radius:20px;font-size:.75rem;background:var(--yellow);text-transform:uppercase;letter-spacing:.5px}
+.filters{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.filter-btn{font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:700;padding:5px 11px;border:2px solid var(--ink);border-radius:20px;background:#fff;cursor:pointer;transition:all .15s}
+.filter-btn.active{background:var(--ink);color:var(--paper)}
+.flashcard{width:100%;min-height:320px;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);padding:44px 22px 40px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,#fff 0%,#e6fffe 100%);cursor:pointer;position:relative;margin-bottom:18px;transition:background .25s ease,opacity .15s ease;user-select:none;-webkit-user-select:none}
+.flashcard.is-back{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.flashcard.fading{opacity:0}
+.card-label{position:absolute;top:13px;left:16px;font-family:'Caveat',cursive;font-size:.95rem;color:var(--purple);font-weight:700}
+.card-counter{position:absolute;top:13px;right:16px;font-size:.78rem;color:#888;font-weight:700}
+.card-hint{position:absolute;bottom:13px;left:50%;transform:translateX(-50%);font-family:'Caveat',cursive;font-size:.95rem;color:#999;white-space:nowrap}
+.card-content{width:100%}
+.card-prompt{font-family:'Fraunces',serif;font-size:clamp(1.1rem,3.8vw,1.6rem);font-weight:900;line-height:1.3;margin-bottom:10px}
+.card-sub{font-size:.92rem;color:#666;font-style:italic;line-height:1.4}
+.card-answer{font-family:'Fraunces',serif;font-size:clamp(1.1rem,3.8vw,1.6rem);font-weight:900;color:var(--blue);margin-bottom:10px;line-height:1.3}
+.card-example{background:rgba(255,190,11,.25);border-left:3px solid var(--yellow);padding:9px 12px;border-radius:6px;font-size:.88rem;font-style:italic;max-width:95%;margin:0 auto;line-height:1.5}
+.card-example strong{color:var(--red);font-style:normal}
+.controls{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:10px;margin-bottom:12px}
+.btn{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;padding:12px 14px;border:3px solid var(--ink);border-radius:12px;background:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all .1s}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn-nav{font-size:1.2rem;padding:12px 12px}
+.btn-got{background:var(--green);color:#fff}
+.btn-rev{background:var(--red);color:#fff}
+.tools{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.tool-btn{font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:700;padding:7px 13px;border:2px solid var(--ink);border-radius:20px;background:#fff;cursor:pointer}
+.tool-btn:hover{background:var(--yellow)}
+.stats{margin-top:18px;padding:13px;background:#fff;border:3px solid var(--ink);border-radius:14px;display:flex;justify-content:space-around;text-align:center;font-size:.83rem}
+.stat-value{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:900;display:block}
+.stat-value.green{color:var(--green)}.stat-value.red{color:var(--red)}.stat-value.blue{color:var(--blue)}
+.finished{text-align:center;padding:36px 20px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);display:none}
+.finished.show{display:block}
+.finished h2{font-family:'Fraunces',serif;font-size:1.9rem;color:var(--green);margin-bottom:10px}
+.finished .big{font-size:3.5rem;display:block;margin-bottom:8px}
+@media(max-width:480px){.controls{grid-template-columns:1fr 1fr}.btn-nav{grid-column:span 1}.flashcard{min-height:300px;padding:40px 16px 38px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1><span class="accent">Math</span> Flashcards</h1>
+  <p class="subtitle">Tap the card to see the answer! 🎴</p>
+</header>
+<div class="top-bar">
+  <div class="progress"><span id="progressText">1 / 40</span><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
+  <div class="cat-badge" id="catBadge">Decimals</div>
+</div>
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">All (40)</button>
+  <button class="filter-btn" data-filter="decimals">🔢 Decimals</button>
+  <button class="filter-btn" data-filter="fractions">➗ Fractions</button>
+  <button class="filter-btn" data-filter="mixed">🔀 Mixed Numbers</button>
+  <button class="filter-btn" data-filter="numline">↔️ Number Line</button>
+  <button class="filter-btn" data-filter="area">📐 Area & Perimeter</button>
+  <button class="filter-btn" data-filter="review">⚠️ Review</button>
+</div>
+<div class="flashcard" id="flashcard" role="button" tabindex="0">
+  <div class="card-label" id="cardLabel">Decimals</div>
+  <div class="card-counter" id="cardCounter">1/40</div>
+  <div class="card-content" id="cardContent"></div>
+  <div class="card-hint" id="cardHint">👆 tap to see answer</div>
+</div>
+<div class="controls">
+  <button class="btn btn-nav" id="prevBtn">◀</button>
+  <button class="btn btn-rev" id="reviewBtn">Review again</button>
+  <button class="btn btn-got" id="gotItBtn">I got it! ✓</button>
+  <button class="btn btn-nav" id="nextBtn">▶</button>
+</div>
+<div class="tools">
+  <button class="tool-btn" id="shuffleBtn">🔀 Shuffle</button>
+  <button class="tool-btn" id="resetBtn">↺ Reset</button>
+</div>
+<div class="stats">
+  <div><span class="stat-value green" id="statGood">0</span><span>Got it</span></div>
+  <div><span class="stat-value red" id="statReview">0</span><span>Review</span></div>
+  <div><span class="stat-value blue" id="statLeft">40</span><span>Left</span></div>
+</div>
+<div class="finished" id="finishedScreen">
+  <span class="big">🎉</span>
+  <h2>Amazing work, Year 5!</h2>
+  <p style="margin-bottom:14px">You reviewed all the cards.</p>
+  <p id="finishedStats" style="margin-bottom:20px"></p>
+  <button class="btn" id="restartBtn" style="background:var(--blue);color:#fff">Start again 🔁</button>
+</div>
+</div>
+<script>
+var allCards=[
+  // DECIMALS (8)
+  {cat:'decimals',label:'Decimals',q:'What is the value of the digit 4 in 3.47?',sub:'Which decimal place?',a:'4 tenths = 0.4',ex:'3.<strong>4</strong>7 → the 4 is in the tenths place → value = 0.4'},
+  {cat:'decimals',label:'Decimals',q:'What is the value of the digit 7 in 3.47?',sub:'',a:'7 hundredths = 0.07',ex:'3.4<strong>7</strong> → the 7 is in the hundredths place → value = 0.07'},
+  {cat:'decimals',label:'Decimals',q:'How do you read 0.35?',sub:'',a:'"Thirty-five hundredths"',ex:'0.35 = 35 hundredths. Two decimal places = hundredths.'},
+  {cat:'decimals',label:'Decimals',q:'Which is greater: 0.6 or 0.58?',sub:'Compare digit by digit',a:'0.6 is greater (0.6 = 0.60)',ex:'Tenths: 6 > 5 → <strong>0.6 > 0.58</strong>. Always compare from left to right.'},
+  {cat:'decimals',label:'Decimals',q:'Are 1.3 and 1.30 equal?',sub:'Think about trailing zeros',a:'Yes — they are equal. Trailing zeros after the last decimal digit do not change the value.',ex:'1.3 = 1.30 = 1.300. Adding zeros to the RIGHT of a decimal does not change its value.'},
+  {cat:'decimals',label:'Decimals',q:'Order from least to greatest: 0.9, 0.19, 0.91',sub:'',a:'0.19 → 0.9 → 0.91',ex:'Compare tenths first: 1 < 9 = 9. Then hundredths for the tied ones: 0 < 1. So: 0.19 < 0.90 < 0.91'},
+  {cat:'decimals',label:'Decimals',q:'What decimal is equivalent to 3/10?',sub:'',a:'0.3',ex:'3/10 = 3 tenths = <strong>0.3</strong>. The denominator tells you the decimal place.'},
+  {cat:'decimals',label:'Decimals',q:'What decimal is equivalent to 47/100?',sub:'',a:'0.47',ex:'47/100 = 47 hundredths = <strong>0.47</strong>.'},
+
+  // FRACTIONS (10)
+  {cat:'fractions',label:'Fractions',q:'What is a PROPER fraction?',sub:'',a:'A fraction where the numerator is LESS THAN the denominator (value less than 1)',ex:'3/5, 1/4, 7/8 are proper. They represent less than one whole.'},
+  {cat:'fractions',label:'Fractions',q:'What is an IMPROPER fraction?',sub:'',a:'A fraction where the numerator is GREATER THAN OR EQUAL TO the denominator (value of 1 or more)',ex:'7/4, 5/3, 8/8 are improper. They represent 1 whole or more.'},
+  {cat:'fractions',label:'Fractions',q:'Is 8/8 proper or improper?',sub:'',a:'Improper (numerator = denominator → equals exactly 1 whole)',ex:'8/8 = 1. Since numerator ≥ denominator, it is <strong>improper</strong>.'},
+  {cat:'fractions',label:'Fractions',q:'What are equivalent fractions?',sub:'',a:'Fractions that look different but have the same value',ex:'1/2 = 2/4 = 3/6 = 4/8. They all represent exactly half.'},
+  {cat:'fractions',label:'Fractions',q:'How do you find an equivalent fraction?',sub:'',a:'Multiply (or divide) BOTH numerator and denominator by the same number',ex:'1/3 × 4/4 = 4/12. Multiply top AND bottom — never just one!'},
+  {cat:'fractions',label:'Fractions',q:'Find an equivalent fraction for 2/5 with denominator 20.',sub:'',a:'8/20',ex:'5 × 4 = 20, so multiply top too: 2 × 4 = 8 → <strong>8/20</strong>'},
+  {cat:'fractions',label:'Fractions',q:'Are 3/4 and 6/8 equivalent?',sub:'',a:'Yes — 3/4 × 2/2 = 6/8',ex:'Multiply 3 × 2 = 6 and 4 × 2 = 8 → <strong>6/8</strong>. Same value, different look.'},
+  {cat:'fractions',label:'Fractions',q:'Which is greater: 2/3 or 3/4?',sub:'Use equivalent fractions to compare',a:'3/4 is greater',ex:'Common denom 12: 2/3=8/12 and 3/4=9/12 → <strong>9/12 > 8/12</strong> → 3/4 > 2/3'},
+  {cat:'fractions',label:'Fractions',q:'Simplify 6/8.',sub:'Divide top and bottom by the GCF',a:'3/4',ex:'GCF of 6 and 8 = 2. 6÷2=3, 8÷2=4 → <strong>3/4</strong>'},
+  {cat:'fractions',label:'Fractions',q:'Which is greater: 1/2 or 3/8?',sub:'',a:'1/2 is greater',ex:'Common denom 8: 1/2=4/8 and 3/8=3/8 → <strong>4/8 > 3/8</strong>'},
+
+  // MIXED NUMBERS (8)
+  {cat:'mixed',label:'Mixed Numbers',q:'What is a mixed number?',sub:'',a:'A number with a whole number part AND a fraction part',ex:'2¾, 3½, 5⅓ are mixed numbers. They always have a whole + a fraction.'},
+  {cat:'mixed',label:'Mixed Numbers',q:'Convert 11/4 to a mixed number.',sub:'Divide numerator by denominator',a:'2¾',ex:'11 ÷ 4 = <strong>2</strong> remainder <strong>3</strong> → 2¾. The remainder becomes the new numerator.'},
+  {cat:'mixed',label:'Mixed Numbers',q:'Convert 7/2 to a mixed number.',sub:'',a:'3½',ex:'7 ÷ 2 = <strong>3</strong> remainder <strong>1</strong> → 3½'},
+  {cat:'mixed',label:'Mixed Numbers',q:'Convert 9/4 to a mixed number.',sub:'',a:'2¼',ex:'9 ÷ 4 = <strong>2</strong> remainder <strong>1</strong> → 2¼'},
+  {cat:'mixed',label:'Mixed Numbers',q:'Convert 2¾ to an improper fraction.',sub:'Multiply whole × denominator, add numerator',a:'11/4',ex:'(2 × 4) + 3 = 8 + 3 = <strong>11</strong> → 11/4. Keep the denominator (4).'},
+  {cat:'mixed',label:'Mixed Numbers',q:'Convert 3½ to an improper fraction.',sub:'',a:'7/2',ex:'(3 × 2) + 1 = 6 + 1 = <strong>7</strong> → 7/2'},
+  {cat:'mixed',label:'Mixed Numbers',q:'Convert 4⅓ to an improper fraction.',sub:'',a:'13/3',ex:'(4 × 3) + 1 = 12 + 1 = <strong>13</strong> → 13/3'},
+  {cat:'mixed',label:'Mixed Numbers',q:'What is the rule for mixed number → improper fraction?',sub:'',a:'(Whole × Denominator) + Numerator, over the same Denominator',ex:'2¾ → (2×4)+3 = 11 → <strong>11/4</strong>. "Multiply the whole by the bottom, add the top, keep the bottom."'},
+
+  // NUMBER LINE (6)
+  {cat:'numline',label:'Number Line',q:'On a number line, which direction do numbers get bigger?',sub:'',a:'To the RIGHT',ex:'← smaller ... −3 −2 −1 0 1 2 3 ... bigger →. Moving right = increasing.'},
+  {cat:'numline',label:'Number Line',q:'Is −3 greater or less than −1?',sub:'Use the number line',a:'−3 is LESS THAN −1',ex:'−3 is further LEFT on the number line than −1. Further left = smaller. −3 < −1'},
+  {cat:'numline',label:'Number Line',q:'Order from least to greatest: −2, 5, 0, −4, 3',sub:'',a:'−4 < −2 < 0 < 3 < 5',ex:'Negatives first (from most negative), then zero, then positives.'},
+  {cat:'numline',label:'Number Line',q:'True or False: −10 > −2',sub:'',a:'FALSE — −10 < −2',ex:'−10 is further LEFT on the number line. The bigger the negative number, the smaller the value.'},
+  {cat:'numline',label:'Number Line',q:'What number is the opposite of 3 on the number line?',sub:'',a:'−3',ex:'Opposites are the same distance from zero, on opposite sides. 3 and −3 are both 3 units from 0.'},
+  {cat:'numline',label:'Number Line',q:'Which is greater: −5 or 0?',sub:'',a:'0 is greater than −5',ex:'Zero is always to the RIGHT of all negative numbers. 0 > −5.'},
+
+  // AREA & PERIMETER (8)
+  {cat:'area',label:'Area & Perimeter',q:'What is perimeter?',sub:'',a:'The total distance around the outside of a shape — the sum of all its sides',ex:'"Fence around a garden" = perimeter. You measure the boundary.'},
+  {cat:'area',label:'Area & Perimeter',q:'What is area?',sub:'',a:'The amount of surface space inside a shape',ex:'"Paint the floor of a room" = area. You measure the inside surface.'},
+  {cat:'area',label:'Area & Perimeter',q:'What is the formula for the area of a rectangle?',sub:'',a:'Area = length × width',ex:'Rectangle 5.2 m × 3 m → Area = 5.2 × 3 = <strong>15.6 m²</strong>'},
+  {cat:'area',label:'Area & Perimeter',q:'What is the formula for the perimeter of a rectangle?',sub:'',a:'Perimeter = 2 × (length + width)',ex:'Rectangle 4.5 m × 2.8 m → P = 2×(4.5+2.8) = 2×7.3 = <strong>14.6 m</strong>'},
+  {cat:'area',label:'Area & Perimeter',q:'What is the formula for the area of a square?',sub:'',a:'Area = side × side = side²',ex:'Square with side 3.5 cm → Area = 3.5 × 3.5 = <strong>12.25 cm²</strong>'},
+  {cat:'area',label:'Area & Perimeter',q:'A rectangle is 6.4 m long and 3.5 m wide. What is the area?',sub:'Real-life problem',a:'22.4 m²',ex:'Area = 6.4 × 3.5 = <strong>22.4 m²</strong>. Multiply the two dimensions.'},
+  {cat:'area',label:'Area & Perimeter',q:'A square has a side of 4.2 cm. What is the perimeter?',sub:'',a:'16.8 cm',ex:'P = 4 × 4.2 = <strong>16.8 cm</strong>. A square has 4 equal sides.'},
+  {cat:'area',label:'Area & Perimeter',q:'When does a problem ask for area vs perimeter?',sub:'Key vocabulary clue',a:'Area: "cover", "tile", "paint", "fill". Perimeter: "fence", "border", "walk around", "frame".',ex:'Reading the question carefully tells you which formula to use!'},
+];
+
+var cards=allCards.slice(),currentIndex=0,showingAnswer=false,currentFilter='all';
+var knownSet=new Set(),reviewSet=new Set();
+var flashcard=document.getElementById('flashcard'),cardLabel=document.getElementById('cardLabel'),cardCounter=document.getElementById('cardCounter'),cardContent=document.getElementById('cardContent'),cardHint=document.getElementById('cardHint'),catBadge=document.getElementById('catBadge'),progressText=document.getElementById('progressText'),progressFill=document.getElementById('progressFill'),statGood=document.getElementById('statGood'),statReview=document.getElementById('statReview'),statLeft=document.getElementById('statLeft'),finishedScreen=document.getElementById('finishedScreen'),finishedStats=document.getElementById('finishedStats');
+function getId(c){return c.cat+'::'+c.q;}
+function renderFront(c){cardContent.innerHTML='<div class="card-prompt">'+c.q+'</div>'+(c.sub?'<div class="card-sub">'+c.sub+'</div>':'');cardHint.textContent='👆 tap to see answer';flashcard.classList.remove('is-back');}
+function renderBack(c){cardContent.innerHTML='<div class="card-answer">'+c.a+'</div>'+(c.ex?'<div class="card-example">'+c.ex+'</div>':'');cardHint.textContent='👆 tap to see question';flashcard.classList.add('is-back');}
+function renderCard(){if(!cards.length){cardContent.innerHTML='<div class="card-prompt">🎉</div><div class="card-sub">No cards match this filter!</div>';cardLabel.textContent='';cardCounter.textContent='';cardHint.textContent='';return;}var c=cards[currentIndex];showingAnswer=false;cardLabel.textContent=c.label;cardCounter.textContent=(currentIndex+1)+'/'+cards.length;renderFront(c);var cats={decimals:'Decimals',fractions:'Fractions',mixed:'Mixed Numbers',numline:'Number Line',area:'Area & Perimeter'};catBadge.textContent=cats[c.cat]||c.cat;progressText.textContent=(currentIndex+1)+' / '+cards.length;progressFill.style.width=((currentIndex+1)/cards.length*100)+'%';updateStats();}
+function toggleAnswer(){if(!cards.length)return;var c=cards[currentIndex];if(!c||c.cat==='info')return;flashcard.classList.add('fading');setTimeout(function(){showingAnswer=!showingAnswer;if(showingAnswer)renderBack(c);else renderFront(c);flashcard.classList.remove('fading');},120);}
+function updateStats(){statGood.textContent=knownSet.size;statReview.textContent=reviewSet.size;statLeft.textContent=Math.max(0,allCards.length-knownSet.size);}
+function nextCard(){if(currentIndex<cards.length-1){currentIndex++;renderCard();}else showFinished();}
+function prevCard(){if(currentIndex>0){currentIndex--;renderCard();}}
+function showFinished(){flashcard.style.display='none';document.querySelector('.controls').style.display='none';finishedScreen.classList.add('show');finishedStats.innerHTML='✅ <strong>'+knownSet.size+'</strong> mastered<br>🔁 <strong>'+reviewSet.size+'</strong> to review';}
+function restart(){currentIndex=0;flashcard.style.display='';document.querySelector('.controls').style.display='';finishedScreen.classList.remove('show');applyFilter(currentFilter);}
+function shuffle(){for(var i=cards.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=cards[i];cards[i]=cards[j];cards[j]=t;}currentIndex=0;renderCard();}
+function applyFilter(f){currentFilter=f;document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.toggle('active',b.dataset.filter===f);});if(f==='all')cards=allCards.slice();else if(f==='review'){cards=allCards.filter(function(c){return reviewSet.has(getId(c));});if(!cards.length)cards=[{cat:'info',label:'',q:'😊',sub:'No cards marked for review yet!',a:'',ex:''}];}else cards=allCards.filter(function(c){return c.cat===f;});currentIndex=0;renderCard();}
+flashcard.addEventListener('click',toggleAnswer);
+flashcard.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();toggleAnswer();}});
+document.getElementById('nextBtn').addEventListener('click',function(e){e.stopPropagation();nextCard();});
+document.getElementById('prevBtn').addEventListener('click',function(e){e.stopPropagation();prevCard();});
+document.getElementById('gotItBtn').addEventListener('click',function(e){e.stopPropagation();if(!cards.length||cards[currentIndex].cat==='info')return;var id=getId(cards[currentIndex]);knownSet.add(id);reviewSet.delete(id);nextCard();});
+document.getElementById('reviewBtn').addEventListener('click',function(e){e.stopPropagation();if(!cards.length||cards[currentIndex].cat==='info')return;var id=getId(cards[currentIndex]);reviewSet.add(id);knownSet.delete(id);nextCard();});
+document.getElementById('shuffleBtn').addEventListener('click',shuffle);
+document.getElementById('resetBtn').addEventListener('click',function(){if(confirm('Reset all progress?')){knownSet.clear();reviewSet.clear();applyFilter('all');}});
+document.getElementById('restartBtn').addEventListener('click',restart);
+document.querySelectorAll('.filter-btn').forEach(function(btn){btn.addEventListener('click',function(){applyFilter(btn.dataset.filter);});});
+document.addEventListener('keydown',function(e){if(e.target===flashcard)return;if(e.key==='ArrowRight')nextCard();else if(e.key==='ArrowLeft')prevCard();else if(e.key===' '){e.preventDefault();toggleAnswer();}});
+document.querySelector('[data-filter="all"]').textContent='All ('+allCards.length+')';
+renderCard();
+</script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science — Study Sheet | Hydrosphere & Hydropower</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--teal:#0096a0;--sky:#38b6ff;--shadow:4px 4px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 8%,rgba(56,182,255,.15) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(0,150,160,.13) 0%,transparent 40%)}
+.container{max-width:1100px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:22px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'💧';position:absolute;top:-18px;left:20px;font-size:36px;transform:rotate(-12deg)}
+header::after{content:'⚡';position:absolute;top:-18px;right:20px;font-size:36px;transform:rotate(12deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--sky);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:4px}
+.test-date{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;transition:transform .2s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card-num{position:absolute;top:-14px;left:14px;background:var(--ink);color:var(--paper);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1rem}
+.card h2{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:900;margin-bottom:12px;margin-top:4px}
+.card.hydro{background:linear-gradient(135deg,#fff 0%,#e6f6ff 100%)}
+.card.hydro h2{color:var(--sky)}
+.card.cycle{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%)}
+.card.cycle h2{color:var(--teal)}
+.card.water{background:linear-gradient(135deg,#fff 0%,#fff0f0 100%)}
+.card.water h2{color:var(--red)}
+.card.power{background:linear-gradient(135deg,#fff 0%,#fff8e6 100%);grid-column:1/-1}
+.card.power h2{color:var(--purple)}
+ul.lista{list-style:none;padding:0}
+ul.lista li{padding-left:18px;position:relative;margin-bottom:7px;font-size:.92rem;line-height:1.5}
+ul.lista li::before{content:'→';position:absolute;left:0;color:var(--sky);font-weight:700}
+.tip{background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:9px 12px;margin-top:12px;font-family:'Caveat',cursive;font-size:1.1rem;line-height:1.3}
+.tip::before{content:'💡 '}
+table.ref{width:100%;font-size:.84rem;margin-top:8px;border-collapse:collapse}
+table.ref th{background:var(--ink);color:var(--paper);padding:5px 8px;text-align:left;font-family:'Fraunces',serif}
+table.ref td{padding:6px 8px;border-bottom:1px dashed #ccc;vertical-align:top;line-height:1.4}
+table.ref tr:last-child td{border-bottom:none}
+table.ref tr:nth-child(even) td{background:#fafafa}
+.box{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.6}
+.cycle-flow{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:12px;justify-content:center}
+.step{background:var(--teal);color:#fff;padding:6px 12px;border-radius:20px;font-size:.82rem;font-weight:700;border:2px solid var(--ink)}
+.arrow{font-size:1.2rem;color:var(--ink);font-weight:700}
+.power-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+.power-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:12px;font-size:.84rem;line-height:1.5}
+.power-card strong{display:block;font-size:.9rem;margin-bottom:4px}
+.power-card.good strong{color:var(--green)}
+.power-card.bad strong{color:var(--red)}
+.how-works{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:10px}
+.hw-step{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 8px;text-align:center;font-size:.8rem;line-height:1.4}
+.hw-step .hw-num{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:var(--purple);display:block;margin-bottom:2px}
+footer{text-align:center;margin-top:28px;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1><span class="accent">Science</span> — Study Sheet</h1>
+  <p class="subtitle">Hydrosphere, Water Cycle & Hydropower ⭐</p>
+  <div class="test-date">📖 Test: Tuesday, June 23</div>
+</header>
+
+<div class="grid">
+
+<!-- THE HYDROSPHERE -->
+<section class="card hydro">
+  <div class="card-num">1</div>
+  <h2>💧 The Hydrosphere</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">The <strong>hydrosphere</strong> is ALL the water found on, under, and above Earth's surface — in every form.</p>
+  <table class="ref">
+    <tr><th>Form of water</th><th>Where it is found</th></tr>
+    <tr><td><strong>Liquid</strong></td><td>Oceans, rivers, lakes, groundwater, tiny drops in clouds</td></tr>
+    <tr><td><strong>Solid (ice)</strong></td><td>Glaciers, ice caps, snow — mostly in polar regions</td></tr>
+    <tr><td><strong>Gas (vapour)</strong></td><td>Atmosphere — when Sun's heat evaporates surface water</td></tr>
+  </table>
+  <div class="box" style="margin-top:10px">
+    <strong>Key facts:</strong><br>
+    🌍 75% of Earth's surface is covered by water → Earth is called the <strong>Blue Planet</strong><br>
+    🌊 97.5% of all water is <strong>saltwater</strong> (oceans)<br>
+    💧 Only <strong>2.5%</strong> is fresh water — and most of that is frozen in glaciers<br>
+    🚰 Less than <strong>1%</strong> is easily available for living things to use
+  </div>
+  <div class="tip">Hydro = water. The hydrosphere includes ALL water on Earth — oceans, rivers, lakes, glaciers, groundwater AND water vapour in the air!</div>
+</section>
+
+<!-- WATER CYCLE -->
+<section class="card cycle">
+  <div class="card-num">2</div>
+  <h2>🔄 The Water Cycle</h2>
+  <p style="font-size:.9rem;margin-bottom:8px">Water is always moving and changing form. The water cycle is continuous — it never stops!</p>
+  <table class="ref">
+    <tr><th>Stage</th><th>What happens</th></tr>
+    <tr><td><strong>Evaporation</strong></td><td>Sun heats water → turns into water vapour → rises into the air</td></tr>
+    <tr><td><strong>Transpiration</strong></td><td>Plants release water vapour through their leaves into the air</td></tr>
+    <tr><td><strong>Condensation</strong></td><td>Water vapour cools → turns back into liquid droplets → forms clouds</td></tr>
+    <tr><td><strong>Precipitation</strong></td><td>Cloud gets too heavy → releases water as rain, hail or snow</td></tr>
+    <tr><td><strong>Runoff</strong></td><td>Water flows over land into rivers, lakes and oceans</td></tr>
+    <tr><td><strong>Infiltration</strong></td><td>Water seeps into the ground → becomes groundwater</td></tr>
+    <tr><td><strong>Sublimation</strong></td><td>In very cold areas, ice/snow turns directly into vapour (no liquid stage)</td></tr>
+  </table>
+  <div class="cycle-flow">
+    <span class="step">Sun heats water</span><span class="arrow">→</span>
+    <span class="step">Evaporation</span><span class="arrow">→</span>
+    <span class="step">Condensation (clouds)</span><span class="arrow">→</span>
+    <span class="step">Precipitation (rain/snow)</span><span class="arrow">→</span>
+    <span class="step">Runoff & Groundwater</span><span class="arrow">→</span>
+    <span class="step">Back to oceans ↺</span>
+  </div>
+  <div class="tip">The water cycle PURIFIES water! Evaporation leaves impurities behind, so the water vapour that rises is cleaner than what was in the ocean.</div>
+</section>
+
+<!-- WATER CONSERVATION -->
+<section class="card water">
+  <div class="card-num">3</div>
+  <h2>🌍 Water & the Hydrosphere — Impact on Land & Vegetation</h2>
+  <p style="font-size:.9rem;margin-bottom:8px">Water from the hydrosphere shapes the land and supports all life. But pollution threatens this balance.</p>
+  <ul class="lista">
+    <li><strong>Rivers</strong> shape valleys and carry sediments — water carves the land over time</li>
+    <li><strong>Rain and runoff</strong> erode soil and carry nutrients that feed plants and ecosystems</li>
+    <li><strong>Vegetation</strong> depends on water from rivers, rain and groundwater to survive</li>
+    <li><strong>Floods</strong> can deposit nutrient-rich sediments → fertile land for farming</li>
+    <li><strong>Droughts</strong> (lack of water) cause vegetation to die and soil to dry out</li>
+  </ul>
+  <div class="box">
+    <strong>⚠️ Threats to the hydrosphere:</strong><br>
+    Rubbish thrown into rivers and oceans → kills aquatic animals<br>
+    Oils and chemicals poured into drains → travel to seas and rivers<br>
+    Factory chemical waste dumped in water → extreme contamination<br>
+    Oil spills from ships → catastrophic damage to marine life
+  </div>
+  <div class="box" style="margin-top:8px">
+    <strong>✅ How to protect water:</strong><br>
+    Never throw rubbish into rivers or seas<br>
+    Don't pour oils or paints down drains<br>
+    Encourage good habits in your family and community
+  </div>
+  <div class="tip">Looking after water = looking after life. Without clean water, there are no plants, no animals, no humans.</div>
+</section>
+
+<!-- HYDROPOWER -->
+<section class="card power">
+  <div class="card-num">4</div>
+  <h2>⚡ Hydropower — Water as Energy</h2>
+  <p style="font-size:.9rem;margin-bottom:10px"><strong>Hydropower</strong> (or hydroelectric power) uses the energy of moving or falling water to generate electricity. It is a <strong>renewable energy source</strong> — it doesn't run out like fossil fuels.</p>
+
+  <div style="margin-bottom:12px">
+    <strong style="font-size:.95rem">How a hydropower plant works:</strong>
+    <div class="how-works">
+      <div class="hw-step"><span class="hw-num">1</span>A dam is built across a river, creating a large reservoir of water at a high point.</div>
+      <div class="hw-step"><span class="hw-num">2</span>Water flows down through large pipes (penstocks) from high to low elevation.</div>
+      <div class="hw-step"><span class="hw-num">3</span>Falling water pushes against the blades of a <strong>turbine</strong>, making it spin.</div>
+      <div class="hw-step"><span class="hw-num">4</span>The spinning turbine powers a <strong>generator</strong> that converts movement into electricity.</div>
+      <div class="hw-step"><span class="hw-num">5</span>Electricity is sent through power lines to homes, schools and businesses.</div>
+    </div>
+  </div>
+
+  <div class="power-grid">
+    <div class="power-card good">
+      <strong>✅ Advantages</strong>
+      Renewable — water is never used up<br>
+      No carbon dioxide or greenhouse gases<br>
+      Clean — doesn't pollute air or water<br>
+      Electricity can be cheaper to produce<br>
+      Can handle peak demand easily (control the dam gates)
+    </div>
+    <div class="power-card bad">
+      <strong>⚠️ Environmental impacts</strong>
+      Dam blocks fish migration routes<br>
+      Reservoir floods large natural areas, farmland and homes<br>
+      Changes water temperature and river flow<br>
+      Kills native plants and animals in the river<br>
+      Sediment builds up behind the dam → depletes oxygen downstream<br>
+      Depends on rainfall — droughts reduce power production
+    </div>
+  </div>
+
+  <div class="tip">The key balance: hydropower is CLEAN energy (no pollution, no greenhouse gases) but it can HARM ecosystems by changing rivers and flooding land. Both sides matter for the exam!</div>
+</section>
+
+</div>
+<footer>⭐ You've got this, Y5! Good luck on June 23, Year 5! ⭐</footer>
+</div>
+</body>
+</html>

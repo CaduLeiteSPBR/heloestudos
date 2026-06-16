@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Língua Portuguesa — Simulado | 2º Tri</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--pink:#e0449a;--purple:#7209b7;--shadow:5px 5px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 10%,rgba(224,68,154,.15) 0%,transparent 40%),radial-gradient(circle at 85% 85%,rgba(114,9,183,.12) 0%,transparent 40%)}
+.container{max-width:680px;margin:0 auto}
+header{text-align:center;margin-bottom:24px;padding:20px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'📝';position:absolute;top:-16px;left:20px;font-size:34px;transform:rotate(-10deg)}
+header::after{content:'⭐';position:absolute;top:-16px;right:20px;font-size:34px;transform:rotate(10deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.4rem,5vw,2rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--pink);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--blue);margin-top:4px}
+.progress-wrap{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-weight:700;font-size:.9rem}
+.progress-bar{flex:1;height:12px;background:#e8e8e8;border:2px solid var(--ink);border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;background:var(--pink);width:0%;transition:width .4s}
+.question-card{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:22px 18px 18px;box-shadow:var(--shadow);margin-bottom:14px}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.q-number{font-family:'Fraunces',serif;font-size:1rem;font-weight:900;background:var(--ink);color:var(--paper);padding:2px 10px;border-radius:20px}
+.q-tag{font-size:.72rem;font-weight:700;padding:3px 10px;border:2px solid var(--ink);border-radius:20px;background:var(--yellow);text-transform:uppercase;letter-spacing:.4px}
+.q-passage{background:#fff0f7;border-left:4px solid var(--pink);padding:10px 13px;border-radius:6px;font-size:.91rem;line-height:1.6;margin-bottom:14px;font-style:italic}
+.q-text{font-size:1.03rem;font-weight:700;line-height:1.4;margin-bottom:16px}
+.options{display:flex;flex-direction:column;gap:9px}
+.option{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border:2px solid #ccc;border-radius:12px;cursor:pointer;background:#fafafa;transition:all .15s;font-size:.95rem;font-weight:500;text-align:left;width:100%;font-family:'DM Sans',sans-serif;line-height:1.4}
+.option:hover:not(.locked){border-color:var(--pink);background:#fff0f7;transform:translateX(3px)}
+.option .letter{font-family:'Fraunces',serif;font-weight:900;font-size:.95rem;min-width:24px;height:24px;display:flex;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:50%;background:#fff;flex-shrink:0;margin-top:1px}
+.option.locked{cursor:default}
+.option.correct{border-color:var(--green);background:#e6fff6}
+.option.correct .letter{background:var(--green);color:#fff;border-color:var(--green)}
+.option.wrong{border-color:var(--red);background:#fff0f0}
+.option.wrong .letter{background:var(--red);color:#fff;border-color:var(--red)}
+.option.show-ok{border-color:var(--green);background:#e6fff6;opacity:.55}
+.feedback{display:none;margin-top:12px;padding:11px 13px;border-radius:10px;font-size:.91rem;line-height:1.5;border:2px solid}
+.feedback.show{display:block}
+.feedback.correct{background:#e6fff6;border-color:var(--green);color:#054f35}
+.feedback.wrong{background:#fff0f0;border-color:var(--red);color:#7a1010}
+.btn-next{display:none;margin-top:12px;width:100%;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;padding:13px;border:3px solid var(--ink);border-radius:12px;background:var(--pink);color:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all .1s}
+.btn-next:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn-next.show{display:block}
+.results{display:none;text-align:center;background:#fff;border:3px solid var(--ink);border-radius:20px;padding:32px 22px;box-shadow:var(--shadow)}
+.results.show{display:block}
+.results .big-emoji{font-size:3.8rem;display:block;margin-bottom:8px}
+.results h2{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:900;margin-bottom:8px}
+.score-display{font-family:'Fraunces',serif;font-size:3.2rem;font-weight:900;color:var(--pink);margin:10px 0}
+.score-label{font-family:'Caveat',cursive;font-size:1.2rem;color:#666;margin-bottom:18px}
+.result-breakdown{display:flex;justify-content:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.result-item{text-align:center;padding:9px 16px;border:2px solid var(--ink);border-radius:12px;background:var(--paper)}
+.r-val{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;display:block}
+.r-val.green{color:var(--green)}.r-val.red{color:var(--red)}
+.r-label{font-size:.78rem;font-weight:700}
+.wrong-list{text-align:left;background:#fff8f8;border:2px solid var(--red);border-radius:12px;padding:13px 15px;margin-bottom:18px;font-size:.88rem;line-height:1.7}
+.wrong-list h3{font-family:'Fraunces',serif;font-size:.95rem;color:var(--red);margin-bottom:7px}
+.btn-restart{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;padding:12px 26px;border:3px solid var(--ink);border-radius:12px;background:var(--green);color:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Língua <span class="accent">Portuguesa</span></h1>
+  <p class="subtitle">15 questões — vai com tudo, Year 5! 💪</p>
+</header>
+<div class="progress-wrap">
+  <span id="progressLabel">Questão 1 de 15</span>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div id="quizArea"></div>
+<div class="results" id="resultsScreen"></div>
+</div>
+<script>
+var questions=[
+  // RELATO DE MEMÓRIA (3)
+  {tag:'Relato de Memória',passage:'"Eu tinha uns sete anos quando fui ao circo pela primeira vez. Lembro até hoje do cheiro de pipoca e da alegria que senti ao ver os palhaços. Foi uma noite que nunca vou esquecer."',q:'Esse texto pertence ao gênero:',opts:['Conto de ficção','Relato de memória','Notícia jornalística','Texto instrucional'],c:1,why:'É um relato de memória: narrado em 1ª pessoa ("eu"), no passado, trata de fato real e tem tom afetivo com marcadores de tempo ("eu tinha sete anos", "lembro até hoje").'},
+  {tag:'Relato de Memória',passage:'"Naquela época, a nossa rua não tinha asfalto. Brincávamos de pique-pega até o sol se pôr, e a minha mãe sempre chamava a gente para jantar gritando da janela."',q:'Qual característica do relato de memória está presente nesse trecho?',opts:['Narração em 3ª pessoa sobre personagens fictícios','Linguagem técnica e impessoal','1ª pessoa do plural, passado e detalhes afetivos do cotidiano','Futuro do pretérito para indicar hipótese'],c:2,why:'Narração em 1ª pessoa ("brincávamos", "nossa rua", "a minha mãe"), no passado, com detalhes afetivos — características típicas do relato de memória.'},
+  {tag:'Relato de Memória',q:'Qual alternativa NÃO é característica do relato de memória?',opts:['Narração em 1ª pessoa','Fatos reais vividos pelo narrador','Personagens e histórias inventadas','Tom afetivo e nostálgico'],c:2,why:'Relato de memória narra fatos REAIS. Personagens e histórias inventadas pertencem à ficção (contos, romances, etc).'},
+
+  // ACENTUAÇÃO (4)
+  {tag:'Acentuação',q:'Qual alternativa contém APENAS palavras oxítonas acentuadas corretamente?',opts:['café, sofá, também, avó','anime, caráter, sábio','lâmpada, música, fácil','caju, bambu, peru'],c:0,why:'Café (oxítona em E), sofá (oxítona em A), também (oxítona em EM), avó (oxítona em O) — todas seguem a regra das oxítonas. As outras opções são paroxítonas ou proparoxítonas.'},
+  {tag:'Acentuação',passage:'"Ninguém sabia que a avó de Ana tinha chegado."',q:'Quantas palavras oxítonas acentuadas há nesse trecho?',opts:['1','2','3','4'],c:1,why:'<strong>Ninguém</strong> (oxítona em EM) e <strong>avó</strong> (oxítona em O) são as duas oxítonas acentuadas. "Ana" e "tinha" não seguem a regra das oxítonas.'},
+  {tag:'Acentuação',q:'A palavra "parabéns" recebe acento porque:',opts:['É paroxítona terminada em S','É oxítona terminada em ENS','É monossílaba tônica','É proparoxítona'],c:1,why:'Parabéns = pa-ra-BÉNS. Sílaba tônica na última → oxítona. Terminada em ENS → recebe acento. Regra das oxítonas!'},
+  {tag:'Acentuação',q:'Qual das palavras abaixo é uma monossílaba tônica acentuada?',opts:['me','se','fé','de'],c:2,why:'"Fé" é monossílaba TÔNICA terminada em E → recebe acento. "Me", "se", "de" são monossílabas ÁTONAS — não recebem acento.'},
+
+  // PRONOMES (5)
+  {tag:'Pronomes',passage:'"Ela deixou o caderno na mesa. João o encontrou mais tarde."',q:'O pronome "o" no segundo período substitui:',opts:['Ela','João','o caderno','a mesa'],c:2,why:'"O" é pronome oblíquo que substitui "o caderno" — evita repetir o substantivo. É um caso de pronome oblíquo átono na 3ª pessoa.'},
+  {tag:'Pronomes',q:'Classifique o pronome em destaque: "Este livro é meu."',opts:['"Este" = possessivo; "meu" = demonstrativo','Ambos são pronomes pessoais','"Este" = demonstrativo; "meu" = possessivo','"Este" = oblíquo; "meu" = possessivo'],c:2,why:'"Este" indica posição (perto de quem fala) = <strong>demonstrativo</strong>. "Meu" indica posse = <strong>possessivo</strong>.'},
+  {tag:'Pronomes',q:'Em qual frase o pronome demonstrativo está usado corretamente?',opts:['"Aquele livro que tenho aqui é ótimo." (livro na mão do falante)','Passe-me esse sal que está perto de você.','Este problema está longe de nós, difícil de resolver.','Esse objeto aqui em minha mão é raro.'],c:1,why:'"Esse" = perto de quem ouve. "Passe-me <strong>esse</strong> sal que está perto de você" → correto! O sal está com quem ouve.'},
+  {tag:'Pronomes',passage:'"Nós gostamos muito da nossa escola. Ela nos ensina a pensar."',q:'Identifique os pronomes pessoais do caso reto nesse trecho.',opts:['"nossa" e "nos"','"Nós" e "Ela"','"nos" e "Ela"','"Nós" e "nossa"'],c:1,why:'Caso reto = sujeito da frase. <strong>Nós</strong> (quem gosta) e <strong>Ela</strong> (quem ensina) são sujeitos → caso reto. "Nossa" é possessivo. "Nos" é oblíquo.'},
+  {tag:'Pronomes',q:'Qual alternativa apresenta APENAS pronomes possessivos?',opts:['eu, tu, ele','meu, tua, nosso','este, esse, aquele','me, te, lhe'],c:1,why:'"Meu, tua, nosso" indicam posse → todos possessivos. Eu/tu/ele = pessoais retos. Este/esse/aquele = demonstrativos. Me/te/lhe = oblíquos.'},
+
+  // MODOS VERBAIS (3)
+  {tag:'Modos Verbais',passage:'"Talvez ela chegue mais cedo amanhã."',q:'O verbo "chegue" está em qual modo verbal?',opts:['Indicativo','Subjuntivo','Imperativo','Infinitivo'],c:1,why:'"Talvez" é palavra-gatilho do subjuntivo. A chegada é <strong>incerta</strong> — não é fato certo. Logo, "chegue" está no modo <strong>subjuntivo</strong>.'},
+  {tag:'Modos Verbais',q:'Qual modo verbal está presente em: "Não jogue lixo no chão!"?',opts:['Indicativo — fato real','Subjuntivo — ação desejada','Imperativo — ordem direta','Nenhum dos anteriores'],c:2,why:'"Não jogue!" é uma instrução/proibição direta — modo <strong>imperativo negativo</strong>. O imperativo expressa ordens, pedidos, conselhos e proibições.'},
+  {tag:'Modos Verbais',q:'Compare as frases. Qual par usa os modos verbais corretamente?',opts:['Indicativo: "Espero que você venha." / Subjuntivo: "Ela chegou cedo."','Indicativo: "Pedro chegou cedo." / Subjuntivo: "Espero que você venha."','Imperativo: "Ela foi ao mercado." / Indicativo: "Venha aqui!"','Subjuntivo: "João come bem." / Imperativo: "Talvez chova."'],c:1,why:'"Pedro chegou cedo" = fato real = <strong>indicativo</strong>. "Espero que você venha" = desejo + incerteza = <strong>subjuntivo</strong>. Par correto!'},
+];
+
+var currentQ=0,score=0,wrongQuestions=[],answered=false;
+function renderQuestion(){
+  var q=questions[currentQ];answered=false;
+  document.getElementById('progressFill').style.width=(currentQ/questions.length*100)+'%';
+  document.getElementById('progressLabel').textContent='Questão '+(currentQ+1)+' de '+questions.length;
+  var letters=['A','B','C','D'];
+  var passHTML=q.passage?'<div class="q-passage">'+q.passage+'</div>':'';
+  var optsHTML=q.opts.map(function(o,i){return '<button class="option" data-index="'+i+'"><span class="letter">'+letters[i]+'</span><span>'+o+'</span></button>';}).join('');
+  document.getElementById('quizArea').innerHTML='<div class="question-card"><div class="q-meta"><span class="q-number">Q'+(currentQ+1)+'</span><span class="q-tag">'+q.tag+'</span></div>'+passHTML+'<div class="q-text">'+q.q+'</div><div class="options">'+optsHTML+'</div><div class="feedback" id="feedback"></div><button class="btn-next" id="btnNext">'+(currentQ<questions.length-1?'Próxima questão →':'Ver resultado 🎉')+'</button></div>';
+  document.querySelectorAll('.option').forEach(function(btn){btn.addEventListener('click',function(){if(answered)return;selectAnswer(parseInt(btn.dataset.index));});});
+  document.getElementById('btnNext').addEventListener('click',function(){currentQ++;if(currentQ<questions.length)renderQuestion();else showResults();});
+}
+function selectAnswer(chosen){
+  answered=true;var q=questions[currentQ];var isCorrect=chosen===q.c;var letters=['A','B','C','D'];
+  if(isCorrect)score++;else wrongQuestions.push({n:currentQ+1,text:q.q,correct:letters[q.c]+') '+q.opts[q.c]});
+  document.querySelectorAll('.option').forEach(function(btn,i){btn.classList.add('locked');if(i===q.c&&i===chosen)btn.classList.add('correct');else if(i===chosen)btn.classList.add('wrong');else if(i===q.c)btn.classList.add('show-ok');});
+  var fb=document.getElementById('feedback');fb.classList.add('show');fb.classList.add(isCorrect?'correct':'wrong');
+  fb.innerHTML='<strong>'+(isCorrect?'✅ Correto!':'❌ Não foi dessa vez.')+'</strong> '+q.why;
+  document.getElementById('btnNext').classList.add('show');
+}
+function showResults(){
+  document.getElementById('quizArea').style.display='none';document.getElementById('progressLabel').parentElement.style.display='none';
+  var pct=Math.round(score/questions.length*100);var emoji,msg;
+  if(pct>=90){emoji='🏆';msg='Excelente! Pronta para a prova!';}
+  else if(pct>=70){emoji='🌟';msg='Muito bem! Revise os erros e vai arrasar!';}
+  else if(pct>=50){emoji='💪';msg='Bom esforço! Revise os tópicos e tente de novo.';}
+  else{emoji='📚';msg='Continue estudando! Revise o resumo e os flashcards.';}
+  var wrongHTML='';
+  if(wrongQuestions.length){wrongHTML='<div class="wrong-list"><h3>⚠️ Revise esses tópicos:</h3>';wrongQuestions.forEach(function(w){wrongHTML+='<div>Q'+w.n+': '+w.text+'<br><strong>✓ '+w.correct+'</strong></div><br>';});wrongHTML+='</div>';}
+  var rs=document.getElementById('resultsScreen');
+  rs.innerHTML='<span class="big-emoji">'+emoji+'</span><h2>'+msg+'</h2><div class="score-display">'+score+' / '+questions.length+'</div><div class="score-label">'+pct+'% de acerto</div><div class="result-breakdown"><div class="result-item"><span class="r-val green">'+score+'</span><span class="r-label">Acertos</span></div><div class="result-item"><span class="r-val red">'+wrongQuestions.length+'</span><span class="r-label">Erros</span></div><div class="result-item"><span class="r-val" style="color:var(--pink)">'+pct+'%</span><span class="r-label">Nota</span></div></div>'+wrongHTML+'<button class="btn-restart" id="btnRestart">Tentar novamente 🔁</button>';
+  rs.classList.add('show');
+  document.getElementById('btnRestart').addEventListener('click',function(){currentQ=0;score=0;wrongQuestions=[];answered=false;document.getElementById('quizArea').style.display='';document.getElementById('progressLabel').parentElement.style.display='';rs.classList.remove('show');renderQuestion();});
+}
+renderQuestion();
+</script>
+</body>
+</html>

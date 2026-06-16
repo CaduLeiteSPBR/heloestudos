@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Língua Portuguesa — Flashcards | 2º Tri</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--pink:#e0449a;--teal:#0096a0;--shadow:6px 6px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:20px 16px 40px;background-image:radial-gradient(circle at 20% 10%,rgba(224,68,154,.15) 0%,transparent 40%),radial-gradient(circle at 90% 80%,rgba(114,9,183,.12) 0%,transparent 40%)}
+.container{max-width:700px;margin:0 auto}
+header{text-align:center;margin-bottom:22px}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.5rem,5vw,2.1rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--pink);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--blue);margin-top:4px}
+.top-bar{display:flex;justify-content:space-between;align-items:center;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:10px 14px;box-shadow:3px 3px 0 var(--ink);margin-bottom:14px;font-size:.9rem;font-weight:700;flex-wrap:wrap;gap:8px}
+.progress{display:flex;align-items:center;gap:8px}
+.progress-bar{width:100px;height:10px;background:#eee;border:2px solid var(--ink);border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);width:0%;transition:width .4s}
+.cat-badge{padding:3px 10px;border:2px solid var(--ink);border-radius:20px;font-size:.75rem;background:var(--yellow);text-transform:uppercase;letter-spacing:.5px}
+.filters{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.filter-btn{font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:700;padding:5px 11px;border:2px solid var(--ink);border-radius:20px;background:#fff;cursor:pointer;transition:all .15s}
+.filter-btn.active{background:var(--ink);color:var(--paper)}
+.flashcard{width:100%;min-height:320px;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);padding:44px 22px 40px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,#fff 0%,#fff0f7 100%);cursor:pointer;position:relative;margin-bottom:18px;transition:background .25s ease,opacity .15s ease;user-select:none;-webkit-user-select:none}
+.flashcard.is-back{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.flashcard.fading{opacity:0}
+.card-label{position:absolute;top:13px;left:16px;font-family:'Caveat',cursive;font-size:.95rem;color:var(--purple);font-weight:700}
+.card-counter{position:absolute;top:13px;right:16px;font-size:.78rem;color:#888;font-weight:700}
+.card-hint{position:absolute;bottom:13px;left:50%;transform:translateX(-50%);font-family:'Caveat',cursive;font-size:.95rem;color:#999;white-space:nowrap}
+.card-content{width:100%}
+.card-prompt{font-family:'Fraunces',serif;font-size:clamp(1.1rem,3.8vw,1.6rem);font-weight:900;line-height:1.3;margin-bottom:10px}
+.card-sub{font-size:.92rem;color:#666;font-style:italic;line-height:1.4}
+.card-answer{font-family:'Fraunces',serif;font-size:clamp(1.1rem,3.8vw,1.5rem);font-weight:900;color:var(--blue);margin-bottom:10px;line-height:1.3}
+.card-example{background:rgba(255,190,11,.25);border-left:3px solid var(--yellow);padding:9px 12px;border-radius:6px;font-size:.88rem;font-style:italic;max-width:95%;margin:0 auto;line-height:1.5}
+.card-example strong{color:var(--red);font-style:normal}
+.controls{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:10px;margin-bottom:12px}
+.btn{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;padding:12px 14px;border:3px solid var(--ink);border-radius:12px;background:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all .1s}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn-nav{font-size:1.2rem}
+.btn-got{background:var(--green);color:#fff}
+.btn-rev{background:var(--red);color:#fff}
+.tools{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.tool-btn{font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:700;padding:7px 13px;border:2px solid var(--ink);border-radius:20px;background:#fff;cursor:pointer}
+.tool-btn:hover{background:var(--yellow)}
+.stats{margin-top:18px;padding:13px;background:#fff;border:3px solid var(--ink);border-radius:14px;display:flex;justify-content:space-around;text-align:center;font-size:.83rem}
+.stat-value{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:900;display:block}
+.stat-value.green{color:var(--green)}.stat-value.red{color:var(--red)}.stat-value.blue{color:var(--blue)}
+.finished{text-align:center;padding:36px 20px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);display:none}
+.finished.show{display:block}
+.finished h2{font-family:'Fraunces',serif;font-size:1.9rem;color:var(--green);margin-bottom:10px}
+.finished .big{font-size:3.5rem;display:block;margin-bottom:8px}
+@media(max-width:480px){.controls{grid-template-columns:1fr 1fr}.btn-nav{grid-column:span 1}.flashcard{min-height:300px;padding:40px 16px 38px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Língua <span class="accent">Portuguesa</span></h1>
+  <p class="subtitle">Toque no card para ver a resposta! 🎴</p>
+</header>
+<div class="top-bar">
+  <div class="progress"><span id="progressText">1 / 40</span><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
+  <div class="cat-badge" id="catBadge">Relato</div>
+</div>
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">Todos (40)</button>
+  <button class="filter-btn" data-filter="relato">📖 Relato</button>
+  <button class="filter-btn" data-filter="acent">✏️ Acentuação</button>
+  <button class="filter-btn" data-filter="pronomes">👤 Pronomes</button>
+  <button class="filter-btn" data-filter="verbos">🔤 Modos Verbais</button>
+  <button class="filter-btn" data-filter="review">⚠️ Revisar</button>
+</div>
+<div class="flashcard" id="flashcard" role="button" tabindex="0">
+  <div class="card-label" id="cardLabel">Relato</div>
+  <div class="card-counter" id="cardCounter">1/40</div>
+  <div class="card-content" id="cardContent"></div>
+  <div class="card-hint" id="cardHint">👆 toque para ver a resposta</div>
+</div>
+<div class="controls">
+  <button class="btn btn-nav" id="prevBtn">◀</button>
+  <button class="btn btn-rev" id="reviewBtn">Revisar de novo</button>
+  <button class="btn btn-got" id="gotItBtn">Acertei! ✓</button>
+  <button class="btn btn-nav" id="nextBtn">▶</button>
+</div>
+<div class="tools">
+  <button class="tool-btn" id="shuffleBtn">🔀 Embaralhar</button>
+  <button class="tool-btn" id="resetBtn">↺ Resetar</button>
+</div>
+<div class="stats">
+  <div><span class="stat-value green" id="statGood">0</span><span>Acertei</span></div>
+  <div><span class="stat-value red" id="statReview">0</span><span>Revisar</span></div>
+  <div><span class="stat-value blue" id="statLeft">40</span><span>Faltam</span></div>
+</div>
+<div class="finished" id="finishedScreen">
+  <span class="big">🎉</span>
+  <h2>Arrasou, Year 5!</h2>
+  <p style="margin-bottom:14px">Todos os cards revisados.</p>
+  <p id="finishedStats" style="margin-bottom:20px"></p>
+  <button class="btn" id="restartBtn" style="background:var(--blue);color:#fff">Recomeçar 🔁</button>
+</div>
+</div>
+<script>
+var allCards=[
+  // RELATO DE MEMÓRIA (8)
+  {cat:'relato',label:'Relato de Memória',q:'O que é um relato de memória?',sub:'',a:'Texto em que o autor narra uma lembrança real da sua vida com tom afetivo e pessoal',ex:'É sempre sobre algo que <strong>realmente aconteceu</strong> com o narrador — não é ficção.'},
+  {cat:'relato',label:'Relato de Memória',q:'Em qual pessoa o relato de memória é escrito?',sub:'',a:'1ª pessoa — "eu" ou "nós" (quem escreve é quem viveu)',ex:'"<strong>Eu</strong> lembro do dia em que fui ao circo pela primeira vez..." → 1ª pessoa.'},
+  {cat:'relato',label:'Relato de Memória',q:'Em qual tempo verbal predomina o relato de memória?',sub:'',a:'Passado — narra algo que já aconteceu',ex:'"<strong>Fui</strong>, <strong>vi</strong>, <strong>senti</strong>..." — os verbos estão no pretérito.'},
+  {cat:'relato',label:'Relato de Memória',q:'Qual é o tom emocional típico do relato de memória?',sub:'',a:'Afetivo, nostálgico e pessoal — cheio de emoção e detalhes sensoriais',ex:'O autor não conta apenas o fato, mas como se <strong>sentiu</strong> e o que aquilo significou para ele.'},
+  {cat:'relato',label:'Relato de Memória',q:'Qual é a estrutura de um relato de memória?',sub:'',a:'Situação inicial → Desenvolvimento do fato → Reflexão ou conclusão pessoal',ex:'Começa situando o contexto, depois narra o que aconteceu, e termina com uma reflexão.'},
+  {cat:'relato',label:'Relato de Memória',q:'Como identificar um relato de memória em um texto?',sub:'',a:'Verbos no passado + 1ª pessoa + marcadores de tempo + detalhes emocionais + reflexão final',ex:'"Quando eu era criança..." / "Naquela época..." / "Nunca vou esquecer..."'},
+  {cat:'relato',label:'Relato de Memória',q:'O relato de memória é ficção ou realidade?',sub:'',a:'Realidade — narra fatos que realmente aconteceram com o autor',ex:'É diferente do conto (ficção inventada) e do diário (anotação do cotidiano). O relato conta uma <strong>memória especial</strong>.'},
+  {cat:'relato',label:'Relato de Memória',q:'Cite 2 marcadores de tempo comuns no relato de memória.',sub:'',a:'"Quando eu era criança", "naquela época", "um certo dia", "nunca vou esquecer"',ex:'Essas expressões situam o leitor no passado e são marca típica do gênero.'},
+
+  // ACENTUAÇÃO (10)
+  {cat:'acent',label:'Acentuação',q:'O que é uma palavra oxítona?',sub:'',a:'Palavra cuja sílaba tônica (mais forte) está na ÚLTIMA sílaba',ex:'ca-FÉ, so-FÁ, a-VÓ, tam-BÉM — a força está na última!'},
+  {cat:'acent',label:'Acentuação',q:'Quando uma oxítona recebe acento gráfico?',sub:'',a:'Quando termina em A(s), E(s), O(s), EM ou ENS',ex:'café ✓, sofá ✓, avó ✓, também ✓, parabéns ✓'},
+  {cat:'acent',label:'Acentuação',q:'O que é uma monossílaba tônica?',sub:'',a:'Palavra de uma só sílaba pronunciada com força',ex:'pá, fé, pó, só, dá — são monossílabas TÔNICAS. Já "me", "te", "se" são átonas (sem acento).'},
+  {cat:'acent',label:'Acentuação',q:'Quando uma monossílaba tônica recebe acento?',sub:'',a:'Quando termina em A(s), E(s) ou O(s)',ex:'pá ✓, fé ✓, pó ✓, pás ✓, pés ✓, nós ✓, mês ✓'},
+  {cat:'acent',label:'Acentuação',q:'Qual a diferença entre as regras de oxítonas e monossílabas tônicas?',sub:'',a:'Oxítonas acentuam em A, E, O, EM, ENS. Monossílabas tônicas acentuam apenas em A, E, O.',ex:'A diferença está no EM e ENS: só as oxítonas recebem acento nessas terminações.'},
+  {cat:'acent',label:'Acentuação',q:'"Também" é oxítona ou monossílaba?',sub:'',a:'Oxítona — tem 3 sílabas: tam-BÉM. Sílaba tônica na última.',ex:'Recebe acento porque é oxítona terminada em EM. ✓'},
+  {cat:'acent',label:'Acentuação',q:'"Parabéns" recebe acento? Por quê?',sub:'',a:'Sim — é oxítona terminada em ENS (pa-ra-BÉNS)',ex:'Oxítonas terminadas em ENS sempre recebem acento. Parabéns ✓, armazéns ✓'},
+  {cat:'acent',label:'Acentuação',q:'A palavra "café" é acentuada? Por quê?',sub:'',a:'Sim — é oxítona terminada em E (ca-FÉ)',ex:'Oxítonas terminadas em E recebem acento agudo. café ✓, você ✓, bebê ✓'},
+  {cat:'acent',label:'Acentuação',q:'A palavra "fé" é monossílaba tônica?',sub:'',a:'Sim — tem 1 sílaba, pronunciada com força, terminada em E',ex:'Monossílabas tônicas terminadas em E recebem acento: fé ✓, pés ✓, mês ✓'},
+  {cat:'acent',label:'Acentuação',q:'Cite 3 oxítonas acentuadas em O.',sub:'',a:'avó, vovô, jiló, dominó, cipó',ex:'avó ✓ (terminada em O), vovô ✓, jiló ✓ — todas oxítonas com sílaba tônica em O.'},
+  {cat:'acent',label:'Acentuação',q:'A palavra "ninguém" recebe acento? Por quê?',sub:'',a:'Sim — é oxítona terminada em EM (nin-GUÉM)',ex:'Oxítonas em EM sempre recebem acento: ninguém ✓, também ✓, alguém ✓, refém ✓'},
+
+  // PRONOMES (12)
+  {cat:'pronomes',label:'Pronomes Pessoais (Reto)',q:'Quais são os pronomes pessoais do caso reto?',sub:'',a:'EU, TU, ELE/ELA, NÓS, VÓS, ELES/ELAS',ex:'Usados como sujeito: <strong>Eu</strong> brinco. <strong>Ela</strong> cantou. <strong>Nós</strong> chegamos.'},
+  {cat:'pronomes',label:'Pronomes Pessoais (Reto)',q:'Para que serve o pronome pessoal do caso reto?',sub:'',a:'É usado como sujeito da frase — quem pratica a ação',ex:'"<strong>Ela</strong> comprou um livro." — "Ela" é o sujeito (caso reto).'},
+  {cat:'pronomes',label:'Pronomes Oblíquos',q:'Quais são os pronomes oblíquos átonos?',sub:'',a:'me, te, se, o, a, lhe, nos, vos, os, as, lhes',ex:'"A professora <strong>me</strong> chamou." / "João <strong>a</strong> viu no corredor."'},
+  {cat:'pronomes',label:'Pronomes Oblíquos',q:'Para que serve o pronome oblíquo?',sub:'',a:'É usado como complemento da frase — substitui o objeto, não o sujeito',ex:'"Eu gosto de Maria" → "Eu <strong>a</strong> respeito." O pronome "a" substituiu "Maria".'},
+  {cat:'pronomes',label:'Pronomes Possessivos',q:'Quais são os pronomes possessivos da 1ª pessoa?',sub:'',a:'meu, minha, meus, minhas (singular) / nosso, nossa, nossos, nossas (plural)',ex:'"Este é o <strong>meu</strong> lápis." / "A <strong>nossa</strong> escola tem biblioteca."'},
+  {cat:'pronomes',label:'Pronomes Possessivos',q:'O que indicam os pronomes possessivos?',sub:'',a:'Indicam a quem algo pertence — a posse de algo',ex:'"<strong>Meu</strong> caderno está na mochila." → meu indica que o caderno pertence a mim.'},
+  {cat:'pronomes',label:'Pronomes Possessivos',q:'Qual pronome possessivo corresponde à 2ª pessoa?',sub:'',a:'teu, tua, teus, tuas / vosso, vossa, vossos, vossas',ex:'"Este é o <strong>teu</strong> livro?" Teu = pertence a você (2ª pessoa do singular).'},
+  {cat:'pronomes',label:'Pronomes Demonstrativos',q:'Para que servem os pronomes demonstrativos?',sub:'',a:'Indicam a posição de algo em relação a quem fala, ouve ou ao que foi mencionado',ex:'"<strong>Este</strong> livro" (perto de mim), "<strong>esse</strong> livro" (perto de você), "<strong>aquele</strong> prédio" (longe dos dois).'},
+  {cat:'pronomes',label:'Pronomes Demonstrativos',q:'Quando usar ESTE / ESTA / ISTO?',sub:'',a:'Quando o objeto está perto de QUEM FALA',ex:'"<strong>Este</strong> livro é meu." → o livro está aqui, comigo. ESTE = aqui.'},
+  {cat:'pronomes',label:'Pronomes Demonstrativos',q:'Quando usar ESSE / ESSA / ISSO?',sub:'',a:'Quando o objeto está perto de QUEM OUVE',ex:'"<strong>Esse</strong> livro é seu?" → o livro está aí, com você. ESSE = aí.'},
+  {cat:'pronomes',label:'Pronomes Demonstrativos',q:'Quando usar AQUELE / AQUELA / AQUILO?',sub:'',a:'Quando o objeto está longe de TODOS (longe de quem fala e de quem ouve)',ex:'"<strong>Aquele</strong> prédio é enorme." → o prédio está lá, longe dos dois. AQUELE = lá.'},
+  {cat:'pronomes',label:'Pronomes Demonstrativos',q:'Cite os pronomes demonstrativos neutros (sem gênero).',sub:'',a:'ISTO (este), ISSO (esse), AQUILO (aquele)',ex:'"<strong>Isto</strong> é meu." (aqui) / "<strong>Isso</strong> é seu?" (aí) / "<strong>Aquilo</strong> é dele." (lá)'},
+
+  // MODOS VERBAIS (10)
+  {cat:'verbos',label:'Modos Verbais',q:'Quais são os três modos verbais?',sub:'',a:'Indicativo, Subjuntivo e Imperativo',ex:'Cada modo expressa uma intenção diferente do falante ao usar o verbo.'},
+  {cat:'verbos',label:'Modo Indicativo',q:'O que é o modo indicativo?',sub:'',a:'Exprime ação certa, real ou comprovada — apresenta o fato como realidade',ex:'"Eu <strong>brinco</strong> todos os dias." / "Ela <strong>comprou</strong> um vestido." — fatos reais, certos.'},
+  {cat:'verbos',label:'Modo Indicativo',q:'Cite um exemplo de verbo no modo indicativo no passado.',sub:'',a:'"Ela cantou muito bem ontem no show."',ex:'Cantou = pretérito perfeito do indicativo. Fato que <strong>aconteceu</strong> de verdade.'},
+  {cat:'verbos',label:'Modo Indicativo',q:'Cite um exemplo de modo indicativo no futuro.',sub:'',a:'"Pedro chegará amanhã cedo."',ex:'Chegará = futuro do indicativo. A chegada é <strong>certa</strong> — vai acontecer.'},
+  {cat:'verbos',label:'Modo Subjuntivo',q:'O que é o modo subjuntivo?',sub:'',a:'Exprime ação incerta, desejada ou hipotética — a ação não é certa',ex:'"Espero que você <strong>consiga</strong>." → desejo. "Talvez ele <strong>venha</strong>." → incerteza.'},
+  {cat:'verbos',label:'Modo Subjuntivo',q:'Cite 4 palavras-gatilho do modo subjuntivo.',sub:'',a:'"talvez", "espero que", "quando", "se", "oxalá", "para que", "embora"',ex:'"<strong>Talvez</strong> ele <strong>queira</strong> participar." / "Se eu <strong>estudasse</strong>..."'},
+  {cat:'verbos',label:'Modo Subjuntivo',q:'Qual modo verbal aparece na frase: "Espero que você consiga vencer a prova."?',sub:'',a:'Modo subjuntivo — "consiga" expressa desejo, não certeza',ex:'"Espero que" é palavra-gatilho do subjuntivo. A ação depende do desejo do falante.'},
+  {cat:'verbos',label:'Modo Imperativo',q:'O que é o modo imperativo?',sub:'',a:'Exprime ordem, pedido, conselho ou convite — instrução direta para alguém agir',ex:'"<strong>Venha</strong>!" / "Não <strong>entre</strong>!" / "Por favor, <strong>ajude</strong>-me."'},
+  {cat:'verbos',label:'Modo Imperativo',q:'Em que tipos de texto o imperativo aparece com mais frequência?',sub:'',a:'Receitas, manuais de instrução, placas, avisos, pedidos e ordens',ex:'Receita: "Acrescente o sal." / Aviso: "Não entre!" / Instrução: "Aperte o botão."'},
+  {cat:'verbos',label:'Modo Imperativo',q:'Qual modo verbal está em: "Não entre no parque sem acompanhamento!"?',sub:'',a:'Imperativo (negativo) — é uma ordem/proibição',ex:'"Não entre!" = imperativo negativo. Indica uma <strong>proibição direta</strong>.'},
+];
+
+var cards=allCards.slice(),currentIndex=0,showingAnswer=false,currentFilter='all';
+var knownSet=new Set(),reviewSet=new Set();
+var flashcard=document.getElementById('flashcard'),cardLabel=document.getElementById('cardLabel'),cardCounter=document.getElementById('cardCounter'),cardContent=document.getElementById('cardContent'),cardHint=document.getElementById('cardHint'),catBadge=document.getElementById('catBadge'),progressText=document.getElementById('progressText'),progressFill=document.getElementById('progressFill'),statGood=document.getElementById('statGood'),statReview=document.getElementById('statReview'),statLeft=document.getElementById('statLeft'),finishedScreen=document.getElementById('finishedScreen'),finishedStats=document.getElementById('finishedStats');
+function getId(c){return c.cat+'::'+c.q;}
+function renderFront(c){cardContent.innerHTML='<div class="card-prompt">'+c.q+'</div>'+(c.sub?'<div class="card-sub">'+c.sub+'</div>':'');cardHint.textContent='👆 toque para ver a resposta';flashcard.classList.remove('is-back');}
+function renderBack(c){cardContent.innerHTML='<div class="card-answer">'+c.a+'</div>'+(c.ex?'<div class="card-example">'+c.ex+'</div>':'');cardHint.textContent='👆 toque para ver a pergunta';flashcard.classList.add('is-back');}
+function renderCard(){if(!cards.length){cardContent.innerHTML='<div class="card-prompt">🎉</div><div class="card-sub">Nenhum card nesse filtro!</div>';cardLabel.textContent='';cardCounter.textContent='';cardHint.textContent='';return;}var c=cards[currentIndex];showingAnswer=false;cardLabel.textContent=c.label;cardCounter.textContent=(currentIndex+1)+'/'+cards.length;renderFront(c);var cats={relato:'Relato',acent:'Acentuação',pronomes:'Pronomes',verbos:'Modos Verbais'};catBadge.textContent=cats[c.cat]||c.cat;progressText.textContent=(currentIndex+1)+' / '+cards.length;progressFill.style.width=((currentIndex+1)/cards.length*100)+'%';updateStats();}
+function toggleAnswer(){if(!cards.length)return;var c=cards[currentIndex];if(!c||c.cat==='info')return;flashcard.classList.add('fading');setTimeout(function(){showingAnswer=!showingAnswer;if(showingAnswer)renderBack(c);else renderFront(c);flashcard.classList.remove('fading');},120);}
+function updateStats(){statGood.textContent=knownSet.size;statReview.textContent=reviewSet.size;statLeft.textContent=Math.max(0,allCards.length-knownSet.size);}
+function nextCard(){if(currentIndex<cards.length-1){currentIndex++;renderCard();}else showFinished();}
+function prevCard(){if(currentIndex>0){currentIndex--;renderCard();}}
+function showFinished(){flashcard.style.display='none';document.querySelector('.controls').style.display='none';finishedScreen.classList.add('show');finishedStats.innerHTML='✅ <strong>'+knownSet.size+'</strong> acertados<br>🔁 <strong>'+reviewSet.size+'</strong> para revisar';}
+function restart(){currentIndex=0;flashcard.style.display='';document.querySelector('.controls').style.display='';finishedScreen.classList.remove('show');applyFilter(currentFilter);}
+function shuffle(){for(var i=cards.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=cards[i];cards[i]=cards[j];cards[j]=t;}currentIndex=0;renderCard();}
+function applyFilter(f){currentFilter=f;document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.toggle('active',b.dataset.filter===f);});if(f==='all')cards=allCards.slice();else if(f==='review'){cards=allCards.filter(function(c){return reviewSet.has(getId(c));});if(!cards.length)cards=[{cat:'info',label:'',q:'😊',sub:'Nenhum card marcado para revisar!',a:'',ex:''}];}else cards=allCards.filter(function(c){return c.cat===f;});currentIndex=0;renderCard();}
+flashcard.addEventListener('click',toggleAnswer);
+flashcard.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();toggleAnswer();}});
+document.getElementById('nextBtn').addEventListener('click',function(e){e.stopPropagation();nextCard();});
+document.getElementById('prevBtn').addEventListener('click',function(e){e.stopPropagation();prevCard();});
+document.getElementById('gotItBtn').addEventListener('click',function(e){e.stopPropagation();if(!cards.length||cards[currentIndex].cat==='info')return;var id=getId(cards[currentIndex]);knownSet.add(id);reviewSet.delete(id);nextCard();});
+document.getElementById('reviewBtn').addEventListener('click',function(e){e.stopPropagation();if(!cards.length||cards[currentIndex].cat==='info')return;var id=getId(cards[currentIndex]);reviewSet.add(id);knownSet.delete(id);nextCard();});
+document.getElementById('shuffleBtn').addEventListener('click',shuffle);
+document.getElementById('resetBtn').addEventListener('click',function(){if(confirm('Resetar todo o progresso?')){knownSet.clear();reviewSet.clear();applyFilter('all');}});
+document.getElementById('restartBtn').addEventListener('click',restart);
+document.querySelectorAll('.filter-btn').forEach(function(btn){btn.addEventListener('click',function(){applyFilter(btn.dataset.filter);});});
+document.addEventListener('keydown',function(e){if(e.target===flashcard)return;if(e.key==='ArrowRight')nextCard();else if(e.key==='ArrowLeft')prevCard();else if(e.key===' '){e.preventDefault();toggleAnswer();}});
+document.querySelector('[data-filter="all"]').textContent='Todos ('+allCards.length+')';
+renderCard();
+</script>
+</body>
+</html>

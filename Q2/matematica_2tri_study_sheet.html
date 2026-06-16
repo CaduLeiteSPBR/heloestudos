@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matemática — Resumo | 2º Tri</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--orange:#f4721e;--shadow:4px 4px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 8%,rgba(244,114,30,.15) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(58,134,255,.12) 0%,transparent 40%)}
+.container{max-width:1100px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:22px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'📐';position:absolute;top:-18px;left:20px;font-size:36px;transform:rotate(-12deg)}
+header::after{content:'🔢';position:absolute;top:-18px;right:20px;font-size:36px;transform:rotate(12deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--orange);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:4px}
+.test-date{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;transition:transform .2s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card-num{position:absolute;top:-14px;left:14px;background:var(--ink);color:var(--paper);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1rem}
+.card h2{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:900;margin-bottom:12px;margin-top:4px}
+.card.decimais{background:linear-gradient(135deg,#fff 0%,#fff8ee 100%)}
+.card.decimais h2{color:var(--orange)}
+.card.fracoes{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.card.fracoes h2{color:var(--blue)}
+.card.mmc{background:linear-gradient(135deg,#fff 0%,#f0e6ff 100%)}
+.card.mmc h2{color:var(--purple)}
+.card.area-peri{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%);grid-column:1/-1}
+.card.area-peri h2{color:var(--green)}
+ul.lista{list-style:none;padding:0}
+ul.lista li{padding-left:18px;position:relative;margin-bottom:7px;font-size:.92rem;line-height:1.5}
+ul.lista li::before{content:'→';position:absolute;left:0;color:var(--orange);font-weight:700}
+.tip{background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:9px 12px;margin-top:12px;font-family:'Caveat',cursive;font-size:1.1rem;line-height:1.3}
+.tip::before{content:'💡 '}
+table.ref{width:100%;font-size:.84rem;margin-top:8px;border-collapse:collapse}
+table.ref th{background:var(--ink);color:var(--paper);padding:5px 8px;text-align:left;font-family:'Fraunces',serif}
+table.ref td{padding:6px 8px;border-bottom:1px dashed #ccc;vertical-align:top;line-height:1.5}
+table.ref tr:last-child td{border-bottom:none}
+table.ref tr:nth-child(even) td{background:#fafafa}
+.box{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.7}
+.box strong{color:var(--blue)}
+.ex{background:#fff;border-left:3px solid var(--orange);padding:8px 12px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.87rem;line-height:1.6}
+.frac{display:inline-flex;flex-direction:column;align-items:center;font-weight:700;font-size:1rem;margin:0 4px;vertical-align:middle;line-height:1.1}
+.frac .num{border-bottom:2px solid var(--ink);padding:0 4px}
+.frac .den{padding:0 4px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:12px}
+.formula-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:12px;text-align:center}
+.formula-card strong{display:block;font-size:.9rem;margin-bottom:6px}
+.formula-card .formula{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;color:var(--green)}
+.formula-card .ex-mini{font-size:.78rem;color:#555;margin-top:4px;font-style:italic}
+footer{text-align:center;margin-top:28px;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Mate<span class="accent">mática</span> — Resumo</h1>
+  <p class="subtitle">Decimais, frações, MMC, área e perímetro ⭐</p>
+  <div class="test-date">📖 Prova: Quarta-feira, 24 de junho</div>
+</header>
+
+<div class="grid">
+
+<!-- NÚMEROS DECIMAIS -->
+<section class="card decimais">
+  <div class="card-num">1</div>
+  <h2>🔢 Números Decimais</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">Números decimais representam quantidades que estão entre dois números inteiros, usando a vírgula para separar a parte inteira da parte decimal.</p>
+  <table class="ref">
+    <tr><th>Posição</th><th>Nome</th><th>Valor</th></tr>
+    <tr><td><strong>5</strong>,432</td><td>Unidades</td><td>5 × 1 = 5</td></tr>
+    <tr><td>5,<strong>4</strong>32</td><td>Décimos</td><td>4 × 0,1 = 0,4</td></tr>
+    <tr><td>5,4<strong>3</strong>2</td><td>Centésimos</td><td>3 × 0,01 = 0,03</td></tr>
+    <tr><td>5,43<strong>2</strong></td><td>Milésimos</td><td>2 × 0,001 = 0,002</td></tr>
+  </table>
+  <div class="box">
+    <strong>Como comparar decimais:</strong><br>
+    1. Compare a parte inteira primeiro (maior número inteiro = maior decimal)<br>
+    2. Se iguais, compare os décimos, depois centésimos, depois milésimos<br><br>
+    <strong>Exemplo:</strong> 3,45 vs 3,5 → parte inteira igual (3) → décimos: 4 &lt; 5 → <strong>3,5 &gt; 3,45</strong>
+  </div>
+  <div class="box" style="margin-top:8px">
+    <strong>Adição e subtração de decimais:</strong><br>
+    Alinhe as vírgulas e some/subtraia normalmente.<br>
+    Se necessário, complete com zeros à direita.<br><br>
+    <strong>Exemplo:</strong> 5,75 + 2,3 → 5,75 + 2,30 = <strong>8,05</strong><br>
+    <strong>Exemplo:</strong> 7,4 − 3,18 → 7,40 − 3,18 = <strong>4,22</strong>
+  </div>
+  <div class="tip">SEMPRE alinhe as vírgulas antes de somar ou subtrair decimais. Preencha os espaços vazios com zeros!</div>
+</section>
+
+<!-- FRAÇÕES -->
+<section class="card fracoes">
+  <div class="card-num">2</div>
+  <h2>➗ Frações e Números Racionais</h2>
+  <p style="font-size:.9rem;margin-bottom:8px">Fração e número decimal são formas diferentes de representar o mesmo valor.</p>
+  <table class="ref">
+    <tr><th>Fração</th><th>Decimal</th><th>Como converter</th></tr>
+    <tr><td>1/2</td><td>0,5</td><td>1 ÷ 2 = 0,5</td></tr>
+    <tr><td>1/4</td><td>0,25</td><td>1 ÷ 4 = 0,25</td></tr>
+    <tr><td>3/4</td><td>0,75</td><td>3 ÷ 4 = 0,75</td></tr>
+    <tr><td>1/5</td><td>0,2</td><td>1 ÷ 5 = 0,2</td></tr>
+    <tr><td>1/10</td><td>0,1</td><td>1 ÷ 10 = 0,1</td></tr>
+    <tr><td>1/100</td><td>0,01</td><td>1 ÷ 100 = 0,01</td></tr>
+  </table>
+  <div class="box" style="margin-top:10px">
+    <strong>Comparar frações com denominadores diferentes:</strong><br>
+    Encontre o MMC dos denominadores, converta as frações e compare.<br><br>
+    <strong>Exemplo:</strong> Compare 2/3 e 3/4<br>
+    MMC(3,4) = 12 → 2/3 = 8/12 e 3/4 = 9/12 → <strong>3/4 &gt; 2/3</strong>
+  </div>
+  <div class="tip">Para converter fração em decimal: divida o numerador pelo denominador. 3/4 = 3 ÷ 4 = 0,75</div>
+</section>
+
+<!-- MMC -->
+<section class="card mmc">
+  <div class="card-num">3</div>
+  <h2>🔢 MMC e Frações com Denominadores Diferentes</h2>
+  <p style="font-size:.9rem;margin-bottom:8px">Para somar ou subtrair frações com denominadores diferentes, precisamos primeiro igualar os denominadores usando o MMC.</p>
+  <div class="box">
+    <strong>Como calcular o MMC (Mínimo Múltiplo Comum):</strong><br>
+    Decomponha os números em fatores primos e multiplique os fatores com o <strong>maior expoente</strong>.
+  </div>
+  <div class="ex">
+    <strong>Exemplo: MMC(4, 6)</strong><br>
+    4 = 2² &nbsp;&nbsp; 6 = 2 × 3<br>
+    MMC = 2² × 3 = <strong>12</strong>
+  </div>
+  <div class="box" style="margin-top:10px">
+    <strong>Passo a passo para somar frações com denominadores diferentes:</strong><br>
+    1. Calcule o MMC dos denominadores<br>
+    2. Converta cada fração para ter esse denominador<br>
+    3. Some os numeradores<br>
+    4. Mantenha o denominador
+  </div>
+  <div class="ex">
+    <strong>Exemplo:</strong>
+    <div class="frac"><span class="num">1</span><span class="den">3</span></div>
+    +
+    <div class="frac"><span class="num">1</span><span class="den">4</span></div>
+    → MMC(3,4) = 12 →
+    <div class="frac"><span class="num">4</span><span class="den">12</span></div>
+    +
+    <div class="frac"><span class="num">3</span><span class="den">12</span></div>
+    =
+    <div class="frac"><span class="num">7</span><span class="den">12</span></div>
+  </div>
+  <div class="ex" style="margin-top:6px">
+    <strong>Subtração:</strong>
+    <div class="frac"><span class="num">3</span><span class="den">4</span></div>
+    −
+    <div class="frac"><span class="num">1</span><span class="den">6</span></div>
+    → MMC(4,6) = 12 →
+    <div class="frac"><span class="num">9</span><span class="den">12</span></div>
+    −
+    <div class="frac"><span class="num">2</span><span class="den">12</span></div>
+    =
+    <div class="frac"><span class="num">7</span><span class="den">12</span></div>
+  </div>
+  <div class="tip">MMC = denominador em comum. Sem ele, não dá para somar frações com denominadores diferentes!</div>
+</section>
+
+<!-- ÁREA E PERÍMETRO -->
+<section class="card area-peri">
+  <div class="card-num">4</div>
+  <h2>📏 Área e Perímetro com Números Decimais</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+    <div class="box">
+      <strong>📏 Perímetro</strong><br>
+      É a medida do <strong>contorno</strong> de uma figura — a soma de todos os lados.<br><br>
+      Imagine uma cerca ao redor de um jardim: o perímetro é o tamanho dessa cerca.
+    </div>
+    <div class="box">
+      <strong>⬛ Área</strong><br>
+      É a medida da <strong>superfície</strong> interna de uma figura — o espaço que ela ocupa.<br><br>
+      Imagine pintar o chão de um quarto: a área é quanto chão você precisa pintar.
+    </div>
+  </div>
+  <div class="formulas">
+    <div class="formula-card">
+      <strong>📦 Quadrado</strong>
+      <div class="formula">P = 4 × l</div>
+      <div class="formula">A = l × l = l²</div>
+      <div class="ex-mini">l = lado<br>Ex: l = 3,5 m → A = 12,25 m²</div>
+    </div>
+    <div class="formula-card">
+      <strong>▬ Retângulo</strong>
+      <div class="formula">P = 2×(b + h)</div>
+      <div class="formula">A = b × h</div>
+      <div class="ex-mini">b = base, h = altura<br>Ex: b=4,2 m, h=2,5 m → A=10,5 m²</div>
+    </div>
+    <div class="formula-card">
+      <strong>▲ Triângulo</strong>
+      <div class="formula">P = a + b + c</div>
+      <div class="formula">A = (b × h) ÷ 2</div>
+      <div class="ex-mini">b = base, h = altura<br>Ex: b=6 m, h=4 m → A=12 m²</div>
+    </div>
+  </div>
+  <div class="box" style="margin-top:14px">
+    <strong>Operações com decimais em área e perímetro:</strong><br>
+    Funciona igual — basta aplicar a fórmula usando os números decimais dados.<br><br>
+    <strong>Exemplo completo:</strong> Um jardim retangular tem 3,5 m de comprimento e 2,4 m de largura.<br>
+    • Perímetro = 2 × (3,5 + 2,4) = 2 × 5,9 = <strong>11,8 m</strong><br>
+    • Área = 3,5 × 2,4 = <strong>8,4 m²</strong>
+  </div>
+  <div class="box" style="margin-top:8px">
+    <strong>Unidades de medida:</strong><br>
+    Perímetro → cm, m, km (unidade simples)<br>
+    Área → cm², m², km² (unidade ao <strong>quadrado</strong>)
+  </div>
+  <div class="tip">Perímetro = contorno (somo os lados). Área = superfície (multiplico base × altura). São conceitos DIFERENTES!</div>
+</section>
+
+</div>
+<footer>⭐ Vai com tudo, Year 5! Boa prova! ⭐</footer>
+</div>
+</body>
+</html>

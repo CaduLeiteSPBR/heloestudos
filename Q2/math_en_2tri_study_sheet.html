@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math — Study Sheet | 2nd Tri</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--purple:#7209b7;--teal:#0096a0;--shadow:4px 4px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);padding:20px 16px 48px;background-image:radial-gradient(circle at 15% 8%,rgba(0,150,160,.15) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(114,9,183,.12) 0%,transparent 40%)}
+.container{max-width:1100px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:22px 20px 16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);position:relative}
+header::before{content:'📐';position:absolute;top:-18px;left:20px;font-size:36px;transform:rotate(-12deg)}
+header::after{content:'🔢';position:absolute;top:-18px;right:20px;font-size:36px;transform:rotate(12deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--teal);font-style:italic}
+.subtitle{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:4px}
+.test-date{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;transition:transform .2s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card-num{position:absolute;top:-14px;left:14px;background:var(--ink);color:var(--paper);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1rem}
+.card h2{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:900;margin-bottom:12px;margin-top:4px}
+.card.decimals{background:linear-gradient(135deg,#fff 0%,#e6fffe 100%)}
+.card.decimals h2{color:var(--teal)}
+.card.fractions{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.card.fractions h2{color:var(--blue)}
+.card.mixed{background:linear-gradient(135deg,#fff 0%,#f0e6ff 100%)}
+.card.mixed h2{color:var(--purple)}
+.card.number-line{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%)}
+.card.number-line h2{color:var(--green)}
+.card.area{background:linear-gradient(135deg,#fff 0%,#fff4e6 100%);grid-column:1/-1}
+.card.area h2{color:var(--red)}
+ul.lista{list-style:none;padding:0}
+ul.lista li{padding-left:18px;position:relative;margin-bottom:7px;font-size:.92rem;line-height:1.5}
+ul.lista li::before{content:'→';position:absolute;left:0;color:var(--teal);font-weight:700}
+.tip{background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:9px 12px;margin-top:12px;font-family:'Caveat',cursive;font-size:1.1rem;line-height:1.3}
+.tip::before{content:'💡 '}
+table.ref{width:100%;font-size:.84rem;margin-top:8px;border-collapse:collapse}
+table.ref th{background:var(--ink);color:var(--paper);padding:5px 8px;text-align:left;font-family:'Fraunces',serif}
+table.ref td{padding:6px 8px;border-bottom:1px dashed #ccc;vertical-align:top;line-height:1.5}
+table.ref tr:last-child td{border-bottom:none}
+table.ref tr:nth-child(even) td{background:#fafafa}
+.box{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.7}
+.ex{background:#fff;border-left:3px solid var(--teal);padding:8px 12px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.87rem;line-height:1.6}
+.frac{display:inline-flex;flex-direction:column;align-items:center;font-weight:700;font-size:1rem;margin:0 4px;vertical-align:middle;line-height:1.1}
+.frac .num{border-bottom:2px solid var(--ink);padding:0 4px}
+.frac .den{padding:0 4px}
+/* number line */
+.numline{display:flex;align-items:center;margin:14px 0;padding:0 10px;position:relative}
+.numline-track{flex:1;height:4px;background:var(--ink);position:relative}
+.numline-track::before,.numline-track::after{content:'';position:absolute;top:-5px;width:2px;height:14px;background:var(--ink)}
+.numline-track::before{left:0}.numline-track::after{right:0}
+.tick{position:absolute;top:-18px;transform:translateX(-50%);font-size:.72rem;font-weight:700;white-space:nowrap}
+.tick-neg{color:var(--red)}.tick-pos{color:var(--teal)}.tick-zero{color:var(--ink)}
+.tick-mark{position:absolute;top:-6px;width:2px;height:12px;background:var(--ink)}
+.formulas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:12px}
+.formula-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:12px;text-align:center}
+.formula-card strong{display:block;font-size:.88rem;margin-bottom:5px}
+.formula-card .formula{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:900;color:var(--red)}
+.formula-card .ex-mini{font-size:.76rem;color:#555;margin-top:4px;font-style:italic}
+footer{text-align:center;margin-top:28px;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1><span class="accent">Math</span> — Study Sheet</h1>
+  <p class="subtitle">Decimals, fractions, mixed numbers, number line, area & perimeter ⭐</p>
+  <div class="test-date">📖 Test: Thursday, June 25</div>
+</header>
+
+<div class="grid">
+
+<!-- DECIMALS -->
+<section class="card decimals">
+  <div class="card-num">1</div>
+  <h2>🔢 Decimals to Hundredths</h2>
+  <p style="font-size:.9rem;margin-bottom:10px">Decimals represent values between whole numbers, using a decimal point to separate the whole part from the fractional part.</p>
+  <table class="ref">
+    <tr><th>Position</th><th>Name</th><th>Value</th></tr>
+    <tr><td><strong>3</strong>.47</td><td>Ones</td><td>3 × 1 = 3</td></tr>
+    <tr><td>3.<strong>4</strong>7</td><td>Tenths</td><td>4 × 0.1 = 0.4</td></tr>
+    <tr><td>3.4<strong>7</strong></td><td>Hundredths</td><td>7 × 0.01 = 0.07</td></tr>
+  </table>
+  <div class="box">
+    <strong>Reading decimals:</strong><br>
+    3.47 → "three and forty-seven hundredths"<br>
+    0.5 → "five tenths"<br>
+    0.08 → "eight hundredths"
+  </div>
+  <div class="box" style="margin-top:8px">
+    <strong>Comparing decimals:</strong><br>
+    Compare left to right, digit by digit.<br>
+    0.45 vs 0.5 → tenths: 4 &lt; 5 → <strong>0.5 &gt; 0.45</strong><br>
+    1.30 vs 1.3 → they are <strong>equal</strong> (trailing zeros don't change value)
+  </div>
+  <div class="tip">Tenths = 1st decimal place (0.1). Hundredths = 2nd decimal place (0.01). To compare: line up the decimal points!</div>
+</section>
+
+<!-- FRACTIONS -->
+<section class="card fractions">
+  <div class="card-num">2</div>
+  <h2>➗ Proper, Improper & Equivalent Fractions</h2>
+  <table class="ref">
+    <tr><th>Type</th><th>Rule</th><th>Example</th></tr>
+    <tr><td><strong>Proper</strong></td><td>Numerator &lt; Denominator (less than 1 whole)</td><td>3/5, 1/4, 7/8</td></tr>
+    <tr><td><strong>Improper</strong></td><td>Numerator ≥ Denominator (1 whole or more)</td><td>7/4, 5/3, 8/8</td></tr>
+    <tr><td><strong>Equivalent</strong></td><td>Different numbers, same value</td><td>1/2 = 2/4 = 3/6</td></tr>
+  </table>
+  <div class="box" style="margin-top:10px">
+    <strong>Finding equivalent fractions:</strong><br>
+    Multiply (or divide) numerator AND denominator by the same number.<br><br>
+    <div class="frac"><span class="num">1</span><span class="den">3</span></div>
+    = 
+    <div class="frac"><span class="num">2</span><span class="den">6</span></div>
+    =
+    <div class="frac"><span class="num">4</span><span class="den">12</span></div>
+    (×2, ×4)
+  </div>
+  <div class="box" style="margin-top:8px">
+    <strong>Comparing fractions:</strong><br>
+    Find equivalent fractions with the same denominator, then compare numerators.<br>
+    <div class="frac"><span class="num">2</span><span class="den">3</span></div>
+    vs
+    <div class="frac"><span class="num">3</span><span class="den">4</span></div>
+    → common denom 12 →
+    <div class="frac"><span class="num">8</span><span class="den">12</span></div>
+    vs
+    <div class="frac"><span class="num">9</span><span class="den">12</span></div>
+    → <strong>3/4 &gt; 2/3</strong>
+  </div>
+  <div class="tip">Equivalent fractions look different but are worth exactly the same. Multiply top AND bottom by the same number — never just one!</div>
+</section>
+
+<!-- MIXED NUMBERS -->
+<section class="card mixed">
+  <div class="card-num">3</div>
+  <h2>🔀 Mixed Numbers</h2>
+  <p style="font-size:.9rem;margin-bottom:8px">A mixed number has a whole number part AND a fraction part. They are another way to write improper fractions.</p>
+  <div class="box">
+    <strong>Improper fraction → Mixed number:</strong><br>
+    Divide numerator by denominator.<br>
+    Quotient = whole number. Remainder = new numerator. Keep denominator.<br>
+  </div>
+  <div class="ex">
+    <strong>Example:</strong> 11/4 → 11 ÷ 4 = <strong>2</strong> remainder <strong>3</strong> → <strong>2¾</strong><br>
+    <strong>Example:</strong> 7/2 → 7 ÷ 2 = <strong>3</strong> remainder <strong>1</strong> → <strong>3½</strong>
+  </div>
+  <div class="box" style="margin-top:10px">
+    <strong>Mixed number → Improper fraction:</strong><br>
+    Multiply whole number by denominator, add the numerator. Keep denominator.
+  </div>
+  <div class="ex">
+    <strong>Example:</strong> 2¾ → (2 × 4) + 3 = 8 + 3 = 11 → <strong>11/4</strong><br>
+    <strong>Example:</strong> 3½ → (3 × 2) + 1 = 6 + 1 = 7 → <strong>7/2</strong>
+  </div>
+  <div class="tip">Mixed number → improper: "Multiply the whole by the bottom, add the top, keep the bottom."</div>
+</section>
+
+<!-- INTEGERS ON NUMBER LINE -->
+<section class="card number-line">
+  <div class="card-num">4</div>
+  <h2>↔️ Integers on a Number Line</h2>
+  <p style="font-size:.9rem;margin-bottom:8px">Integers include all whole numbers AND their negatives, plus zero.</p>
+  <div class="box">
+    <strong>Key rules:</strong><br>
+    Numbers get <strong>bigger</strong> as you move <strong>right</strong><br>
+    Numbers get <strong>smaller</strong> as you move <strong>left</strong><br>
+    Negative numbers are always less than positive numbers<br>
+    Zero is neither positive nor negative
+  </div>
+  <!-- Visual number line -->
+  <div style="margin:16px 0;background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:24px 16px 14px;position:relative;overflow:hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center;position:relative">
+      <div style="position:absolute;left:0;right:0;top:50%;height:3px;background:var(--ink);transform:translateY(-50%)"></div>
+      <div style="position:absolute;left:-2px;top:50%;transform:translateY(-50%);font-size:1.1rem">←</div>
+      <div style="position:absolute;right:-2px;top:50%;transform:translateY(-50%);font-size:1.1rem">→</div>
+      <div style="display:flex;justify-content:space-between;width:100%;position:relative">
+        <div style="text-align:center;position:relative"><div style="width:2px;height:12px;background:var(--ink);margin:0 auto"></div><div style="font-size:.78rem;font-weight:700;color:var(--red);margin-top:4px">-4</div></div>
+        <div style="text-align:center;position:relative"><div style="width:2px;height:12px;background:var(--ink);margin:0 auto"></div><div style="font-size:.78rem;font-weight:700;color:var(--red);margin-top:4px">-3</div></div>
+        <div style="text-align:center;position:relative"><div style="width:2px;height:12px;background:var(--ink);margin:0 auto"></div><div style="font-size:.78rem;font-weight:700;color:var(--red);margin-top:4px">-2</div></div>
+        <div style="text-align:center;position:relative"><div style="width:2px;height:12px;background:var(--ink);margin:0 auto"></div><div style="font-size:.78rem;font-weight:700;color:var(--red);margin-top:4px">-1</div></div>
+        <div style="text-align:center;position:relative"><div style="width:2px;height:14px;background:var(--ink);margin:0 auto"></div><div style="font-size:.82rem;font-weight:900;color:var(--ink);margin-top:4px">0</div></div>
+        <div style="text-align:center;position:relative"><div style="width:2px;height:12px;background:var(--ink);margin:0 auto"></div><div style="font-size:.78rem;font-weight:700;color:var(--teal);margin-top:4px">+1</div></div>
+        <div style="text-align:center;position:relative"><div style="width:2px;height:12px;background:var(--ink);margin:0 auto"></div><div style="font-size:.78rem;font-weight:700;color:var(--teal);margin-top:4px">+2</div></div>
+        <div style="text-align:center;position:relative"><div style="width:2px;height:12px;background:var(--ink);margin:0 auto"></div><div style="font-size:.78rem;font-weight:700;color:var(--teal);margin-top:4px">+3</div></div>
+        <div style="text-align:center;position:relative"><div style="width:2px;height:12px;background:var(--ink);margin:0 auto"></div><div style="font-size:.78rem;font-weight:700;color:var(--teal);margin-top:4px">+4</div></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:.75rem">
+      <span style="color:var(--red)">← negative numbers</span>
+      <span style="color:var(--teal)">positive numbers →</span>
+    </div>
+  </div>
+  <table class="ref">
+    <tr><th>Statement</th><th>True or False?</th></tr>
+    <tr><td>-3 &lt; -1</td><td>✅ TRUE (−3 is further left)</td></tr>
+    <tr><td>-5 &gt; 2</td><td>❌ FALSE (negatives are always less than positives)</td></tr>
+    <tr><td>0 &gt; -4</td><td>✅ TRUE (zero is to the right of all negatives)</td></tr>
+  </table>
+  <div class="tip">On a number line: RIGHT = bigger, LEFT = smaller. −1 is always greater than −100!</div>
+</section>
+
+<!-- AREA & PERIMETER -->
+<section class="card area">
+  <div class="card-num">5</div>
+  <h2>📏 Area and Perimeter — Problem Solving</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+    <div class="box">
+      <strong>📏 Perimeter</strong><br>
+      The total distance around the outside of a shape — the sum of all sides.<br><br>
+      <em>Think: a fence around a garden.</em>
+    </div>
+    <div class="box">
+      <strong>⬛ Area</strong><br>
+      The amount of surface space inside a shape.<br><br>
+      <em>Think: painting the floor of a room.</em>
+    </div>
+  </div>
+  <div class="formulas-grid">
+    <div class="formula-card">
+      <strong>Square</strong>
+      <div class="formula">P = 4 × s</div>
+      <div class="formula">A = s × s = s²</div>
+      <div class="ex-mini">s = side length<br>s = 4.5 cm → A = 20.25 cm²</div>
+    </div>
+    <div class="formula-card">
+      <strong>Rectangle</strong>
+      <div class="formula">P = 2 × (l + w)</div>
+      <div class="formula">A = l × w</div>
+      <div class="ex-mini">l = length, w = width<br>l=5.2, w=3 → A=15.6 cm²</div>
+    </div>
+    <div class="formula-card">
+      <strong>Triangle</strong>
+      <div class="formula">P = a + b + c</div>
+      <div class="formula">A = (b × h) ÷ 2</div>
+      <div class="ex-mini">b = base, h = height<br>b=6, h=4 → A=12 cm²</div>
+    </div>
+  </div>
+  <div class="box" style="margin-top:14px">
+    <strong>Real-life problem solving — always follow these steps:</strong><br>
+    1. Read the problem carefully and identify what is being asked<br>
+    2. Identify the shape and the measurements given<br>
+    3. Choose the right formula (area or perimeter?)<br>
+    4. Substitute the values and calculate<br>
+    5. Write your answer with the correct unit (cm, m, cm², m²)
+  </div>
+  <div class="box" style="margin-top:8px">
+    <strong>Example:</strong> A rectangular garden is 4.5 m long and 2.8 m wide. A fence goes around the outside. How much fencing is needed?<br>
+    → This is asking for <strong>perimeter</strong>.<br>
+    P = 2 × (4.5 + 2.8) = 2 × 7.3 = <strong>14.6 m</strong> of fencing needed.
+  </div>
+  <div class="tip">Area uses square units (cm², m²). Perimeter uses regular units (cm, m). If the problem says "cover", "paint", or "tile" → area. If it says "fence", "walk around", "border" → perimeter!</div>
+</section>
+
+</div>
+<footer>⭐ You've got this, Year 5! Good luck on June 25! ⭐</footer>
+</div>
+</body>
+</html>
