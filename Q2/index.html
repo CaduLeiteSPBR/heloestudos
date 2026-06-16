@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Y5 — Central de Estudos | 2º Trimestre</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fef9ec;--ink:#1a1a2e;--red:#e63946;--yellow:#ffbe0b;--blue:#3a86ff;--green:#06a77d;--orange:#f4721e;--teal:#0096a0;--pink:#e0449a;--sky:#38b6ff;--shadow:5px 5px 0 var(--ink)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:24px 16px 56px;background-image:radial-gradient(circle at 15% 8%,rgba(56,182,255,.18) 0%,transparent 40%),radial-gradient(circle at 88% 85%,rgba(58,134,255,.14) 0%,transparent 40%)}
+.container{max-width:900px;margin:0 auto}
+header{text-align:center;margin-bottom:28px;padding:24px 20px 18px;background:#fff;border:3px solid var(--ink);border-radius:24px;box-shadow:var(--shadow);position:relative}
+header::before{content:'📚';position:absolute;top:-20px;left:20px;font-size:40px;transform:rotate(-12deg)}
+header::after{content:'✏️';position:absolute;top:-20px;right:20px;font-size:40px;transform:rotate(12deg)}
+h1{font-family:'Fraunces',serif;font-size:clamp(2rem,6vw,3.2rem);font-weight:900;line-height:1}
+h1 .accent{color:var(--red);font-style:italic}
+.header-sub{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--blue);margin-top:6px}
+.school-badge{display:inline-block;background:var(--yellow);padding:5px 16px;border:2px solid var(--ink);border-radius:20px;margin-top:10px;font-weight:700;font-size:.88rem}
+.tri-badge{display:inline-block;background:var(--sky);color:#fff;padding:4px 14px;border:2px solid var(--ink);border-radius:20px;margin-top:8px;margin-left:6px;font-weight:700;font-size:.88rem}
+
+/* SCHEDULE */
+.schedule{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:18px;box-shadow:var(--shadow);margin-bottom:28px}
+.schedule h3{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;margin-bottom:12px}
+.sched-list{display:flex;flex-direction:column;gap:6px}
+.sched-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;font-size:.88rem;border:1.5px solid var(--ink)}
+.sched-item.next{background:#e6f6ff;border-color:var(--sky);font-weight:700}
+.sched-item.upcoming{background:#fff}
+.sched-date{font-weight:700;min-width:76px;font-size:.82rem;flex-shrink:0}
+.sched-subj{flex:1}
+.sched-pill{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.pill-next{background:var(--sky);color:#fff}
+.pill-upcoming{background:#eee;color:#666}
+.pill-aug{background:var(--purple);color:#fff}
+
+/* SUBJECT SECTIONS */
+.subject-section{margin-bottom:22px}
+.subject-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:13px 18px;background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:3px 3px 0 var(--ink)}
+.subject-emoji{font-size:1.9rem;flex-shrink:0}
+.subject-info h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900}
+.subject-info .test-info{font-size:.8rem;color:#666;margin-top:2px}
+.subject-info .test-info strong{color:var(--ink)}
+.status-badge{margin-left:auto;padding:4px 11px;border-radius:20px;font-size:.72rem;font-weight:700;white-space:nowrap;flex-shrink:0;border:2px solid}
+.badge-next{color:#fff;background:var(--sky);border-color:var(--sky)}
+.badge-soon{color:var(--orange);border-color:var(--orange)}
+.badge-aug{color:var(--purple);border-color:var(--purple)}
+
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.mat-card{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:13px 12px;box-shadow:4px 4px 0 var(--ink);text-decoration:none;color:var(--ink);display:flex;align-items:flex-start;gap:10px;transition:transform .15s,box-shadow .15s}
+.mat-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.mat-card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.mat-icon{font-size:1.6rem;flex-shrink:0;line-height:1}
+.mat-title{font-family:'Fraunces',serif;font-size:.92rem;font-weight:900;margin-bottom:2px}
+.mat-desc{font-size:.73rem;color:#666;line-height:1.4}
+.mat-tag{display:inline-block;font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:20px;border:1.5px solid;margin-top:4px;text-transform:uppercase;letter-spacing:.4px}
+.mat-card.sheet{background:linear-gradient(135deg,#fff 0%,#e6f6ff 100%)}
+.mat-card.sheet .mat-tag{background:rgba(56,182,255,.1);border-color:var(--sky);color:var(--sky)}
+.mat-card.flash{background:linear-gradient(135deg,#fff 0%,#e6f4ff 100%)}
+.mat-card.flash .mat-tag{background:rgba(58,134,255,.1);border-color:var(--blue);color:var(--blue)}
+.mat-card.quiz{background:linear-gradient(135deg,#fff 0%,#e6fff4 100%)}
+.mat-card.quiz .mat-tag{background:rgba(6,167,125,.1);border-color:var(--green);color:var(--green)}
+.mat-card.soon{opacity:.65}
+.mat-card.soon .mat-tag{background:#eee;border-color:#999;color:#666}
+
+.sci .subject-info h2{color:var(--sky)}
+.sci .subject-header{background:linear-gradient(135deg,#fff 0%,#e6f6ff 100%)}
+.matem .subject-info h2{color:var(--orange)}
+.matem .subject-header{background:linear-gradient(135deg,#fff 0%,#fff8ee 100%)}
+.math-en .subject-info h2{color:var(--teal)}
+.math-en .subject-header{background:linear-gradient(135deg,#fff 0%,#e6fffe 100%)}
+.port .subject-info h2{color:var(--pink)}
+.port .subject-header{background:linear-gradient(135deg,#fff 0%,#fff0f7 100%)}
+
+/* PREV TRI LINK */
+.prev-tri{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);box-shadow:3px 3px 0 var(--ink);transition:transform .15s}
+.prev-tri:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.prev-tri .prev-icon{font-size:1.5rem}
+.prev-tri .prev-text{font-size:.88rem;color:#666}
+.prev-tri .prev-title{font-family:'Fraunces',serif;font-weight:900;font-size:1rem}
+
+footer{text-align:center;margin-top:32px;font-family:'Caveat',cursive;font-size:1.5rem;color:var(--blue)}
+footer .star{color:var(--yellow);font-size:1.7rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Central de <span class="accent">Estudos</span></h1>
+  <p class="header-sub">Materiais de revisão — sempre à mão 📖</p>
+  <div>
+    <div class="school-badge">🏫 Pueri Domus — Year 5</div>
+    <div class="tri-badge">2º Trimestre 2026</div>
+  </div>
+</header>
+
+<!-- SCHEDULE -->
+<div class="schedule">
+  <h3>📅 Provas de Junho 2026 (Etapa 1)</h3>
+  <div class="sched-list">
+    <div class="sched-item done"><span class="sched-date">23/06 Ter</span><span class="sched-subj">🔬 Science</span><span class="sched-pill pill-next">⚡ Próxima!</span></div>
+    <div class="sched-item upcoming"><span class="sched-date">24/06 Qua</span><span class="sched-subj">📐 Matemática</span><span class="sched-pill pill-upcoming">Em breve</span></div>
+    <div class="sched-item upcoming"><span class="sched-date">25/06 Qui</span><span class="sched-subj">📊 Math (English)</span><span class="sched-pill pill-upcoming">Em breve</span></div>
+    <div class="sched-item upcoming"><span class="sched-date">26/06 Sex</span><span class="sched-subj">📝 Língua Portuguesa</span><span class="sched-pill pill-upcoming">Em breve</span></div>
+    <div class="sched-item upcoming" style="opacity:.6"><span class="sched-date">Agosto</span><span class="sched-subj">Demais disciplinas (Etapa 2)</span><span class="sched-pill pill-aug">Após férias</span></div>
+  </div>
+</div>
+
+<!-- SCIENCE -->
+<div class="subject-section sci">
+  <div class="subject-header">
+    <div class="subject-emoji">🔬</div>
+    <div class="subject-info">
+      <h2>Science</h2>
+      <div class="test-info">Test: <strong>Tuesday, June 23</strong> · Hydrosphere, water cycle, water impact on land, hydropower</div>
+    </div>
+    <div class="status-badge badge-soon">Em breve</div>
+  </div>
+  <div class="cards-grid">
+    <a href="science_2tri_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Study Sheet</div><div class="mat-desc">Hydrosphere, water cycle, water & land, hydropower — all in one page.</div><span class="mat-tag">Start here</span></div></a>
+    <a href="science_2tri_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40 cards)</div><div class="mat-desc">Tap to flip. 4 filters: Hydrosphere, Water Cycle, Water & Land, Hydropower.</div><span class="mat-tag">Memorize</span></div></a>
+    <a href="science_2tri_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Quiz (15 questions)</div><div class="mat-desc">Multiple choice with passages and instant feedback.</div><span class="mat-tag">Practice test</span></div></a>
+  </div>
+</div>
+
+<!-- MATEMÁTICA — coming soon -->
+<div class="subject-section matem">
+  <div class="subject-header">
+    <div class="subject-emoji">📐</div>
+    <div class="subject-info">
+      <h2>Matemática</h2>
+      <div class="test-info">Prova: <strong>quarta-feira, 24/06</strong> · Frações, decimais, MMC, área e perímetro</div>
+    </div>
+    <div class="status-badge badge-soon">Em breve</div>
+  </div>
+  <div class="cards-grid">
+    <a href="matematica_2tri_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Resumo Visual</div><div class="mat-desc">Decimais, frações, MMC, área e perímetro.</div><span class="mat-tag">Começa aqui</span></div></a>
+    <a href="matematica_2tri_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40 cards)</div><div class="mat-desc">Toque para virar. 4 filtros por tema.</div><span class="mat-tag">Memorização</span></div></a>
+    <a href="matematica_2tri_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Simulado (15 questões)</div><div class="mat-desc">Múltipla escolha com situações-problema e gabarito.</div><span class="mat-tag">Testar</span></div></a>
+  </div>
+</div>
+
+<!-- MATH EN — coming soon -->
+<div class="subject-section math-en">
+  <div class="subject-header">
+    <div class="subject-emoji">📊</div>
+    <div class="subject-info">
+      <h2>Math (English)</h2>
+      <div class="test-info">Test: <strong>Thursday, June 25</strong> · Decimals, fractions, mixed numbers, area and perimeter</div>
+    </div>
+    <div class="status-badge badge-soon">Em breve</div>
+  </div>
+  <div class="cards-grid">
+    <a href="math_en_2tri_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Study Sheet</div><div class="mat-desc">Decimals, fractions, mixed numbers, number line, area & perimeter.</div><span class="mat-tag">Start here</span></div></a>
+    <a href="math_en_2tri_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40 cards)</div><div class="mat-desc">Tap to flip. 5 filters by topic.</div><span class="mat-tag">Memorize</span></div></a>
+    <a href="math_en_2tri_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Quiz (15 questions)</div><div class="mat-desc">Multiple choice with word problems and instant feedback.</div><span class="mat-tag">Practice test</span></div></a>
+  </div>
+</div>
+
+<!-- PORTUGUÊS — coming soon -->
+<div class="subject-section port">
+  <div class="subject-header">
+    <div class="subject-emoji">📝</div>
+    <div class="subject-info">
+      <h2>Língua Portuguesa</h2>
+      <div class="test-info">Prova: <strong>sexta-feira, 26/06</strong> · Pronomes, modos verbais, acentuação, relato de memória</div>
+    </div>
+    <div class="status-badge badge-soon">Em breve</div>
+  </div>
+  <div class="cards-grid">
+    <a href="portugues_2tri_study_sheet.html" class="mat-card sheet"><div class="mat-icon">📄</div><div class="mat-info"><div class="mat-title">Resumo Visual</div><div class="mat-desc">Relato de memória, acentuação, pronomes e modos verbais.</div><span class="mat-tag">Começa aqui</span></div></a>
+    <a href="portugues_2tri_flashcards.html" class="mat-card flash"><div class="mat-icon">🎴</div><div class="mat-info"><div class="mat-title">Flashcards (40 cards)</div><div class="mat-desc">Toque para virar. 4 filtros por tema.</div><span class="mat-tag">Memorização</span></div></a>
+    <a href="portugues_2tri_quiz.html" class="mat-card quiz"><div class="mat-icon">✅</div><div class="mat-info"><div class="mat-title">Simulado (15 questões)</div><div class="mat-desc">Com textos de contexto e gabarito comentado.</div><span class="mat-tag">Testar</span></div></a>
+  </div>
+</div>
+
+<!-- LINK TO 1ST TRI -->
+<a href="https://heloestudos.inovacx.com" class="prev-tri" style="margin-top:8px">
+  <div class="prev-icon">🗂️</div>
+  <div>
+    <div class="prev-title">1º Trimestre — Materiais de Revisão</div>
+    <div class="prev-text">Language Arts · Matemática · Math · Português · Ciências · História & Geo</div>
+  </div>
+  <div style="margin-left:auto;font-size:1.2rem">→</div>
+</a>
+
+<footer><span class="star">★</span> Vai com tudo, Year 5! Bons estudos! <span class="star">★</span></footer>
+</div>
+</body>
+</html>
